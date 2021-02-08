@@ -1,0 +1,41 @@
+{
+  "Auth.intro.welcome": "Chào mừng bạn đến với Mạng xã hội lớn nhất thế giới",
+  "Auth.intro.description": "Chúng tôi là mạng xã hội tốt nhất và lớn nhất với 5 tỷ người dùng tích cực trên khắp thế giới. Chia sẻ suy nghĩ của bạn, viết bài đăng trên blog, thể hiện bản nhạc yêu thích của bạn qua Stopify, kiếm huy hiệu và hơn thế nữa!",
+
+  "Auth.form.checkbox.terms": "Tôi chấp nhận các Điều khoản và Chính sách của trang web",
+
+  "Auth.form.login.title": "Đăng nhập vào hệ thống",
+  "Auth.form.register.title": "Đăng kí Ltk-Social",
+  "Auth.form.loginService.facebook": "Đăng nhập với Facebook",
+  "Auth.form.loginService.google": "Đăng nhập với GOOGLE+",
+  "Auth.form.loginService.github": "Đăng nhập với GITHUB",
+
+  "Auth.form.button.login": "Đăng nhập",
+  "Auth.form.button.register-now": "Đăng kí ngay",
+  "Auth.form.question.haveAccount": "Bạn chưa có tài khoản?",
+  "Auth.form.question.haveAccount.decs": "Nó thực sự đơn giản và bạn có thể bắt đầu tận hưởng tất cả những lợi ích từ hệ thống chúng tôi!",
+  "Auth.form.button.register": "Đăng kí",
+  "Auth.form.button.submit.register": "Hoàn tất đăng kí!",
+
+  "Auth.form.email.label": "Email của bạn",
+  "Auth.form.email.error.empty": "Bạn phải nhập email.",
+  "Auth.form.email.error.invalid": "Địa chỉ email không hợp lệ.",
+
+  "Auth.form.firstName.label": "Họ và tên đệm",
+  "Auth.form.firstName.error.empty": "Bạn phải nhập họ và tên đệm.",
+
+  "Auth.form.lastName.label": "Tên",
+  "Auth.form.lastName.error.empty": "Bạn phải nhập tên.",
+
+  "Auth.form.birthday.label": "Sinh nhật",
+
+  "Auth.form.gender.label": "Giới tính",
+
+  "Auth.form.password.label": "Mật khẩu",
+  "Auth.form.password.error.empty": "Bạn phải nhập mật khẩu.",
+  "Auth.form.password.error.match": "Mật khẩu nhập lại không giống nhau.",
+  "Auth.form.password.error.mainLength": "Mật khẩu ít nhất 6 kí tự.",
+
+  "Auth.form.rememberMe.label": "Nhớ mật khẩu",
+  "Auth.form.forgotPassword.label": "Quên mật khẩu"
+}
