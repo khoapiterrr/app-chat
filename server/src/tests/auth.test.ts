@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import request from 'supertest';
 import App from '../app';
 import AuthRoute from '../routes/auth.route';
-import { CreateUserDto } from '../dtos/users.dto';
+import { CreateUserDto, LoginUserDto } from '../dtos/users.dto';
 import HttpException from '../exceptions/HttpException';
 import { TokenData } from '../interfaces/auth.interface';
 import AuthService from '../services/auth.service';
@@ -18,6 +18,8 @@ describe('Testing AuthController', () => {
       const userData: CreateUserDto = {
         email: 'test@email.com',
         password: 'q1w2e3r4!',
+        lastName: 'trong',
+        firstName: 'khoa',
       };
 
       const authRoute = new AuthRoute();
@@ -35,7 +37,7 @@ describe('Testing AuthController', () => {
 
   describe('POST /login', () => {
     it('response should have the Set-Cookie header with the Authorization token', async () => {
-      const userData: CreateUserDto = {
+      const userData: LoginUserDto = {
         email: 'test@email.com',
         password: 'q1w2e3r4!',
       };
@@ -92,6 +94,8 @@ describe('Testing AuthService', () => {
         const userData: CreateUserDto = {
           email: 'test@email.com',
           password: 'q1w2e3r4!',
+          lastName: 'trong',
+          firstName: 'khoa',
         };
 
         const authService = new AuthService();
@@ -107,6 +111,8 @@ describe('Testing AuthService', () => {
         const userData: CreateUserDto = {
           email: 'test@email.com',
           password: 'q1w2e3r4!',
+          lastName: 'trong',
+          firstName: 'khoa',
         };
         process.env.JWT_SECRET = 'jwt_secret';
 

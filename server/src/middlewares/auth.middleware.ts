@@ -8,7 +8,7 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
   try {
     const cookies = req.cookies;
 
-    if (cookies && cookies.Authorization) {
+    if (cookies?.Authorization) {
       const secret = process.env.JWT_SECRET;
       const verificationResponse = (await jwt.verify(cookies.Authorization, secret)) as DataStoredInToken;
       const userId = verificationResponse._id;
