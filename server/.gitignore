@@ -1,0 +1,15 @@
+node_modules/
+.vscode
+package-lock.json
+.cache/
+public/static
+*.marko.js
+.env
+.env.production
+.logs/*.log
+dist/
+src/logs
+build
+
+# server
+server/node_modules
