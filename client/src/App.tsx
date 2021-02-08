@@ -1,3 +1,4 @@
+import 'assets/scss/fonts.scss';
 import 'assets/scss/main.scss';
 import React, { Suspense } from 'react';
 import Spinner from './components/Spinner';
