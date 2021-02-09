@@ -8,6 +8,12 @@ const routes: IRoute[] = [
     label: 'Trang chủ',
   },
   {
+    path: '/messages',
+    exact: true,
+    loader: () => import('views/MessagesPage'),
+    label: 'Login',
+  },
+  {
     path: '/login',
     exact: true,
     loader: () => import('views/AuthPage'),

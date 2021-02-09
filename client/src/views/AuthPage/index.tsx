@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoginPage from './components/LoginPage';
 import SignTabs from './components/SignTab';
 import SignIn from 'containers/Auth/SignIn';
 import SignUp from 'containers/Auth/SignUp';
 import { useIntl } from 'react-intl';
+import AuthHeader from './components/AuthHeader';
 
 const AuthPage = () => {
   const [tabCurrent, setTabCurrent] = useState(true);
   const { formatMessage } = useIntl();
+  useEffect(() => {
+    const _bodyDom = document.querySelector('body');
+    _bodyDom?.classList.add('landing-page');
+
+    return () => {
+      _bodyDom?.classList.remove('landing-page');
+      _bodyDom?.classList.add('page-has-left-panels', 'page-has-right-panels');
+    };
+  }, []);
   return (
     <React.Fragment>
-      <LoginPage tabLink={() => setTabCurrent(false)}>
-        <SignTabs
-          onClickTabsSignIn={setTabCurrent}
-          tabCurrent={tabCurrent}
-          formTitle={
-            tabCurrent
-              ? formatMessage({ id: 'Auth.form.login.title' })
-              : formatMessage({ id: 'Auth.form.register.title' })
-          }>
-          {tabCurrent ? (
-            <SignIn goToSignUp={() => setTabCurrent(false)} />
-          ) : (
-            <SignUp />
-          )}
-        </SignTabs>
-      </LoginPage>
+      {/* background  */}
+      <div className='content-bg-wrap'></div>
+      <AuthHeader />
+
+      <div className='header-spacer--standard'></div>
+      <LoginPage></LoginPage>
     </React.Fragment>
   );
 };
