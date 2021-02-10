@@ -15,7 +15,7 @@ const layoutReducer = (state = initialState, { type, payload }: Action) =>
   produce(state, (draft) => {
     switch (type) {
       case constants.LAYOUT_WINDOW_RESIZE:
-        if (payload < 648) {
+        if (payload < 768) {
           draft.isMobileDevice = true;
         } else {
           draft.isMobileDevice = false;

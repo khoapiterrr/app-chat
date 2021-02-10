@@ -7,7 +7,8 @@ import { useIntl } from 'react-intl';
 import AuthHeader from './components/AuthHeader';
 
 const AuthPage = () => {
-  const [tabCurrent, setTabCurrent] = useState(true);
+  // tab: login, register
+  const [activeTab, setActiveTab] = useState('login');
   const { formatMessage } = useIntl();
   useEffect(() => {
     const _bodyDom = document.querySelector('body');
@@ -18,6 +19,9 @@ const AuthPage = () => {
       _bodyDom?.classList.add('page-has-left-panels', 'page-has-right-panels');
     };
   }, []);
+  const onClickChangeTab = (tab: string) => {
+    setActiveTab(tab);
+  };
   return (
     <React.Fragment>
       {/* background  */}
@@ -25,7 +29,9 @@ const AuthPage = () => {
       <AuthHeader />
 
       <div className='header-spacer--standard'></div>
-      <LoginPage></LoginPage>
+      <LoginPage>
+        <SignTabs tabCurrent={activeTab} onClickChangeTab={onClickChangeTab} />
+      </LoginPage>
     </React.Fragment>
   );
 };
