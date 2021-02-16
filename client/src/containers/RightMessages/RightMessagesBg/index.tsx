@@ -1,135 +1,49 @@
-import React from 'react';
+import React, { MutableRefObject, useRef } from 'react';
+import ChatUsersItem from '../ChatUsersItem';
+import AvatarUser from 'assets/images/avatar62-sm.jpg';
+import CustomSvgIcons from 'components/CustomSvgIcons';
+import { Link } from 'react-router-dom';
 
 const RightMessagesBG = () => {
+  const rightMesSideBar: MutableRefObject<HTMLDivElement | null> = useRef(null);
+  const openRightMessages = (e: any) => {
+    e.preventDefault();
+    rightMesSideBar.current!.classList.toggle('open');
+  };
   return (
-    <div className='fixed-sidebar right'>
+    <div className='fixed-sidebar right' ref={rightMesSideBar}>
       <div className='fixed-sidebar-right sidebar--small' id='sidebar-right'>
         <div className='mCustomScrollbar' data-mcs-theme='dark'>
-          <ul className='chat-users'>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar67-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status online' />
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar62-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status online' />
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar68-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status online' />
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar69-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status away' />
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar70-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status disconected' />
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar64-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status online' />
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar71-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status online' />
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar72-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status away' />
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar63-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status status-invisible' />
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar72-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status away' />
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar71-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status online' />
-              </div>
-            </li>
-          </ul>
+          <div className='scrollbar-hidden'>
+            <ul className='chat-users'>
+              <ChatUsersItem avatar={AvatarUser} status='online' />
+              <ChatUsersItem avatar={AvatarUser} status='away' />
+              <ChatUsersItem avatar={AvatarUser} status='online' />
+              <ChatUsersItem avatar={AvatarUser} status='away' />
+              <ChatUsersItem avatar={AvatarUser} status='online' />
+              <ChatUsersItem avatar={AvatarUser} status='disconected' />
+              <ChatUsersItem avatar={AvatarUser} status='online' />
+              <ChatUsersItem avatar={AvatarUser} status='away' />
+              <ChatUsersItem avatar={AvatarUser} status='disconected' />
+              <ChatUsersItem avatar={AvatarUser} status='online' />
+              <ChatUsersItem avatar={AvatarUser} status='online' />
+              <ChatUsersItem avatar={AvatarUser} status='away' />
+              <ChatUsersItem avatar={AvatarUser} status='disconected' />
+              <ChatUsersItem avatar={AvatarUser} status='online' />
+            </ul>
+          </div>
         </div>
         <div className='search-friend inline-items'>
-          <a href='#' className='js-sidebar-open'>
-            <svg className='olymp-menu-icon'>
-              <use xlinkHref='svg-icons/sprites/icons.svg#olymp-menu-icon' />
-            </svg>
+          <a href='# ' className='js-sidebar-open' onClick={openRightMessages}>
+            <CustomSvgIcons className='olymp-menu-icon' id='olymp-menu-icon' />
           </a>
         </div>
-        <a href='#' className='olympus-chat inline-items js-chat-open'>
-          <svg className='olymp-chat---messages-icon'>
-            <use xlinkHref='svg-icons/sprites/icons.svg#olymp-chat---messages-icon' />
-          </svg>
-        </a>
+        <Link to='/messages' className='olympus-chat inline-items'>
+          <CustomSvgIcons
+            className='olymp-chat---messages-icon'
+            id='olymp-chat---messages-icon'
+          />
+        </Link>
       </div>
       <div className='fixed-sidebar-right sidebar--large' id='sidebar-right-1'>
         <div className='mCustomScrollbar' data-mcs-theme='dark'>
@@ -140,572 +54,90 @@ const RightMessagesBG = () => {
             <a href='#'>Settings</a>
           </div>
           <ul className='chat-users'>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar67-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status online' />
-              </div>
-              <div className='author-status'>
-                <a href='#' className='h6 author-name'>
-                  Carol Summers
-                </a>
-                <span className='status'>ONLINE</span>
-              </div>
-              <div className='more'>
-                <svg className='olymp-three-dots-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-three-dots-icon' />
-                </svg>
-                <ul className='more-icons'>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='START CONVERSATION'
-                      className='olymp-comments-post-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-comments-post-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='ADD TO CONVERSATION'
-                      className='olymp-add-to-conversation-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='BLOCK FROM CHAT'
-                      className='olymp-block-from-chat-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-block-from-chat-icon' />
-                    </svg>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar62-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status online' />
-              </div>
-              <div className='author-status'>
-                <a href='#' className='h6 author-name'>
-                  Mathilda Brinker
-                </a>
-                <span className='status'>AT WORK!</span>
-              </div>
-              <div className='more'>
-                <svg className='olymp-three-dots-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-three-dots-icon' />
-                </svg>
-                <ul className='more-icons'>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='START CONVERSATION'
-                      className='olymp-comments-post-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-comments-post-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='ADD TO CONVERSATION'
-                      className='olymp-add-to-conversation-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='BLOCK FROM CHAT'
-                      className='olymp-block-from-chat-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-block-from-chat-icon' />
-                    </svg>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar68-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status online' />
-              </div>
-              <div className='author-status'>
-                <a href='#' className='h6 author-name'>
-                  Carol Summers
-                </a>
-                <span className='status'>ONLINE</span>
-              </div>
-              <div className='more'>
-                <svg className='olymp-three-dots-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-three-dots-icon' />
-                </svg>
-                <ul className='more-icons'>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='START CONVERSATION'
-                      className='olymp-comments-post-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-comments-post-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='ADD TO CONVERSATION'
-                      className='olymp-add-to-conversation-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='BLOCK FROM CHAT'
-                      className='olymp-block-from-chat-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-block-from-chat-icon' />
-                    </svg>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar69-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status away' />
-              </div>
-              <div className='author-status'>
-                <a href='#' className='h6 author-name'>
-                  Michael Maximoff
-                </a>
-                <span className='status'>AWAY</span>
-              </div>
-              <div className='more'>
-                <svg className='olymp-three-dots-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-three-dots-icon' />
-                </svg>
-                <ul className='more-icons'>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='START CONVERSATION'
-                      className='olymp-comments-post-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-comments-post-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='ADD TO CONVERSATION'
-                      className='olymp-add-to-conversation-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='BLOCK FROM CHAT'
-                      className='olymp-block-from-chat-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-block-from-chat-icon' />
-                    </svg>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar70-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status disconected' />
-              </div>
-              <div className='author-status'>
-                <a href='#' className='h6 author-name'>
-                  Rachel Howlett
-                </a>
-                <span className='status'>OFFLINE</span>
-              </div>
-              <div className='more'>
-                <svg className='olymp-three-dots-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-three-dots-icon' />
-                </svg>
-                <ul className='more-icons'>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='START CONVERSATION'
-                      className='olymp-comments-post-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-comments-post-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='ADD TO CONVERSATION'
-                      className='olymp-add-to-conversation-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='BLOCK FROM CHAT'
-                      className='olymp-block-from-chat-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-block-from-chat-icon' />
-                    </svg>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-          <div className='ui-block-title ui-block-title-small'>
-            <a href='#' className='title'>
-              MY FAMILY
-            </a>
-            <a href='#'>Settings</a>
-          </div>
-          <ul className='chat-users'>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar64-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status online' />
-              </div>
-              <div className='author-status'>
-                <a href='#' className='h6 author-name'>
-                  Sarah Hetfield
-                </a>
-                <span className='status'>ONLINE</span>
-              </div>
-              <div className='more'>
-                <svg className='olymp-three-dots-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-three-dots-icon' />
-                </svg>
-                <ul className='more-icons'>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='START CONVERSATION'
-                      className='olymp-comments-post-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-comments-post-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='ADD TO CONVERSATION'
-                      className='olymp-add-to-conversation-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='BLOCK FROM CHAT'
-                      className='olymp-block-from-chat-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-block-from-chat-icon' />
-                    </svg>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-          <div className='ui-block-title ui-block-title-small'>
-            <a href='#' className='title'>
-              UNCATEGORIZED
-            </a>
-            <a href='#'>Settings</a>
-          </div>
-          <ul className='chat-users'>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar71-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status online' />
-              </div>
-              <div className='author-status'>
-                <a href='#' className='h6 author-name'>
-                  Bruce Peterson
-                </a>
-                <span className='status'>ONLINE</span>
-              </div>
-              <div className='more'>
-                <svg className='olymp-three-dots-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-three-dots-icon' />
-                </svg>
-                <ul className='more-icons'>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='START CONVERSATION'
-                      className='olymp-comments-post-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-comments-post-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='ADD TO CONVERSATION'
-                      className='olymp-add-to-conversation-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='BLOCK FROM CHAT'
-                      className='olymp-block-from-chat-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-block-from-chat-icon' />
-                    </svg>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar72-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status away' />
-              </div>
-              <div className='author-status'>
-                <a href='#' className='h6 author-name'>
-                  Chris Greyson
-                </a>
-                <span className='status'>AWAY</span>
-              </div>
-              <div className='more'>
-                <svg className='olymp-three-dots-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-three-dots-icon' />
-                </svg>
-                <ul className='more-icons'>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='START CONVERSATION'
-                      className='olymp-comments-post-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-comments-post-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='ADD TO CONVERSATION'
-                      className='olymp-add-to-conversation-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='BLOCK FROM CHAT'
-                      className='olymp-block-from-chat-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-block-from-chat-icon' />
-                    </svg>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar63-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status status-invisible' />
-              </div>
-              <div className='author-status'>
-                <a href='#' className='h6 author-name'>
-                  Nicholas Grisom
-                </a>
-                <span className='status'>INVISIBLE</span>
-              </div>
-              <div className='more'>
-                <svg className='olymp-three-dots-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-three-dots-icon' />
-                </svg>
-                <ul className='more-icons'>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='START CONVERSATION'
-                      className='olymp-comments-post-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-comments-post-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='ADD TO CONVERSATION'
-                      className='olymp-add-to-conversation-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='BLOCK FROM CHAT'
-                      className='olymp-block-from-chat-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-block-from-chat-icon' />
-                    </svg>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar72-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status away' />
-              </div>
-              <div className='author-status'>
-                <a href='#' className='h6 author-name'>
-                  Chris Greyson
-                </a>
-                <span className='status'>AWAY</span>
-              </div>
-              <div className='more'>
-                <svg className='olymp-three-dots-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-three-dots-icon' />
-                </svg>
-                <ul className='more-icons'>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='START CONVERSATION'
-                      className='olymp-comments-post-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-comments-post-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='ADD TO CONVERSATION'
-                      className='olymp-add-to-conversation-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='BLOCK FROM CHAT'
-                      className='olymp-block-from-chat-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-block-from-chat-icon' />
-                    </svg>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li className='inline-items js-chat-open'>
-              <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/avatar71-sm.jpg'
-                  className='avatar'
-                />
-                <span className='icon-status online' />
-              </div>
-              <div className='author-status'>
-                <a href='#' className='h6 author-name'>
-                  Bruce Peterson
-                </a>
-                <span className='status'>ONLINE</span>
-              </div>
-              <div className='more'>
-                <svg className='olymp-three-dots-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-three-dots-icon' />
-                </svg>
-                <ul className='more-icons'>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='START CONVERSATION'
-                      className='olymp-comments-post-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-comments-post-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='ADD TO CONVERSATION'
-                      className='olymp-add-to-conversation-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-add-to-conversation-icon' />
-                    </svg>
-                  </li>
-                  <li>
-                    <svg
-                      data-toggle='tooltip'
-                      data-placement='top'
-                      data-original-title='BLOCK FROM CHAT'
-                      className='olymp-block-from-chat-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-block-from-chat-icon' />
-                    </svg>
-                  </li>
-                </ul>
-              </div>
-            </li>
+            <ChatUsersItem
+              avatar={AvatarUser}
+              status='online'
+              isOpen={true}
+              authorName='Trọng khoa'
+            />
+            <ChatUsersItem
+              avatar={AvatarUser}
+              isOpen={true}
+              authorName='Trọng khoa'
+              status='away'
+            />
+            <ChatUsersItem
+              avatar={AvatarUser}
+              isOpen={true}
+              authorName='Trọng khoa'
+              status='online'
+            />
+            <ChatUsersItem
+              avatar={AvatarUser}
+              isOpen={true}
+              authorName='Trọng khoa'
+              status='away'
+            />
+            <ChatUsersItem
+              avatar={AvatarUser}
+              isOpen={true}
+              authorName='Trọng khoa'
+              status='online'
+            />
+            <ChatUsersItem
+              avatar={AvatarUser}
+              isOpen={true}
+              authorName='Trọng khoa'
+              status='disconected'
+            />
+            <ChatUsersItem
+              avatar={AvatarUser}
+              isOpen={true}
+              authorName='Trọng khoa'
+              status='online'
+            />
+            <ChatUsersItem
+              avatar={AvatarUser}
+              isOpen={true}
+              authorName='Trọng khoa'
+              status='away'
+            />
+            <ChatUsersItem
+              avatar={AvatarUser}
+              isOpen={true}
+              authorName='Trọng khoa'
+              status='disconected'
+            />
+            <ChatUsersItem
+              avatar={AvatarUser}
+              isOpen={true}
+              authorName='Trọng khoa'
+              status='online'
+            />
+            <ChatUsersItem
+              avatar={AvatarUser}
+              isOpen={true}
+              authorName='Trọng khoa'
+              status='online'
+            />
+            <ChatUsersItem
+              avatar={AvatarUser}
+              isOpen={true}
+              authorName='Trọng khoa'
+              status='away'
+            />
+            <ChatUsersItem
+              avatar={AvatarUser}
+              isOpen={true}
+              authorName='Trọng khoa'
+              status='disconected'
+            />
+            <ChatUsersItem
+              avatar={AvatarUser}
+              isOpen={true}
+              authorName='Trọng khoa'
+              status='online'
+            />
           </ul>
         </div>
         <div className='search-friend inline-items'>
@@ -721,18 +153,20 @@ const RightMessagesBG = () => {
               <use xlinkHref='svg-icons/sprites/icons.svg#olymp-settings-icon' />
             </svg>
           </a>
-          <a href='#' className='js-sidebar-open'>
-            <svg className='olymp-close-icon'>
-              <use xlinkHref='svg-icons/sprites/icons.svg#olymp-close-icon' />
-            </svg>
+          <a href='#' className='js-sidebar-open' onClick={openRightMessages}>
+            <CustomSvgIcons
+              className='olymp-close-icon'
+              id='olymp-close-icon'
+            />
           </a>
         </div>
-        <a href='#' className='olympus-chat inline-items js-chat-open'>
+        <Link to='/messages' className='olympus-chat inline-items'>
           <h6 className='olympus-chat-title'>OLYMPUS CHAT</h6>
-          <svg className='olymp-chat---messages-icon'>
-            <use xlinkHref='svg-icons/sprites/icons.svg#olymp-chat---messages-icon' />
-          </svg>
-        </a>
+          <CustomSvgIcons
+            className='olymp-chat---messages-icon'
+            id='olymp-chat---messages-icon'
+          />
+        </Link>
       </div>
     </div>
   );

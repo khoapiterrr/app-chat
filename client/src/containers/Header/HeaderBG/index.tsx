@@ -1,6 +1,9 @@
 import React from 'react';
 import CustomSvgIcons from 'components/CustomSvgIcons';
 import Avatar from 'assets/images/avatar56-sm.jpg';
+import classes from './styles.module.scss';
+import classnames from 'classnames';
+
 const HeaderBG = () => {
   return (
     <header className='header' id='site-header'>
@@ -518,7 +521,11 @@ const HeaderBG = () => {
           </div>
           <div className='author-page author vcard inline-items more'>
             <div className='author-thumb'>
-              <img alt='author' src='img/author-page.jpg' className='avatar' />
+              <img
+                alt='author'
+                src='https://scontent.fhan3-3.fna.fbcdn.net/v/t1.0-9/30709828_2032828676992328_6094577782937878528_o.jpg?_nc_cat=101&ccb=3&_nc_sid=09cbfe&_nc_ohc=9kNbIJb7K0gAX_LfyVs&_nc_ht=scontent.fhan3-3.fna&oh=c16ec7593da22ce041719a54210c5259&oe=604B038E'
+                className={classnames(classes.avatar, 'avatar')}
+              />
               <span className='icon-status online' />
               <div className='more-dropdown more-with-triangle'>
                 <div className='mCustomScrollbar' data-mcs-theme='dark'>
@@ -627,12 +634,13 @@ const HeaderBG = () => {
                 </div>
               </div>
             </div>
-            <a href='02-ProfilePage.html' className='author-name fn'>
+            <a href='# ' className='author-name fn'>
               <div className='author-title'>
-                James Spiegel{' '}
-                <svg className='olymp-dropdown-arrow-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon' />
-                </svg>
+                KhoaPiterrr{' '}
+                <CustomSvgIcons
+                  className='olymp-dropdown-arrow-icon'
+                  id='olymp-dropdown-arrow-icon'
+                />
               </div>
               <span className='author-subtitle'>SPACE COWBOY</span>
             </a>

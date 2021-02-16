@@ -22,6 +22,7 @@ import LanguageProvider from 'containers/LanguageProvider';
 import PreLoader from 'components/PreLoader';
 import { MuiThemeProvider } from '@material-ui/core';
 import theme from 'constants/themes';
+import './app.scss';
 const store = configStore();
 // const store = configStore();
 function App() {

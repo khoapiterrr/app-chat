@@ -1,0 +1,35 @@
+.user-info-wrapper {
+  flex-basis: 360px;
+  float: right;
+  padding: 0 15px;
+
+  & {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+
+  border-left: 1px solid rgba(#adb5bd, 0.3);
+
+  .title {
+    position: relative;
+
+    span {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  .info-avatar {
+    width: 120px;
+    height: 120px;
+    object-fit: center;
+    border-radius: 50%;
+  }
+  .info-chat {
+    p {
+      margin-bottom: 0.25rem;
+    }
+  }
+}

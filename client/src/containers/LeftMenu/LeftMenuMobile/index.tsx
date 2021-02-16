@@ -1,21 +1,28 @@
-import React from 'react';
-
+import React, { MutableRefObject, useRef } from 'react';
+import LogoWeb from 'assets/images/logo.png';
+import CustomSvgIcons from 'components/CustomSvgIcons';
+import authorpage from 'assets/images/author-page.jpg';
 const LeftMenuMobile = () => {
+  const leftMenu: MutableRefObject<HTMLDivElement | null> = useRef(null);
+  const openMenu = (e: any) => {
+    e.preventDefault();
+    leftMenu.current!.classList.toggle('open');
+  };
   return (
-    <div className='fixed-sidebar fixed-sidebar-responsive'>
+    <div className='fixed-sidebar fixed-sidebar-responsive' ref={leftMenu}>
       <div
         className='fixed-sidebar-left sidebar--small'
         id='sidebar-left-responsive'>
-        <a href='#' className='logo js-sidebar-open'>
-          <img src='img/logo.png' alt='Olympus' />
+        <a href='# ' className='logo js-sidebar-open' onClick={openMenu}>
+          <img src={LogoWeb} alt='Olympus' />
         </a>
       </div>
       <div
         className='fixed-sidebar-left sidebar--large'
         id='sidebar-left-1-responsive'>
-        <a href='#' className='logo'>
+        <a href='# ' className='logo'>
           <div className='img-wrap'>
-            <img src='img/logo.png' alt='Olympus' />
+            <img src={LogoWeb} alt='Olympus' />
           </div>
           <div className='title-block'>
             <h6 className='logo-title'>olympus</h6>
@@ -25,19 +32,16 @@ const LeftMenuMobile = () => {
           <div className='control-block'>
             <div className='author-page author vcard inline-items'>
               <div className='author-thumb'>
-                <img
-                  alt='author'
-                  src='img/author-page.jpg'
-                  className='avatar'
-                />
+                <img alt='author' src={authorpage} className='avatar' />
                 <span className='icon-status online' />
               </div>
               <a href='02-ProfilePage.html' className='author-name fn'>
                 <div className='author-title'>
                   James Spiegel{' '}
-                  <svg className='olymp-dropdown-arrow-icon'>
-                    <use xlinkHref='svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon' />
-                  </svg>
+                  <CustomSvgIcons
+                    className='olymp-dropdown-arrow-icon'
+                    id='olymp-dropdown-arrow-icon'
+                  />
                 </div>
                 <span className='author-subtitle'>SPACE COWBOY</span>
               </a>
@@ -48,130 +52,131 @@ const LeftMenuMobile = () => {
           </div>
           <ul className='left-menu'>
             <li>
-              <a href='#' className='js-sidebar-open'>
-                <svg className='olymp-close-icon left-menu-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-close-icon' />
-                </svg>
+              <a href='# ' className='js-sidebar-open' onClick={openMenu}>
+                <CustomSvgIcons
+                  className='olymp-close-icon left-menu-icon'
+                  id='olymp-close-icon'
+                />
                 <span className='left-menu-title'>Collapse Menu</span>
               </a>
             </li>
             <li>
-              <a href='mobile-index.html'>
-                <svg
+              <a href='03-Newsfeed.html'>
+                <CustomSvgIcons
                   className='olymp-newsfeed-icon left-menu-icon'
                   data-toggle='tooltip'
                   data-placement='right'
-                  data-original-title='NEWSFEED'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-newsfeed-icon' />
-                </svg>
+                  data-original-title='NEWSFEED'
+                  id='olymp-newsfeed-icon'
+                />
                 <span className='left-menu-title'>Newsfeed</span>
               </a>
             </li>
             <li>
-              <a href='Mobile-28-YourAccount-PersonalInformation.html'>
-                <svg
+              <a href='16-FavPagesFeed.html'>
+                <CustomSvgIcons
                   className='olymp-star-icon left-menu-icon'
                   data-toggle='tooltip'
                   data-placement='right'
-                  data-original-title='FAV PAGE'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-star-icon' />
-                </svg>
+                  data-original-title='FAV PAGE'
+                  id='olymp-star-icon'
+                />
                 <span className='left-menu-title'>Fav Pages Feed</span>
               </a>
             </li>
             <li>
-              <a href='mobile-29-YourAccount-AccountSettings.html'>
-                <svg
+              <a href='17-FriendGroups.html'>
+                <CustomSvgIcons
                   className='olymp-happy-faces-icon left-menu-icon'
                   data-toggle='tooltip'
                   data-placement='right'
-                  data-original-title='FRIEND GROUPS'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-happy-faces-icon' />
-                </svg>
+                  data-original-title='FRIEND GROUPS'
+                  id='olymp-happy-faces-icon'
+                />
                 <span className='left-menu-title'>Friend Groups</span>
               </a>
             </li>
             <li>
-              <a href='Mobile-30-YourAccount-ChangePassword.html'>
-                <svg
+              <a href='18-MusicAndPlaylists.html'>
+                <CustomSvgIcons
                   className='olymp-headphones-icon left-menu-icon'
                   data-toggle='tooltip'
                   data-placement='right'
-                  data-original-title='MUSIC&PLAYLISTS'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-headphones-icon' />
-                </svg>
+                  data-original-title='MUSIC&PLAYLISTS'
+                  id='olymp-headphones-icon'
+                />
                 <span className='left-menu-title'>Music &amp; Playlists</span>
               </a>
             </li>
             <li>
-              <a href='Mobile-31-YourAccount-HobbiesAndInterests.html'>
-                <svg
+              <a href='19-WeatherWidget.html'>
+                <CustomSvgIcons
                   className='olymp-weather-icon left-menu-icon'
                   data-toggle='tooltip'
                   data-placement='right'
-                  data-original-title='WEATHER APP'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-weather-icon' />
-                </svg>
+                  data-original-title='WEATHER APP'
+                  id='olymp-weather-icon'
+                />
                 <span className='left-menu-title'>Weather App</span>
               </a>
             </li>
             <li>
-              <a href='Mobile-32-YourAccount-EducationAndEmployement.html'>
-                <svg
+              <a href='20-CalendarAndEvents-MonthlyCalendar.html'>
+                <CustomSvgIcons
                   className='olymp-calendar-icon left-menu-icon'
                   data-toggle='tooltip'
                   data-placement='right'
-                  data-original-title='CALENDAR AND EVENTS'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-calendar-icon' />
-                </svg>
+                  data-original-title='CALENDAR AND EVENTS'
+                  id='olymp-calendar-icon'
+                />
                 <span className='left-menu-title'>Calendar and Events</span>
               </a>
             </li>
             <li>
-              <a href='Mobile-33-YourAccount-Notifications.html'>
-                <svg
+              <a href='24-CommunityBadges.html'>
+                <CustomSvgIcons
                   className='olymp-badge-icon left-menu-icon'
                   data-toggle='tooltip'
                   data-placement='right'
-                  data-original-title='Community Badges'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-badge-icon' />
-                </svg>
+                  data-original-title='Community Badges'
+                  id='olymp-badge-icon'
+                />
                 <span className='left-menu-title'>Community Badges</span>
               </a>
             </li>
             <li>
-              <a href='Mobile-34-YourAccount-ChatMessages.html'>
-                <svg
+              <a href='25-FriendsBirthday.html'>
+                <CustomSvgIcons
                   className='olymp-cupcake-icon left-menu-icon'
                   data-toggle='tooltip'
                   data-placement='right'
-                  data-original-title='Friends Birthdays'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-cupcake-icon' />
-                </svg>
+                  data-original-title='Friends Birthdays'
+                  id='olymp-cupcake-icon'
+                />
                 <span className='left-menu-title'>Friends Birthdays</span>
               </a>
             </li>
             <li>
-              <a href='Mobile-35-YourAccount-FriendsRequests.html'>
-                <svg
+              <a href='26-Statistics.html'>
+                <CustomSvgIcons
                   className='olymp-stats-icon left-menu-icon'
                   data-toggle='tooltip'
                   data-placement='right'
-                  data-original-title='Account Stats'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-stats-icon' />
-                </svg>
+                  data-original-title='Account Stats'
+                  id='olymp-stats-icon'
+                />
                 <span className='left-menu-title'>Account Stats</span>
               </a>
             </li>
             <li>
-              <a href='#'>
-                <svg
+              <a href='27-ManageWidgets.html'>
+                <CustomSvgIcons
                   className='olymp-manage-widgets-icon left-menu-icon'
                   data-toggle='tooltip'
                   data-placement='right'
-                  data-original-title='Manage Widgets'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-manage-widgets-icon' />
-                </svg>
+                  data-original-title='Manage Widgets'
+                  id='olymp-manage-widgets-icon'
+                />
                 <span className='left-menu-title'>Manage Widgets</span>
               </a>
             </li>
@@ -182,29 +187,31 @@ const LeftMenuMobile = () => {
           <ul className='account-settings'>
             <li>
               <a href='#'>
-                <svg className='olymp-menu-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-menu-icon' />
-                </svg>
+                <CustomSvgIcons
+                  className='olymp-menu-icon'
+                  id='olymp-menu-icon'
+                />
                 <span>Profile Settings</span>
               </a>
             </li>
             <li>
               <a href='#'>
-                <svg
+                <CustomSvgIcons
                   className='olymp-star-icon left-menu-icon'
                   data-toggle='tooltip'
                   data-placement='right'
-                  data-original-title='FAV PAGE'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-star-icon' />
-                </svg>
+                  data-original-title='FAV PAGE'
+                  id='olymp-star-icon'
+                />
                 <span>Create Fav Page</span>
               </a>
             </li>
             <li>
               <a href='#'>
-                <svg className='olymp-logout-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-logout-icon' />
-                </svg>
+                <CustomSvgIcons
+                  className='olymp-logout-icon'
+                  id='olymp-logout-icon'
+                />
                 <span>Log Out</span>
               </a>
             </li>
