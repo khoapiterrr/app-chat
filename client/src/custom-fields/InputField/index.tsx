@@ -13,6 +13,7 @@ interface IProps {
 
   field?: any;
   form?: any;
+  [extraProps: string]: any;
 }
 
 const InputField: FC<IProps> = (props: IProps) => {
@@ -34,6 +35,7 @@ const InputField: FC<IProps> = (props: IProps) => {
   return (
     <>
       <TextField
+        {...props}
         className='w-100'
         id={id}
         type={type}

@@ -6,9 +6,10 @@
 
   "Auth.form.login.title": "Login to your Account",
   "Auth.form.register.title": "Register to Ltk-Social",
-  "Auth.form.loginService.facebook": "Login with Facebook",
-  "Auth.form.loginService.google": "Login with GOOGLE+",
-  "Auth.form.loginService.github": "Login with GITHUB",
+  "Auth.form.loginService.facebook": "Login With Facebook",
+  "Auth.form.loginService.google": "Login With GOOGLE+",
+  "Auth.form.loginService.github": "Login With GITHUB",
+  "Auth.form.loginService.twitter": "Login With Twitter",
 
   "Auth.form.button.login": "Login",
   "Auth.form.button.register-now": "Register now",

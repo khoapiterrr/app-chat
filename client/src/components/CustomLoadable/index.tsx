@@ -1,3 +1,4 @@
+import PreLoader from 'components/PreLoader';
 import Loadable from 'react-loadable';
 import Spinner from '../Spinner';
 
@@ -5,9 +6,9 @@ function CustomLoadable(opts: any) {
   return Loadable(
     Object.assign(
       {
-        loading: Spinner,
-        delay: 200,
-        timeout: 10000,
+        loading: PreLoader,
+        delay: 800,
+        timeout: 20000,
       },
       opts,
     ),

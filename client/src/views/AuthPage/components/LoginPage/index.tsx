@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Container, Grid, Button } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
-import './styles.scss';
 
 interface IProps {
   children?: ReactNode;
@@ -9,41 +8,26 @@ interface IProps {
 }
 const LoginPage: React.FC<IProps> = ({ tabLink, children }) => {
   return (
-    <React.Fragment>
-      <div className='bg-page'>
-        <div className='content-bg-wrap'></div>
-        <Container fixed={true} className='layout-content'>
-          <Grid
-            container
-            direction='row'
-            spacing={8}
-            alignItems='center'
-            justify='center'>
-            <Grid item xl={5} md={5} sm={10} style={{ zIndex: 2000 }}>
-              <div className='lading-content'>
-                <h1>
-                  <FormattedMessage id='Auth.intro.welcome' />
-                </h1>
-                <p>
-                  <FormattedMessage id='Auth.intro.description' />
-                </p>
-                <a href='javascript:void(0)'>
-                  <Button
-                    variant='outlined'
-                    onClick={tabLink}
-                    className='c-white'>
-                    <FormattedMessage id='Auth.form.button.register' /> !
-                  </Button>
-                </a>
-              </div>
-            </Grid>
-            <Grid item xl={5} md={5} sm={10}>
-              {children}
-            </Grid>
-          </Grid>
-        </Container>
+    <div className='container'>
+      <div className='row display-flex'>
+        <div className='col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12'>
+          <div className='landing-content'>
+            <h1>Welcome to the Biggest Social Network in the World</h1>
+            <p>
+              We are the best and biggest social network with 5 billion active
+              users all around the world. Share you thoughts, write blog posts,
+              show your favourite music via Stopify, earn badges and much more!
+            </p>
+            <a href='#' className='btn btn-md btn-border c-white'>
+              Register Now!
+            </a>
+          </div>
+        </div>
+        <div className='col col-xl-5 col-lg-6 col-md-12 col-sm-12 col-12'>
+          {children}
+        </div>
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 

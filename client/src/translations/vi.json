@@ -22,7 +22,7 @@
   "Auth.form.email.error.invalid": "Địa chỉ email không hợp lệ.",
 
   "Auth.form.firstName.label": "Họ và tên đệm",
-  "Auth.form.firstName.error.empty": "Bạn phải nhập họ và tên đệm.",
+  "Auth.form.firstName.error.empty": "Bạn phải nhập tên đệm.",
 
   "Auth.form.lastName.label": "Tên",
   "Auth.form.lastName.error.empty": "Bạn phải nhập tên.",
