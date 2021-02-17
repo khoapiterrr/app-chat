@@ -12,9 +12,9 @@ const ChatContentHeader = () => {
         className='avatar mr-2'
       />
       <div className='info-user'>
-        <h4 className='title' style={{ marginBottom: '0' }}>
+        <h5 className='title' style={{ marginBottom: '0' }}>
           KhoaPiterrr
-        </h4>
+        </h5>
         <span>Online</span>
       </div>
       <div className='contact d-flex justify-content-end'>
