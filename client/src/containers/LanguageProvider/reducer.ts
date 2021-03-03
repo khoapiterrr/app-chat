@@ -5,6 +5,7 @@ import { localLanguageStorageKey } from 'constants/constants';
 // Import supported languages from the translations folder
 import translations from 'translations';
 import { CHANGE_LOCALE } from './constants';
+import ILanguageState from 'core/stateApp/ILanguageState';
 
 const languages = Object.keys(translations);
 
@@ -24,7 +25,7 @@ if (!foundLanguage) {
   foundLanguage = includes(languages, userLanguageShort) && userLanguageShort;
 }
 
-const initialState = {
+const initialState: ILanguageState = {
   locale: foundLanguage || 'en',
 };
 

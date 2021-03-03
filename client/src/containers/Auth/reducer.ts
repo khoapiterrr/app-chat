@@ -8,6 +8,7 @@ const initialState: IAuthState = {
   signUpLoading: false,
   signInError: null,
   sigUpError: null,
+  userCurrent: null,
 };
 
 const authReducer = (state = initialState, { type, payload }: Action) =>
@@ -23,6 +24,7 @@ const authReducer = (state = initialState, { type, payload }: Action) =>
       case constants.SIGNIN_SUCCESS:
         draft.signInLoading = false;
         draft.signInError = null;
+        draft.userCurrent = payload;
         break;
       case constants.SIGNIN_ERROR:
         draft.signInLoading = false;

@@ -19,10 +19,11 @@ import RoutesComponent from 'routes/RoutesComponent';
 // Import i18n messages
 import { translationMessages } from './i18n';
 import LanguageProvider from 'containers/LanguageProvider';
-import PreLoader from 'components/PreLoader';
 import { MuiThemeProvider } from '@material-ui/core';
 import theme from 'constants/themes';
 import './app.scss';
+import { BrowserRouter, Route } from 'react-router-dom';
+
 const store = configStore();
 // const store = configStore();
 function App() {

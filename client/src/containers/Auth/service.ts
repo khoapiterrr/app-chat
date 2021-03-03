@@ -7,6 +7,6 @@ export const postSignIn = async (data: ISignIn) => {
 };
 
 export const postSignUp = async (data: ISignUp) => {
-  const response = await axiosClient.post('/auth/register', data);
+  const response = await axiosClient.post('/auth/signup', data);
   return response;
 };

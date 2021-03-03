@@ -5,4 +5,5 @@ export default interface IAuthActionCreator {
   doInitLoadingDone(): Action;
   doClearErrorMessage(): Action;
   doSignOut(): any;
+  doSignIn(dataLogin: any): any;
 }

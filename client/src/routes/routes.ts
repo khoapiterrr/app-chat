@@ -11,7 +11,7 @@ const routes: IRoute[] = [
     path: '/messages',
     exact: true,
     loader: () => import('views/MessagesPage'),
-    label: 'Login',
+    label: 'Messages',
   },
   {
     path: '/login',
