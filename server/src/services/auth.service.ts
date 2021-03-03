@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
 import { CreateUserDto, LoginUserDto } from '../dtos/users.dto';
 import HttpException from '../exceptions/HttpException';
 import { DataStoredInToken, TokenData } from '../interfaces/auth.interface';
@@ -25,7 +26,7 @@ class AuthService {
     return createUserData;
   }
 
-  public async login(userData: LoginUserDto): Promise<{ cookie: string; findUser: User }> {
+  public async login(userData: LoginUserDto): Promise<User> {
     if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
 
     const findUser: User = await this.users.findOne({ email: userData.email });
@@ -35,9 +36,10 @@ class AuthService {
     if (!isPasswordMatching) throw new HttpException(409, "You're password not matching");
 
     const tokenData = this.createToken(findUser);
-    const cookie = this.createCookie(tokenData);
 
-    return { cookie, findUser };
+    findUser.token = tokenData.token;
+
+    return findUser;
   }
 
   public async logout(userData: User): Promise<User> {
@@ -47,6 +49,13 @@ class AuthService {
     if (!findUser) throw new HttpException(409, "You're not user");
 
     return findUser;
+  }
+
+  public async findUserAndGenerateToken(userData): Promise<User> {
+    const { _id } = userData;
+    const findUser = await this.users.findById(_id);
+    findUser.token = this.createToken(_id).token;
+    return findUser.save();
   }
 
   public createToken(user: User): TokenData {

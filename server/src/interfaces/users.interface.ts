@@ -12,4 +12,5 @@ export interface User {
   status?: string | null;
   createdAt?: Date | null;
   updatedAt?: Date | null;
+  token?: string | null;
 }

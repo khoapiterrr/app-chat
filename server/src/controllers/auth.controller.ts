@@ -20,10 +20,10 @@ class AuthController {
 
   public logIn = async (req: Request, res: Response, next: NextFunction) => {
     const userData: LoginUserDto = req.body;
-
     try {
-      const { cookie, findUser } = await this.authService.login(userData);
-      res.setHeader('Set-Cookie', [cookie]);
+      const findUser = await this.authService.login(userData);
+      // findUser['password'] = '';
+      delete findUser.password;
       res.status(200).json({ data: findUser, message: 'login' });
     } catch (error) {
       next(error);
@@ -40,6 +40,27 @@ class AuthController {
     } catch (error) {
       next(error);
     }
+  };
+
+  public loginSuccess = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    const userData: User = req.user;
+
+    try {
+      if (userData) {
+        const data = await this.authService.findUserAndGenerateToken(userData);
+        res.status(200).json({ data, message: 'login success' });
+      }
+      res.status(401).json({ message: 'user failed to authenticate.' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public loginFailed = async (req: Request, res: Response) => {
+    res.status(401).json({
+      success: false,
+      message: 'user failed to authenticate.',
+    });
   };
 }
 

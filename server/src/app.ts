@@ -4,6 +4,7 @@ import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
+import passport from 'passport';
 import compression from 'compression';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
@@ -11,6 +12,8 @@ import { connect, set } from 'mongoose';
 import { dbConnection } from './database';
 import Routes from './interfaces/routes.interface';
 import errorMiddleware from './middlewares/error.middleware';
+// API keys and Passport configuration
+import * as passportConfig from './config/passport';
 import { logger, stream } from './utils/logger';
 
 class App {
@@ -24,6 +27,7 @@ class App {
     this.env = process.env.NODE_ENV || 'development';
 
     this.connectToDatabase();
+    this.initializePassport();
     this.initializeMiddlewares();
     this.initializeRoutes(routes);
     this.initializeSwagger();
@@ -73,7 +77,7 @@ class App {
 
   private initializeRoutes(routes: Routes[]) {
     routes.forEach(route => {
-      this.app.use('/', route.router);
+      this.app.use(route.path, route.router);
     });
   }
 
@@ -95,6 +99,12 @@ class App {
 
   private initializeErrorHandling() {
     this.app.use(errorMiddleware);
+  }
+  private initializePassport() {
+    // initialize passport
+    this.app.use(passport.initialize());
+    // deserialize cookie from the browser
+    this.app.use(passport.session());
   }
 }
 

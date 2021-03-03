@@ -6,6 +6,7 @@ dotenvSafe.config({
   path: path.resolve(__dirname, '../../.env'),
   example: path.resolve(__dirname, '../../.env.dev'),
 });
+
 export const config = {
   env: process.env.NODE_ENV,
   port: process.env.PORT,
@@ -49,4 +50,6 @@ export const config = {
   mongooseDebug: process.env.MONGOOSE_DEBUG,
 
   staticUrl: process.env.STATIC_URL,
+
+  clientHomePathUrl: process.env.NODE_ENV === 'production' ? 'domain' : process.env.CLIENT_HOME_PAGE_URL,
 };

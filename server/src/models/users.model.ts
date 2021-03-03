@@ -10,14 +10,13 @@ const userSchema: Schema = new Schema(
   {
     email: {
       type: String,
-      required: true,
-      unique: true,
       trim: true,
       lowercase: true,
     },
     password: {
       type: String,
-      required: true,
+      minlength: 6,
+      maxlength: 128,
     },
     firstName: {
       type: String,
@@ -27,11 +26,9 @@ const userSchema: Schema = new Schema(
       type: String,
       trim: true,
     },
-    services: {
-      facebookId: String,
-      googleId: String,
-      githubId: String,
-    },
+    facebookId: String,
+    googleId: String,
+    githubId: String,
     role: {
       type: String,
       enum: roles,
@@ -43,6 +40,9 @@ const userSchema: Schema = new Schema(
     },
     loginAt: {
       type: Date,
+    },
+    token: {
+      type: String,
     },
     deleteFlag: {
       type: Boolean,
