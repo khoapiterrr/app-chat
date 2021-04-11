@@ -59,6 +59,10 @@ class UsersController {
       next(error);
     }
   };
+  public findFriend = async (req: Request) => {
+    const keyword: string = req.query.q as string;
+    console.log(keyword);
+  };
 }
 
 export default UsersController;

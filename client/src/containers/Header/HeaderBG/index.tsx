@@ -3,10 +3,35 @@ import CustomSvgIcons from 'components/CustomSvgIcons';
 import Avatar from 'assets/images/avatar56-sm.jpg';
 import classes from './styles.module.scss';
 import classnames from 'classnames';
-
+import authSelectors from 'containers/Auth/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import AvatarDefault from 'assets/images/default-avatar.png';
+import authActionCreator from 'containers/Auth/actions';
+import { Link } from 'react-router-dom';
+import { getHistory } from 'app/store';
+import LogoWeb from 'assets/images/logo.png';
 const HeaderBG = () => {
+  const currentUser = useSelector(authSelectors.selectCurrentUser);
+  const dispatch = useDispatch();
+  const [keyword, setKeyword] = React.useState();
+
+  const handleLogout = (e: any) => {
+    e.preventDefault();
+    dispatch(authActionCreator.doSignOut());
+  };
+  const handleSearchFriend = (e: any) => {
+    e.preventDefault();
+    getHistory().push(`/search?q=${keyword}`);
+  };
   return (
     <header className='header' id='site-header'>
+      <div className={classes.fixedLogo}>
+        <Link to='/messages' className='logo'>
+          <div className='img-wrap'>
+            <img src={LogoWeb} alt='Olympus' />
+          </div>
+        </Link>
+      </div>
       <div className='page-title'>
         <h6>Profile Page</h6>
       </div>
@@ -14,19 +39,21 @@ const HeaderBG = () => {
         <form className='search-bar w-search notification-list friend-requests'>
           <div className='form-group with-button'>
             <input
+              name='keywork'
               className='form-control js-user-search'
               placeholder='Search here people or pages...'
               type='text'
+              onChange={(e: any) => setKeyword(e.target.value)}
             />
-            <button>
+            <button type='submit' onClick={handleSearchFriend}>
               {/* <SearchIcon className='olymp-magnifying-glass-icon' /> */}
               <CustomSvgIcons id='olymp-magnifying-glass-icon' />
             </button>
           </div>
         </form>
-        <a href='#' className='link-find-friend'>
+        <Link to='/search' className='link-find-friend'>
           Find Friends
-        </a>
+        </Link>
         <div className='control-block'>
           <div className='control-icon more has-items'>
             <CustomSvgIcons id='olymp-happy-face-icon' />
@@ -41,7 +68,10 @@ const HeaderBG = () => {
                 <ul className='notification-list friend-requests'>
                   <li>
                     <div className='author-thumb'>
-                      <img src='img/avatar55-sm.jpg' alt='author' />
+                      <img
+                        src={currentUser?.avatar ?? AvatarDefault}
+                        alt='author'
+                      />
                     </div>
                     <div className='notification-event'>
                       <a href='#' className='h6 notification-friend'>
@@ -166,9 +196,9 @@ const HeaderBG = () => {
                   </li>
                 </ul>
               </div>
-              <a href='#' className='view-all bg-blue'>
+              <Link to='/account/friend-requests' className='view-all bg-blue'>
                 Check all your Events
-              </a>
+              </Link>
             </div>
           </div>
           <div className='control-icon more has-items'>
@@ -309,9 +339,9 @@ const HeaderBG = () => {
                   </li>
                 </ul>
               </div>
-              <a href='#' className='view-all bg-purple'>
+              <Link to='/messages' className='view-all bg-purple'>
                 View All Messages
-              </a>
+              </Link>
             </div>
           </div>
           <div className='control-icon more has-items'>
@@ -514,16 +544,16 @@ const HeaderBG = () => {
                   </li>
                 </ul>
               </div>
-              <a href='#' className='view-all bg-primary'>
+              <Link to='/account/notification' className='view-all bg-primary'>
                 View All Notifications
-              </a>
+              </Link>
             </div>
           </div>
           <div className='author-page author vcard inline-items more'>
             <div className='author-thumb'>
               <img
                 alt='author'
-                src='https://scontent.fhan3-3.fna.fbcdn.net/v/t1.0-9/30709828_2032828676992328_6094577782937878528_o.jpg?_nc_cat=101&ccb=3&_nc_sid=09cbfe&_nc_ohc=9kNbIJb7K0gAX_LfyVs&_nc_ht=scontent.fhan3-3.fna&oh=c16ec7593da22ce041719a54210c5259&oe=604B038E'
+                src={currentUser?.avatar ?? AvatarDefault}
                 className={classnames(classes.avatar, 'avatar')}
               />
               <span className='icon-status online' />
@@ -534,30 +564,20 @@ const HeaderBG = () => {
                   </div>
                   <ul className='account-settings'>
                     <li>
-                      <a href='29-YourAccount-AccountSettings.html'>
-                        <svg className='olymp-menu-icon'>
-                          <use xlinkHref='svg-icons/sprites/icons.svg#olymp-menu-icon' />
-                        </svg>
+                      <Link to='/account/personal-info'>
+                        <CustomSvgIcons
+                          className='olymp-logout-icon'
+                          id='olymp-menu-icon'
+                        />
                         <span>Profile Settings</span>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href='36-FavPage-SettingsAndCreatePopup.html'>
-                        <svg
-                          className='olymp-star-icon left-menu-icon'
-                          data-toggle='tooltip'
-                          data-placement='right'
-                          data-original-title='FAV PAGE'>
-                          <use xlinkHref='svg-icons/sprites/icons.svg#olymp-star-icon' />
-                        </svg>
-                        <span>Create Fav Page</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href='#'>
-                        <svg className='olymp-logout-icon'>
-                          <use xlinkHref='svg-icons/sprites/icons.svg#olymp-logout-icon' />
-                        </svg>
+                      <a href='# !' onClick={handleLogout}>
+                        <CustomSvgIcons
+                          className='olymp-logout-icon'
+                          id='olymp-logout-icon'
+                        />
                         <span>Log Out</span>
                       </a>
                     </li>
@@ -598,35 +618,26 @@ const HeaderBG = () => {
                     <input
                       className='form-control'
                       type='text'
-                      defaultValue='Space Cowboy'
+                      defaultValue='hi my friend'
                     />
                     <button className='bg-purple'>
-                      <svg className='olymp-check-icon'>
-                        <use xlinkHref='svg-icons/sprites/icons.svg#olymp-check-icon' />
-                      </svg>
+                      <CustomSvgIcons
+                        className='olymp-check-icon'
+                        id='olymp-check-icon'
+                      />
                     </button>
                   </form>
                   <div className='ui-block-title ui-block-title-small'>
-                    <h6 className='title'>About Olympus</h6>
+                    <h6 className='title'>About us</h6>
                   </div>
                   <ul>
                     <li>
-                      <a href='#'>
+                      <a href='javascript:void(0)'>
                         <span>Terms and Conditions</span>
                       </a>
                     </li>
                     <li>
-                      <a href='#'>
-                        <span>FAQs</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href='#'>
-                        <span>Careers</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href='#'>
+                      <a href='https://www.facebook.com/KhoaPiterrr/'>
                         <span>Contact</span>
                       </a>
                     </li>
@@ -636,7 +647,7 @@ const HeaderBG = () => {
             </div>
             <a href='# ' className='author-name fn'>
               <div className='author-title'>
-                KhoaPiterrr{' '}
+                {`${currentUser?.firstName} ${currentUser?.lastName}`}
                 <CustomSvgIcons
                   className='olymp-dropdown-arrow-icon'
                   id='olymp-dropdown-arrow-icon'

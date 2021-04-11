@@ -5,8 +5,13 @@ import { FormattedMessage } from 'react-intl';
 interface IProps {
   children?: ReactNode;
   tabLink?: any;
+  onClickChangeTab?: any;
 }
-const LoginPage: React.FC<IProps> = ({ tabLink, children }) => {
+const LoginPage: React.FC<IProps> = ({
+  tabLink,
+  children,
+  onClickChangeTab,
+}) => {
   return (
     <div className='container'>
       <div className='row display-flex'>
@@ -18,7 +23,13 @@ const LoginPage: React.FC<IProps> = ({ tabLink, children }) => {
               users all around the world. Share you thoughts, write blog posts,
               show your favourite music via Stopify, earn badges and much more!
             </p>
-            <a href='#' className='btn btn-md btn-border c-white'>
+            <a
+              href='# !'
+              onClick={(e) => {
+                e.preventDefault();
+                onClickChangeTab('register');
+              }}
+              className='btn btn-md btn-border c-white'>
               Register Now!
             </a>
           </div>

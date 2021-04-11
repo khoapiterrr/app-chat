@@ -3,7 +3,13 @@ import { FastField, Form, Formik } from 'formik';
 import InputField from 'custom-fields/InputField';
 import * as Yup from 'yup';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { Grid, FormControlLabel, Checkbox, Button } from '@material-ui/core';
+import {
+  Grid,
+  FormControlLabel,
+  Checkbox,
+  Button,
+  CircularProgress,
+} from '@material-ui/core';
 import ServiceLogin from 'components/ServiceLogin';
 import githubImage from 'assets/images/github-image.png';
 import googleImage from 'assets/images/shapes-and-symbols.png';
@@ -11,12 +17,26 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import { FormGroup } from 'reactstrap';
 import classes from './styles.module.scss';
 import classnames from 'classnames';
+import authActionCreator from '../actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { getHistory } from 'app/store';
+import { useHistory } from 'react-router-dom';
+import selectors from '../selectors';
+import CustomModal, { useToggleModal } from 'components/CustomModal';
+import RestorePassword from '../RestorePassword';
 interface IProps {
   goToSignUp?: any;
 }
 const SignIn: React.FC<IProps> = ({ goToSignUp }) => {
-  console.log(classes, 'classes');
   const { formatMessage } = useIntl();
+  const [openModal, toggleModal]: [
+    openModal: boolean,
+    toggleModal: () => void,
+  ] = useToggleModal();
+  const dispatch = useDispatch();
+  const signInLoading = useSelector(selectors.selectSignInLoading);
+  const signInError = useSelector(selectors.selectSignInError);
+
   const {
     LINK_LOGIN_FACEBOOK,
     LINK_LOGIN_GITHUB,
@@ -35,8 +55,8 @@ const SignIn: React.FC<IProps> = ({ goToSignUp }) => {
       .required(formatMessage({ id: 'Auth.form.password.error.empty' }))
       .min(6, formatMessage({ id: 'Auth.form.password.error.mainLength' })),
   });
-  const onSubmit = () => {
-    console.log('do onSubmit');
+  const onSubmit = (value: any) => {
+    dispatch(authActionCreator.doSignIn(value));
   };
   useEffect(() => {
     console.log('Sign In form');
@@ -77,7 +97,7 @@ const SignIn: React.FC<IProps> = ({ goToSignUp }) => {
                     />
                   </FormGroup>
 
-                  <div className='remember'>
+                  <div className='remember' style={{ margin: 0 }}>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -92,20 +112,29 @@ const SignIn: React.FC<IProps> = ({ goToSignUp }) => {
                       href=' #'
                       className='forgot'
                       data-toggle='modal'
+                      onClick={toggleModal}
                       data-target='#restore-password'>
                       <FormattedMessage id='Auth.form.forgotPassword.label' />
                     </a>
                   </div>
-                  <a
-                    href=' #'
+                  {signInError && (
+                    <p className='text-danger pb-3 pt-2'>{signInError}</p>
+                  )}
+                  <button
+                    type='submit'
+                    disabled={signInLoading}
                     className={classnames(
                       'btn',
                       'btn-lg',
                       `${classes.btnAccount}`,
                       'full-width',
                     )}>
-                    <FormattedMessage id='Auth.form.button.login' />
-                  </a>
+                    {signInLoading ? (
+                      <CircularProgress color='secondary' size='1rem' />
+                    ) : (
+                      <FormattedMessage id='Auth.form.button.login' />
+                    )}
+                  </button>
                   <div className='or' />
                   <a
                     href=' #'
@@ -123,10 +152,10 @@ const SignIn: React.FC<IProps> = ({ goToSignUp }) => {
                     />
                   </a>
                   <p>
-                    <FormattedMessage id='Auth.form.question.haveAccount' /> !{' '}
+                    <FormattedMessage id='Auth.form.question.haveAccount' /> !
                     <a href=' #' onClick={goToSignUp}>
                       <FormattedMessage id='Auth.form.button.register-now' />!
-                    </a>{' '}
+                    </a>
                     <FormattedMessage
                       id='Auth.form.question.haveAccount.decs'
                       defaultMessage=' messages not found Language'
@@ -139,6 +168,7 @@ const SignIn: React.FC<IProps> = ({ goToSignUp }) => {
           );
         }}
       </Formik>
+      <RestorePassword openModal={openModal} toggleModal={toggleModal} />;
     </>
   );
 };

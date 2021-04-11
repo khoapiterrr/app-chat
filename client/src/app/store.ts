@@ -1,9 +1,10 @@
 import { createStore, applyMiddleware, Action } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import { createBrowserHistory } from 'history';
+
 import createRootReducer from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import { routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 
 const history = createBrowserHistory();
 

@@ -1,5 +1,6 @@
-export const isAuthenticated = (): string | boolean => {
+import { isEmpty } from 'utils/common';
+export const isAuthenticated = () => {
   if (typeof window === 'undefined') return true;
   let token = window.localStorage.getItem('token');
-  return token ? token : false;
+  return isEmpty(token) ? false : token;
 };

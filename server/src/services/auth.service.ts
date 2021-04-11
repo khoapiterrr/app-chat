@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
 import { CreateUserDto, LoginUserDto } from '../dtos/users.dto';
 import HttpException from '../exceptions/HttpException';
 import { DataStoredInToken, TokenData } from '../interfaces/auth.interface';
@@ -25,7 +26,7 @@ class AuthService {
     return createUserData;
   }
 
-  public async login(userData: LoginUserDto): Promise<{ cookie: string; findUser: User }> {
+  public async login(userData: LoginUserDto): Promise<User> {
     if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
 
     const findUser: User = await this.users.findOne({ email: userData.email });
@@ -35,9 +36,10 @@ class AuthService {
     if (!isPasswordMatching) throw new HttpException(409, "You're password not matching");
 
     const tokenData = this.createToken(findUser);
-    const cookie = this.createCookie(tokenData);
 
-    return { cookie, findUser };
+    findUser.token = tokenData.token;
+
+    return findUser;
   }
 
   public async logout(userData: User): Promise<User> {
@@ -49,10 +51,17 @@ class AuthService {
     return findUser;
   }
 
+  public async findUserAndGenerateToken(userData): Promise<User> {
+    const { _id } = userData;
+    const findUser = await this.users.findById(_id);
+    findUser.token = this.createToken(_id).token;
+    return findUser.save();
+  }
+
   public createToken(user: User): TokenData {
     const dataStoredInToken: DataStoredInToken = { _id: user._id };
     const secret: string = process.env.JWT_SECRET;
-    const expiresIn: number = 60 * 60;
+    const expiresIn: number = 60 * 60 * 7 * 12;
 
     return { expiresIn, token: jwt.sign(dataStoredInToken, secret, { expiresIn }) };
   }

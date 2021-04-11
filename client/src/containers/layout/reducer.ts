@@ -9,6 +9,9 @@ const initialState = {
   settings: {
     sound: true,
   },
+  snackbarOpen: false,
+  variant: null,
+  snackbarMessage: '',
 };
 
 const layoutReducer = (state = initialState, { type, payload }: Action) =>
@@ -40,6 +43,16 @@ const layoutReducer = (state = initialState, { type, payload }: Action) =>
         break;
       case constants.LAYOUT_SOUND_TOGGLE:
         draft.settings.sound = !state.settings.sound;
+        break;
+      case constants.SNACKBAR_CLEAR:
+        draft.snackbarOpen = false;
+        draft.snackbarMessage = '';
+        break;
+
+      case constants.SNACKBAR_SHOW:
+        draft.snackbarOpen = true;
+        draft.snackbarMessage = payload.mes;
+        draft.variant = payload.variant;
         break;
       default:
         break;
