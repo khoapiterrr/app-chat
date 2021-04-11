@@ -31,7 +31,11 @@ class AuthController {
   };
 
   public getCurrentAuth = async (req: RequestWithUser, res: Response, next: NextFunction) => {
-    res.status(200).json({ data: req.user, message: 'get current auth' });
+    try {
+      res.status(200).json({ data: req.user, message: 'get current auth' });
+    } catch (error) {
+      next(error);
+    }
   };
 
   public logOut = async (req: RequestWithUser, res: Response, next: NextFunction) => {

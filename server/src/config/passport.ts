@@ -22,7 +22,7 @@ passport.deserializeUser((id, done) => {
     .then(user => {
       done(null, user);
     })
-    .catch(e => {
+    .catch(() => {
       done(new HttpException(401, 'Failed to deserialize an user'));
     });
 });
@@ -60,7 +60,7 @@ passport.use(
       const currentUser: User = await userModel.findOne({
         facebookId: profile.id,
       });
-      const findUser: User = await userModel.findOne({ email: 'ltk.gym@gmail.com' });
+      // const findUser: User = await userModel.findOne({ email: 'ltk.gym@gmail.com' });
       // create new user if the database doesn't have this user
       if (isEmpty(currentUser)) {
         const newUser = await new userModel({
