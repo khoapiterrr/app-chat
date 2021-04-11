@@ -30,6 +30,10 @@ class AuthController {
     }
   };
 
+  public getCurrentAuth = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    res.status(200).json({ data: req.user, message: 'get current auth' });
+  };
+
   public logOut = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     const userData: User = req.user;
 

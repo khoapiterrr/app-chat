@@ -1,4 +1,15 @@
 .avatar {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
+}
+.fixedLogo {
+  position: fixed;
+  z-index: 22;
+  width: 70px;
+  height: 70px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  left: 0;
+  background-color: #ff5e3a;
 }

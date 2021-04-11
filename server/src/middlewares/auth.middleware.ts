@@ -3,14 +3,16 @@ import jwt from 'jsonwebtoken';
 import HttpException from '../exceptions/HttpException';
 import { DataStoredInToken, RequestWithUser } from '../interfaces/auth.interface';
 import userModel from '../models/users.model';
+import { isEmpty } from '../utils/util';
 
 const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFunction) => {
   try {
-    const cookies = req.cookies;
+    const authorization = req.headers.authorization as string;
 
-    if (cookies?.Authorization) {
+    if (!isEmpty(authorization) && authorization.match(/^Bearer /g)) {
+      const token = authorization.split(' ')[1];
       const secret = process.env.JWT_SECRET;
-      const verificationResponse = (await jwt.verify(cookies.Authorization, secret)) as DataStoredInToken;
+      const verificationResponse = (await jwt.verify(token, secret)) as DataStoredInToken;
       const userId = verificationResponse._id;
       const findUser = await userModel.findById(userId);
 

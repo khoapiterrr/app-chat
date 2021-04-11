@@ -35,6 +35,7 @@ const SignIn: React.FC<IProps> = ({ goToSignUp }) => {
   ] = useToggleModal();
   const dispatch = useDispatch();
   const signInLoading = useSelector(selectors.selectSignInLoading);
+  const signInError = useSelector(selectors.selectSignInError);
 
   const {
     LINK_LOGIN_FACEBOOK,
@@ -96,7 +97,7 @@ const SignIn: React.FC<IProps> = ({ goToSignUp }) => {
                     />
                   </FormGroup>
 
-                  <div className='remember'>
+                  <div className='remember' style={{ margin: 0 }}>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -116,6 +117,9 @@ const SignIn: React.FC<IProps> = ({ goToSignUp }) => {
                       <FormattedMessage id='Auth.form.forgotPassword.label' />
                     </a>
                   </div>
+                  {signInError && (
+                    <p className='text-danger pb-3 pt-2'>{signInError}</p>
+                  )}
                   <button
                     type='submit'
                     disabled={signInLoading}
@@ -148,10 +152,10 @@ const SignIn: React.FC<IProps> = ({ goToSignUp }) => {
                     />
                   </a>
                   <p>
-                    <FormattedMessage id='Auth.form.question.haveAccount' /> !{' '}
+                    <FormattedMessage id='Auth.form.question.haveAccount' /> !
                     <a href=' #' onClick={goToSignUp}>
                       <FormattedMessage id='Auth.form.button.register-now' />!
-                    </a>{' '}
+                    </a>
                     <FormattedMessage
                       id='Auth.form.question.haveAccount.decs'
                       defaultMessage=' messages not found Language'

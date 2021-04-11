@@ -23,6 +23,7 @@ import { MuiThemeProvider } from '@material-ui/core';
 import theme from 'constants/themes';
 import './app.scss';
 import { BrowserRouter, Route } from 'react-router-dom';
+import CustomSnackbar from 'components/Snackbar';
 
 const store = configStore();
 // const store = configStore();
@@ -31,6 +32,7 @@ function App() {
     <Suspense fallback={<Spinner />}>
       <Provider store={store}>
         <MuiThemeProvider theme={theme}>
+          <CustomSnackbar />
           <LanguageProvider messages={translationMessages}>
             <ConnectedRouter history={getHistory()}>
               {/* <PreLoader /> */}

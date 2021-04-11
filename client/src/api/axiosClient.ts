@@ -15,6 +15,7 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(async (config: AxiosRequestConfig) => {
   const token = isAuthenticated();
   if (token) {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     config.headers.Authorization = `Bearer ${token}`;
   }
 

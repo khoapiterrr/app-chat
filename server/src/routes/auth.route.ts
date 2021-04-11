@@ -22,6 +22,8 @@ class AuthRoute implements Route {
     this.router.post('/login', validationMiddleware(LoginUserDto, 'body'), this.authController.logIn);
     this.router.post('/logout', authMiddleware, this.authController.logOut);
 
+    this.router.get('/me', authMiddleware, this.authController.getCurrentAuth);
+
     this.router.get(
       '/facebook',
       passport.authenticate('facebook', {

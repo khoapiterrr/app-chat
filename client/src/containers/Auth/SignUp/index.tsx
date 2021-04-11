@@ -7,8 +7,15 @@ import { useIntl, FormattedMessage } from 'react-intl';
 import './styles.scss';
 import { FormGroup } from 'reactstrap';
 import SelectField from 'custom-fields/SelectField';
+import { useDispatch, useSelector } from 'react-redux';
+import authActionCreator from '../actions';
+import authSelectors from '../selectors';
 
-const SignUp = () => {
+interface IProps {
+  goToSign?: any;
+}
+
+const SignUp: React.FC<IProps> = ({ goToSign }) => {
   const { formatMessage } = useIntl();
   const initialValues = {
     firstName: '',
@@ -17,8 +24,16 @@ const SignUp = () => {
     password: '',
     gender: '',
   };
-  const onSubmit = (values: any) => {
+  const dispatch = useDispatch();
+  const signupError = useSelector(authSelectors.selectSigUpError);
+  const onSubmit = (values: any, actions: any) => {
     console.log(values, 'submit');
+    dispatch(
+      authActionCreator.doSignUp(values, () => {
+        goToSign();
+        actions.resetForm();
+      }),
+    );
   };
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required(
@@ -53,7 +68,7 @@ const SignUp = () => {
         onSubmit={onSubmit}>
         {(formikProps) => {
           const { values, errors, touched, isSubmitting } = formikProps;
-          console.log(values, errors, touched, isSubmitting);
+
           return (
             <Form className='content'>
               <div className='row'>
@@ -146,9 +161,14 @@ const SignUp = () => {
                       />
                     </div>
                   </div>
-                  <a href=' #' className='btn btn-purple btn-lg full-width'>
+                  {signupError && (
+                    <p className='text-danger pt-2 pb-3'>{signupError}</p>
+                  )}
+                  <button
+                    type='submit'
+                    className='btn btn-purple btn-lg full-width'>
                     <FormattedMessage id='Auth.form.button.submit.register' />
-                  </a>
+                  </button>
                 </div>
               </div>
             </Form>

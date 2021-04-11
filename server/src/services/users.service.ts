@@ -34,8 +34,7 @@ class UserService {
   public async updateUser(userId: string, userData: User): Promise<User> {
     if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
 
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
-    const updateUserById: User = await this.users.findByIdAndUpdate(userId, { ...userData, password: hashedPassword });
+    const updateUserById: User = await this.users.findByIdAndUpdate(userId, { ...userData });
     if (!updateUserById) throw new HttpException(409, "You're not user");
 
     return updateUserById;

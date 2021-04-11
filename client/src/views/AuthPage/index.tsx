@@ -29,7 +29,7 @@ const AuthPage = () => {
       <AuthHeader />
 
       <div className='header-spacer--standard'></div>
-      <LoginPage>
+      <LoginPage onClickChangeTab={onClickChangeTab}>
         <SignTabs tabCurrent={activeTab} onClickChangeTab={onClickChangeTab} />
       </LoginPage>
     </React.Fragment>

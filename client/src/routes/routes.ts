@@ -1,18 +1,22 @@
 import IRoute from 'core/interfaces/IRoute';
 
-const routes: IRoute[] = [
-  {
-    path: '/',
-    exact: true,
-    loader: () => import('views/HomePage'),
-    label: 'Trang chủ',
-  },
+const privateRoutes: IRoute[] = [
   {
     path: '/messages',
     exact: true,
     loader: () => import('views/MessagesPage'),
     label: 'Messages',
   },
+
+  {
+    path: '/',
+    exact: false,
+    loader: () => import('views/HomePage'),
+    label: 'Trang chủ',
+  },
+];
+
+const authRoutes: IRoute[] = [
   {
     path: '/login',
     exact: true,
@@ -20,5 +24,47 @@ const routes: IRoute[] = [
     label: 'Login',
   },
 ];
+const homeRoutes: IRoute[] = [
+  {
+    path: '/search',
+    exact: true,
+    loader: () => import('views/SearchPage'),
+    label: 'search',
+  },
+  {
+    path: '/account',
+    exact: false,
+    loader: () => import('views/YourAccount'),
+    label: 'YourAccount',
+  },
+];
+
+const accountRoutes: IRoute[] = [
+  {
+    path: '/personal-info',
+    exact: true,
+    loader: () => import('containers/Account/PersonalInfo'),
+    label: 'PersonalInfo',
+  },
+  {
+    path: '/notification',
+    exact: true,
+    loader: () => import('containers/Account/Notifications'),
+    label: 'Notifications',
+  },
+  {
+    path: '/friend-requests',
+    exact: true,
+    loader: () => import('containers/Account/FriendRequest'),
+    label: 'FriendRequest',
+  },
+  {
+    path: '/change-password',
+    exact: true,
+    loader: () => import('containers/Account/ChangePwd'),
+    label: 'ChangePwd',
+  },
+];
+const routes = { authRoutes, privateRoutes, homeRoutes, accountRoutes };
 
 export default routes;

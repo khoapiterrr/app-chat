@@ -56,10 +56,10 @@ const SignTabs: React.FC<IProps> = ({
         {/* Tab panes */}
         <TabContent activeTab={tabCurrent}>
           <TabPane tabId='login'>
-            <SignIn />
+            <SignIn goToSignUp={() => onClickChangeTab('register')} />
           </TabPane>
           <TabPane tabId='register'>
-            <SignUp />
+            <SignUp goToSign={() => onClickChangeTab('login')} />
           </TabPane>
         </TabContent>
       </div>

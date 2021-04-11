@@ -15,17 +15,32 @@ import errorMiddleware from './middlewares/error.middleware';
 // API keys and Passport configuration
 import * as passportConfig from './config/passport';
 import { logger, stream } from './utils/logger';
-
+import SocketIO from 'socket.io';
+import { createServer, Server } from 'http';
+import ServerSocket from './sockets';
 class App {
   public app: express.Application;
   public port: string | number;
   public env: string;
+  private io: SocketIO.Server;
+  private server: Server;
+  private serverSocket: ServerSocket;
 
   constructor(routes: Routes[]) {
     this.app = express();
     this.port = process.env.PORT || 3000;
     this.env = process.env.NODE_ENV || 'development';
+    //setting socket
+    this.server = createServer(this.app);
+    // this.server = new Server(this.app);
 
+    this.io = new SocketIO.Server(this.server, {
+      cors: {
+        origin: true,
+      },
+    });
+    // this.io.listen(this.server);
+    this.serverSocket = new ServerSocket(this.io);
     this.connectToDatabase();
     this.initializePassport();
     this.initializeMiddlewares();
@@ -35,9 +50,12 @@ class App {
   }
 
   public listen() {
-    this.app.listen(this.port, () => {
+    this.server.listen(this.port, () => {
       logger.info(`🚀 App listening on the port ${this.port}`);
     });
+    // this.server.listen(this.port, () => {
+    //   console.log('serrver listening on port ' + this.port);
+    // });
   }
 
   public getServer() {
@@ -77,8 +95,10 @@ class App {
 
   private initializeRoutes(routes: Routes[]) {
     routes.forEach(route => {
-      this.app.use(route.path, route.router);
+      this.app.use(`/apiv1${route.path}`, route.router);
     });
+
+    this.serverSocket.initializeSocket();
   }
 
   private initializeSwagger() {

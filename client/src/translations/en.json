@@ -38,5 +38,19 @@
   "Auth.form.password.error.mainLength": "Your password must be at least 6 characters",
 
   "Auth.form.rememberMe.label": "Remember me",
-  "Auth.form.forgotPassword.label": "Forgot my Password"
+  "Auth.form.forgotPassword.label": "Forgot my Password",
+
+  "Auth.form.yourWebsite.label": "Your Website",
+  "Auth.form.birthplace.label": "Your Birthplace",
+  "Auth.form.country.label": "Your Country",
+  "Auth.form.province.label": "Your State / Province",
+  "Auth.form.facebook.label": "Your Facebook Account",
+  "Auth.form.twitter.label": "Your Twitter Account",
+  "Auth.form.spotify.label": "Your Spotify Account",
+  "Auth.form.city.label": "Your City",
+  "Auth.form.phoneNumber.label": "Your Phone Number",
+  "Auth.form.description.label": "Write a little description about you",
+
+  "Account.personalInfo.label": "Personal Information",
+  "Account.personalInfo.submitSuccess": "Update profile successfully"
 }
