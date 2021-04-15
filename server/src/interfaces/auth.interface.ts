@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import { ParamsRequest } from './app';
 import { User } from './users.interface';
 
 export interface DataStoredInToken {
@@ -12,4 +13,5 @@ export interface TokenData {
 
 export interface RequestWithUser extends Request {
   user: User;
+  pagination: ParamsRequest;
 }

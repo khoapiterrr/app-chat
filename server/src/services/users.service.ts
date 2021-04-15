@@ -3,13 +3,50 @@ import { CreateUserDto } from '../dtos/users.dto';
 import HttpException from '../exceptions/HttpException';
 import { User } from '../interfaces/users.interface';
 import userModel from '../models/users.model';
+import contactModel from '../models/contact.model';
 import { isEmpty } from '../utils/util';
+import { DefaultObject, ParamsRequest } from '../interfaces/app';
+import FriendService from './friend.service';
 
 class UserService {
   public users = userModel;
+  public contacts = contactModel;
+  public friendService = new FriendService();
 
-  public async findAllUser(): Promise<User[]> {
-    const users: User[] = await this.users.find();
+  public async findAllUser(queryParams: ParamsRequest): Promise<User[]> {
+    const { page, offset, size, keyword, sorts } = queryParams;
+    const reg = new RegExp(keyword, 'i');
+
+    const users: User[] = await this.users.aggregate([
+      {
+        $project: {
+          fullname: { $concat: ['$firstName', ' ', '$lastName'] },
+          fullname1: { $concat: ['$lastName', ' ', '$firstName'] },
+          email: 1,
+          phoneNumber: 1,
+          firstName: 1,
+          lastName: 1,
+          avatar: 1,
+          // id: '$_id',
+        },
+      },
+      {
+        $match: {
+          $or: [{ fullname: reg }, { fullname1: reg }, { email: reg }, { phoneNumber: reg }],
+        },
+      },
+      {
+        $project: {
+          fullname: 0,
+          fullname1: 0,
+          email: 0,
+          phoneNumber: 0,
+        },
+      },
+      { $sort: { createdAt: 1 } },
+      // { $skip: offset },
+      // { $limit: size },
+    ]);
     return users;
   }
 
@@ -46,6 +83,101 @@ class UserService {
 
     return deleteUserById;
   }
+
+  public async findFriend(currentUser: User, queryParams: ParamsRequest) {
+    const currentUserId: string = currentUser._id;
+    const users: User[] = await this.findAllUser(queryParams);
+    const usersId = [];
+
+    users.forEach(user => usersId.push(user._id));
+
+    const contacts = await this.contacts.find({
+      $or: [
+        {
+          $and: [
+            {
+              userId: currentUserId,
+            },
+            {
+              contactId: { $in: usersId },
+            },
+          ],
+        },
+        {
+          $and: [
+            {
+              contactId: currentUserId,
+            },
+            {
+              userId: { $in: usersId },
+            },
+          ],
+        },
+      ],
+    });
+
+    const responseUsers = [];
+
+    users.forEach(userItem => {
+      const tmpItem = { ...userItem, type: 'notContact' };
+
+      if (userItem._id.toString() === currentUserId.toString()) {
+        tmpItem.type = 'you';
+      } else {
+        contacts.forEach(contactItem => {
+          if (userItem._id.toString() === contactItem.userId.toString()) {
+            // request sent
+            if (!!contactItem.status) {
+              // accepted
+              tmpItem.type = 'contact';
+              return;
+            } else {
+              tmpItem.type = 'request';
+              return;
+            }
+          } else if (userItem._id.toString() == contactItem.contactId.toString()) {
+            // request
+            if (!!contactItem.status) {
+              // accepted
+              tmpItem.type = 'contact';
+              return;
+            } else {
+              tmpItem.type = 'requestSent';
+              return;
+            }
+          }
+        });
+      }
+      responseUsers.push(tmpItem);
+    });
+
+    return responseUsers;
+  }
+
+  // TODO: random users to friendSuggestions
+  public friendSuggestions = async (userId: string) => {
+    const listFriend = await this.friendService.findListFriendByUserId(userId);
+    const friends = [userId];
+    if (!isEmpty(listFriend)) {
+      friends.push(...listFriend.friends);
+    }
+    const filter: DefaultObject = {
+      $and: [
+        {
+          _id: { $nin: friends },
+        },
+      ],
+    };
+
+    const friendSuggestions: User[] = await this.users.find({ ...filter });
+    friendSuggestions?.map(async item => {
+      // console.log(item._id, userId);
+      // const mutualFriend = await this.friendService.findMutualFriend(item._id, userId);
+      // console.log(mutualFriend, 'mutualFriend');
+      return { ...item };
+    });
+    return friendSuggestions;
+  };
 }
 
 export default UserService;

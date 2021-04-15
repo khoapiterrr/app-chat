@@ -7,7 +7,11 @@ const friendsSchema: Schema = new Schema({
     type: Types.ObjectId,
     ref: SCHEMA_NAME.users,
   },
-  friends: [Types.ObjectId],
+  friends: [
+    {
+      type: Types.ObjectId,
+    },
+  ],
 });
 
 const friendsModel = model<Friends & Document>(SCHEMA_NAME.friends, friendsSchema);

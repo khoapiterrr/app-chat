@@ -1,19 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto } from '../dtos/users.dto';
+import { RequestWithUser } from '../interfaces/auth.interface';
 import { User } from '../interfaces/users.interface';
 import userService from '../services/users.service';
 
 class UsersController {
   public userService = new userService();
-
-  public getUsers = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const findAllUsersData: User[] = await this.userService.findAllUser();
-      res.status(200).json({ data: findAllUsersData, message: 'findAll' });
-    } catch (error) {
-      next(error);
-    }
-  };
 
   public getUserById = async (req: Request, res: Response, next: NextFunction) => {
     const userId: string = req.params.id;
@@ -59,9 +51,22 @@ class UsersController {
       next(error);
     }
   };
-  public findFriend = async (req: Request) => {
-    const keyword: string = req.query.q as string;
-    console.log(keyword);
+
+  public findFriend = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const response = await this.userService.findFriend(req.user, req.pagination);
+      res.status(200).json({ data: response, message: 'findFriend' });
+    } catch (error) {
+      next(error);
+    }
+  };
+  public findFriendSuggestions = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const response = await this.userService.friendSuggestions(req.user._id);
+      res.status(200).json({ data: response, message: 'findFriendSuggestions' });
+    } catch (error) {
+      next(error);
+    }
   };
 }
 

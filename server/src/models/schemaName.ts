@@ -4,4 +4,5 @@ export const SCHEMA_NAME = {
   friends: 'friends',
   roles: 'roles',
   contact: 'contact',
+  groupsChat: 'groupsChat',
 };
