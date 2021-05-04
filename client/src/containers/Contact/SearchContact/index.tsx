@@ -3,21 +3,34 @@ import NotFoundResult from 'assets/images/no_results_gray_wash.svg';
 import './styles.scss';
 import AvatarDefault from 'assets/images/default-avatar.png';
 import CustomSvgIcons from 'components/CustomSvgIcons';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { useDispatch } from 'react-redux';
+import contactActionCreator from '../actions';
 
 interface IProps {
   keyword?: any;
 }
 
 const SearchContact: React.FC<IProps> = ({ keyword }) => {
-  const [resultSearch, setResultSearch]: [
-    resultSearch: any,
-    setResultSearch: any,
-  ] = React.useState();
-
-  React.useEffect(() => {}, [keyword]);
+  const [resultSearch, setResultSearch] = React.useState<any[]>();
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    let isCancelled = false;
+    dispatch(
+      contactActionCreator.fetchSearchFriendCB(keyword, (res: any) => {
+        if (!isCancelled) {
+          console.log(res, 'his ae');
+          setResultSearch(res);
+        }
+      }),
+    );
+    return () => {
+      isCancelled = true;
+    };
+  }, [keyword]);
   return (
     <div className='SearchContact'>
-      {resultSearch?.length > 0 ? (
+      {resultSearch && !(resultSearch?.length > 0) ? (
         <div className='notfound'>
           <img src={NotFoundResult} alt='' />
           <br />
@@ -28,30 +41,40 @@ const SearchContact: React.FC<IProps> = ({ keyword }) => {
       ) : (
         <div className='ui-block'>
           <div className='ui-block-title'>
-            <h6 className='title'>Kết quả tìm kiếm "{keyword}"</h6>
+            <h6 className='title'>
+              <FormattedMessage id='Result.search.searchPage' /> "{keyword}"
+            </h6>
           </div>
           <ul className='widget w-friend-pages-added notification-list friend-requests'>
-            <li className='inline-items'>
-              <div className='author-thumb'>
-                <img src={AvatarDefault} style={{ width: 32 }} alt='author' />
-              </div>
-              <div className='notification-event'>
-                <a href='#' className='h6 notification-friend'>
-                  Francine Smith
-                </a>
-                <span className='chat-message-item'>8 Friends in Common</span>
-              </div>
-              <span className='notification-icon'>
-                <a href='#' className='accept-request'>
-                  <span className='icon-add without-text'>
-                    <CustomSvgIcons
-                      className='olymp-happy-face-icon'
-                      id='olymp-happy-face-icon'
-                    />
+            {resultSearch?.map((item) => (
+              <li className='inline-items'>
+                <div className='author-thumb'>
+                  <img
+                    src={item?.avatar ?? AvatarDefault}
+                    style={{ width: 32 }}
+                    alt='author'
+                  />
+                </div>
+                <div className='notification-event'>
+                  <a href='#' className='h6 notification-friend'>
+                    {`${item.firstName} ${item.lastName}`}
+                  </a>
+                  <span className='chat-message-item'>8 Friends in Common</span>
+                </div>
+                {item.type !== 'you' ? (
+                  <span className='notification-icon'>
+                    <a href='#' className='accept-request'>
+                      <span className='icon-add without-text'>
+                        <CustomSvgIcons
+                          className='olymp-happy-face-icon'
+                          id='olymp-happy-face-icon'
+                        />
+                      </span>
+                    </a>
                   </span>
-                </a>
-              </span>
-            </li>
+                ) : null}
+              </li>
+            ))}
           </ul>
         </div>
       )}

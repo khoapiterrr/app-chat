@@ -1,81 +1,37 @@
 import { Dispatch } from 'react';
 import { AnyAction as Action } from 'redux';
 import IAuthActionCreator from '../../core/actions/IAuthActionCreator';
-import { fetchCurrentAuth, postSignIn, postSignUp } from './service';
+import { fetchFriendSuggestions, fetchSearchFriends } from './service';
 import { getHistory } from 'app/store';
 import * as constants from './constants';
 import Errors from 'containers/shared/handleError';
 import { showSnackbar } from 'containers/layout/actions';
 import { alertType } from 'constants/constants';
 import { ISignUp } from './interfaces';
+import IContactActionCreator from 'core/actions/IContactActionCreator';
 
-const authActionCreator: IAuthActionCreator = {
-  doInitLoadingDone: (): Action => {
-    return { type: constants.SIGNIN_INIT_LOADING_DONE };
-  },
-
-  doClearErrorMessage: (): Action => {
-    return { type: constants.ERROR_MESSAGE_CLEAR };
-  },
-
-  doSignOut: () => (dispatch: Dispatch<Action>) => {
-    window.localStorage.removeItem('token');
-    getHistory().push('/login');
-    dispatch({ type: 'RESET' });
-  },
-
-  doSignIn: (userInfo) => async (dispatch: Dispatch<any>) => {
+const contactActionCreator: IContactActionCreator = {
+  fetchFriendSuggestionsCB: (callback) => async (dispatch: Dispatch<any>) => {
     try {
-      dispatch({ type: constants.SIGNUP_START });
-
-      // call api: signin
-      let response = await postSignIn(userInfo);
-      console.log(userInfo, 'userInfo');
-      window.localStorage.setItem('token', JSON.stringify(response.data.token));
-      dispatch({
-        type: constants.SIGNIN_SUCCESS,
-        payload: response.data,
-      });
-      getHistory().push('/');
+      const response = await fetchFriendSuggestions();
+      if (callback) {
+        callback(response.data);
+      }
     } catch (error) {
-      dispatch({
-        type: constants.SIGNIN_ERROR,
-        payload: Errors.selectMessage(error),
-      });
+      const mes = Errors.handle(error);
+      if (mes) {
+        dispatch(showSnackbar(mes, alertType.ERROR));
+      }
     }
   },
-
-  doSignUp: (userInfo: ISignUp, callback) => async (
+  fetchSearchFriendCB: (keyword = '', callback) => async (
     dispatch: Dispatch<any>,
   ) => {
     try {
-      dispatch({ type: constants.SIGNUP_START });
-
-      // call api: signin
-      await postSignUp(userInfo);
-
-      dispatch({ type: constants.SIGNUP_SUCCESS });
-      dispatch(showSnackbar('Sign Up Successfully', alertType.SUCCESS));
+      const response = await fetchSearchFriends(keyword);
       if (callback) {
-        callback();
+        callback(response.data);
       }
-    } catch (error) {
-      dispatch({
-        type: constants.SIGNUP_ERROR,
-        payload: Errors.selectMessage(error),
-      });
-    }
-  },
-
-  fetchCurrentUser: () => async (dispatch: Dispatch<any>) => {
-    try {
-      // call api: signin
-      let response = await fetchCurrentAuth();
-      console.log(response, 'response');
-      dispatch({
-        type: constants.SIGNIN_SUCCESS,
-        payload: response.data,
-      });
     } catch (error) {
       const mes = Errors.handle(error);
       if (mes) {
@@ -84,4 +40,5 @@ const authActionCreator: IAuthActionCreator = {
     }
   },
 };
-export default authActionCreator;
+
+export default contactActionCreator;

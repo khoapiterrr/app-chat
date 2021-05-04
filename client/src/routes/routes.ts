@@ -37,6 +37,12 @@ const homeRoutes: IRoute[] = [
     loader: () => import('views/YourAccount'),
     label: 'YourAccount',
   },
+  {
+    path: '/profile/:id',
+    exact: false,
+    loader: () => import('views/ProfilePage'),
+    label: 'ProfilePage',
+  },
 ];
 
 const accountRoutes: IRoute[] = [

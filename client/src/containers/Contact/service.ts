@@ -1,16 +1,15 @@
 import axiosClient from '../../api/axiosClient';
 import { ISignIn, ISignUp } from './interfaces';
+import queryString from 'query-string';
 
-export const postSignIn = async (data: ISignIn) => {
-  const response = await axiosClient.post('/auth/login', data);
-  return response;
+export const fetchFriendSuggestions = () => {
+  return axiosClient.get('/users/findFriendSuggestions');
 };
 
-export const postSignUp = async (data: ISignUp) => {
-  const response = await axiosClient.post('/auth/signup', data);
-  return response;
-};
+export const fetchSearchFriends = (keyword: string) => {
+  const filter = {
+    keyword,
+  };
 
-export const fetchCurrentAuth = async () => {
-  return axiosClient.get('/auth/me');
+  return axiosClient.get(`/users/findFriend?${queryString.stringify(filter)}`);
 };

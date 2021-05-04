@@ -4,6 +4,8 @@ import { useQuery } from 'Hooks/useQuery';
 import CustomSvgIcons from 'components/CustomSvgIcons';
 import FriendSuggestions from 'containers/Contact/FriendSuggestions';
 import SearchContact from 'containers/Contact/SearchContact';
+import AvatarDefault from 'assets/images/default-avatar.png';
+
 const SearchPage = () => {
   const queryParams = useQuery();
   return (
@@ -36,7 +38,6 @@ const SearchPage = () => {
             <SearchContact keyword={queryParams.get('q')} />
           </div>
           <div className='col col-xl-4 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12'>
-            <FriendSuggestions />
             <FriendSuggestions />
           </div>
         </div>

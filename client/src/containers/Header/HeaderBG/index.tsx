@@ -645,7 +645,7 @@ const HeaderBG = () => {
                 </div>
               </div>
             </div>
-            <a href='# ' className='author-name fn'>
+            <Link to='/profile/me' className='author-name fn'>
               <div className='author-title'>
                 {`${currentUser?.firstName} ${currentUser?.lastName}`}
                 <CustomSvgIcons
@@ -654,7 +654,7 @@ const HeaderBG = () => {
                 />
               </div>
               <span className='author-subtitle'>SPACE COWBOY</span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
