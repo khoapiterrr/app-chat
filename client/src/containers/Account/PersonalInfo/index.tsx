@@ -173,7 +173,7 @@ const PersonalInfo = () => {
                     <div className='col col-lg-6 col-md-6 col-sm-12 col-12'>
                       <FormGroup>
                         <FastField
-                          name='birthplace'
+                          name='description'
                           multiline={true}
                           component={InputField}
                           label={formatMessage({

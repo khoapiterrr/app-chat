@@ -13,6 +13,7 @@ import { dbConnection } from './database';
 import Routes from './interfaces/routes.interface';
 import errorMiddleware from './middlewares/error.middleware';
 // API keys and Passport configuration
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as passportConfig from './config/passport';
 import { logger, stream } from './utils/logger';
 import SocketIO from 'socket.io';

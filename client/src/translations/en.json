@@ -52,5 +52,9 @@
   "Auth.form.description.label": "Write a little description about you",
 
   "Account.personalInfo.label": "Personal Information",
-  "Account.personalInfo.submitSuccess": "Update profile successfully"
+  "Account.personalInfo.submitSuccess": "Update profile successfully",
+
+  "Label.title.contact": "Friend Suggestions",
+  "Label.mutualFriend": "Mutual Friends",
+  "Result.search.searchPage": "Results search "
 }

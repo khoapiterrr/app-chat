@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import authSelectors from 'containers/Auth/selectors';
 import authActionCreator from 'containers/Auth/actions';
+import contactActionCreator from 'containers/Contact/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { configSocket } from 'app/rootSocket';
 
@@ -18,6 +19,9 @@ const PrivateRoute: React.FC<any> = ({ component: Component, ...rest }) => {
 
     if (!currentUser && isAuthenticated()) {
       dispatch(authActionCreator.fetchCurrentUser());
+      dispatch(contactActionCreator.listContacts());
+      dispatch(contactActionCreator.listRequests());
+      dispatch(contactActionCreator.listRequestsSent());
     }
   }, []);
   return (

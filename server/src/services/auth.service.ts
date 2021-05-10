@@ -7,9 +7,11 @@ import { DataStoredInToken, TokenData } from '../interfaces/auth.interface';
 import { User } from '../interfaces/users.interface';
 import userModel from '../models/users.model';
 import { isEmpty } from '../utils/util';
+import FriendService from './friend.service';
 
 class AuthService {
   public users = userModel;
+  public friendService = new FriendService();
 
   public async signup(userData: CreateUserDto): Promise<User> {
     if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
@@ -22,7 +24,7 @@ class AuthService {
       ...userData,
       password: hashedPassword,
     });
-
+    this.friendService.addDefaultFriend(createUserData._id);
     return createUserData;
   }
 

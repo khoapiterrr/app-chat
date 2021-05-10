@@ -1,4 +1,8 @@
 import { isAuthenticated } from 'api/permissionChecker';
+import {
+  onAcceptRequestContact,
+  onAddContact,
+} from 'containers/Contact/socket';
 import { io } from 'socket.io-client';
 
 const endpoint: string = process.env.REACT_APP_SOCKET_ENDPOINT as string;
@@ -24,6 +28,9 @@ export const configSocket = () => {
   });
   socket.on('connect', onConnected);
   socket.on('disconnect', onDisconnect);
+  socket.on('res-add-new-contact', onAddContact);
+  socket.on('res-accept-request-contact', onAcceptRequestContact);
+  return socket;
 };
 export default function getSocket() {
   return socket;

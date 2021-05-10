@@ -7,7 +7,7 @@ import AvatarDefault from 'assets/images/default-avatar.png';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 
-const FriendSuggestions = () => {
+const FriendSendRequest = () => {
   const [friendSuggestions, setFriendSuggestions] = React.useState<any[]>();
   const dispatch = useDispatch();
   const handleClickAddFriends = (event: any, contactId: string) => {
@@ -94,4 +94,4 @@ const FriendSuggestions = () => {
   );
 };
 
-export default FriendSuggestions;
+export default FriendSendRequest;

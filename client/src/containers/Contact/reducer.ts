@@ -2,45 +2,169 @@ import { AnyAction as Action } from 'redux';
 import * as constants from './constants';
 import produce from 'immer';
 import IAuthState from 'core/stateApp/IAuthState';
-const initialState: IAuthState = {
+const initialState: any = {
   initLoading: true,
-  signInLoading: false,
-  signUpLoading: false,
-  signInError: null,
-  sigUpError: null,
-  userCurrent: null,
+  dataLoading: false,
+  findLoading: false,
+  saveLoading: false,
+  destroyLoading: false,
+  exportLoading: false,
+  error: null,
+  redirectTo: '/contact',
+  selectedRowKeys: [],
+  selectedRows: [],
+  record: null,
+  contactLoading: false,
+  requestLoading: false,
+  requestSentLoading: false,
+  contacts: [],
+  requests: [],
+  requestsSent: [],
 };
 
 const authReducer = (state = initialState, { type, payload }: Action) =>
-  produce(state, (draft) => {
+  produce(state, (draft: any) => {
     switch (type) {
-      case constants.SIGNIN_INIT_LOADING_DONE:
-        draft.initLoading = false;
+      case constants.CONTACT_REQUEST_ADDED:
+        draft.requests.push(payload);
         break;
-      case constants.SIGNIN_START:
-        draft.signInLoading = true;
-        draft.signInError = null;
+      case constants.CONTACT_REQUEST_ADD:
+        // Tìm trong danh sách request đã tồn tại request này chưa?
+        let existsRequest = state.requests.filter(
+          (item: any) => item._id === payload._id,
+        );
+
+        if (existsRequest.length === 0) {
+          draft.requests.push(payload);
+        }
         break;
-      case constants.SIGNIN_SUCCESS:
-        draft.signInLoading = false;
-        draft.signInError = null;
-        draft.userCurrent = payload;
+      case constants.CONTACT_CREATE_START:
+        draft.saveLoading = true;
+        draft.error = null;
         break;
-      case constants.SIGNIN_ERROR:
-        draft.signInLoading = false;
-        draft.signInError = payload || null;
+      case constants.CONTACT_CREATE_SUCCESS:
+        draft.saveLoading = false;
+        draft.error = null;
         break;
-      case constants.SIGNUP_START:
-        draft.signUpLoading = true;
-        draft.sigUpError = null;
+      case constants.CONTACT_CREATE_ERROR:
+        draft.saveLoading = false;
+        draft.error = payload;
         break;
-      case constants.SIGNUP_SUCCESS:
-        draft.signUpLoading = false;
-        draft.sigUpError = null;
+      case constants.CONTACT_GET_START:
+        draft.contactLoading = true;
+        draft.error = null;
         break;
-      case constants.SIGNUP_ERROR:
-        draft.signUpLoading = false;
-        draft.sigUpError = payload || null;
+      case constants.CONTACT_GET_SUCCESS:
+        draft.contactLoading = false;
+        draft.contacts = payload;
+        draft.error = null;
+        break;
+      case constants.CONTACT_GET_ERROR:
+        draft.contactLoading = false;
+        draft.error = payload;
+        break;
+      case constants.REQUEST_GET_START:
+        draft.requestLoading = true;
+        draft.error = null;
+        break;
+      case constants.REQUEST_GET_SUCCESS:
+        draft.requestLoading = false;
+        draft.requests = payload;
+        draft.error = null;
+        break;
+      case constants.REQUEST_GET_ERROR:
+        draft.requestLoading = false;
+        draft.error = payload;
+        break;
+      case constants.REQUEST_SENT_GET_START:
+        draft.requestSentLoading = true;
+        draft.error = null;
+        break;
+      case constants.REQUEST_SENT_GET_SUCCESS:
+        draft.requestSentLoading = false;
+        draft.requestsSent = payload;
+        draft.error = null;
+        break;
+      case constants.REQUEST_SENT_GET_ERROR:
+        draft.requestSentLoading = false;
+        draft.error = payload;
+        break;
+      case constants.CONTACT_UPDATE_START:
+        draft.saveLoading = true;
+        draft.error = null;
+        break;
+      case constants.CONTACT_UPDATE_SUCCESS:
+        draft.saveLoading = false;
+        draft.contacts.push(payload);
+        draft.requests = state.requests.filter(
+          (item: any) => item._id !== payload._id,
+        );
+        draft.error = null;
+        break;
+      case constants.CONTACT_UPDATE_ERROR:
+        draft.saveLoading = false;
+        draft.error = payload;
+        break;
+      case constants.CONTACT_DESTROY_START:
+        draft.destroyLoading = true;
+        draft.error = null;
+        break;
+      case constants.CONTACT_DESTROY_SUCCESS:
+        draft.destroyLoading = false;
+        draft.contacts = state.contacts.filter(
+          (contact: any) => contact.id !== payload,
+        );
+        draft.error = null;
+        break;
+      case constants.CONTACT_DESTROY_ERROR:
+        draft.destroyLoading = false;
+        draft.error = payload;
+        break;
+      case constants.REQUEST_DESTROY_START:
+        draft.destroyLoading = true;
+        draft.error = null;
+        break;
+      case constants.REQUEST_DESTROY_SUCCESS:
+        draft.destroyLoading = false;
+        draft.requests = state.requests.filter(
+          (contact: any) => contact._id !== payload,
+        );
+        draft.error = null;
+        break;
+      case constants.REQUEST_DESTROY_ERROR:
+        draft.destroyLoading = false;
+        draft.error = payload;
+        break;
+      case constants.REQUEST_SENT_DESTROY_START:
+        draft.destroyLoading = true;
+        draft.error = null;
+        break;
+      case constants.REQUEST_SENT_DESTROY_SUCCESS:
+        draft.destroyLoading = false;
+        draft.requestsSent = state.requestsSent.filter(
+          (contact: any) => contact.id !== payload,
+        );
+        draft.error = null;
+        break;
+      case constants.REQUEST_SENT_DESTROY_ERROR:
+        draft.destroyLoading = false;
+        draft.error = payload;
+        break;
+      case constants.CONTACT_FIND_START:
+        draft.findLoading = true;
+        draft.error = null;
+        break;
+      case constants.CONTACT_FIND_SUCCESS:
+        draft.findLoading = false;
+        draft.record = payload;
+        draft.error = null;
+        break;
+      case constants.CONTACT_FIND_ERROR:
+        draft.findLoading = false;
+        draft.error = payload;
+        break;
+
+      default:
         break;
     }
   });
