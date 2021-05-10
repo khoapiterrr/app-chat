@@ -1,40 +1,57 @@
-import RootState from 'core/stateApp/RootState';
 import { createSelector } from 'reselect';
 
-const selectRaw = (state: RootState) => state.auth;
-
-// select errors
-const selectSignInError = createSelector(
-  [selectRaw],
-  (auth) => auth?.signInError,
-);
-
-const selectSigUpError = createSelector(
-  [selectRaw],
-  (auth) => auth?.sigUpError,
-);
+const selectRaw = (state: any) => state.contact;
 
 const selectInitLoading = createSelector(
   [selectRaw],
-  (auth) => auth?.initLoading,
+  (contact) => contact.initLoading,
 );
 
-const selectSignInLoading = createSelector(
+const selectSaveLoading = createSelector(
   [selectRaw],
-  (auth) => auth?.signInLoading,
+  (contact) => contact.saveLoading,
 );
 
-const selectCurrentUser = createSelector(
+const selectDestroyLoading = createSelector(
   [selectRaw],
-  (auth) => auth?.userCurrent,
+  (contact) => contact.destroyLoading,
 );
+
+const selectFindLoading = createSelector(
+  [selectRaw],
+  (contact) => contact.findLoading,
+);
+
+const selectErrorMessage = createSelector(
+  [selectRaw],
+  (contact) => contact.error,
+);
+
+const selectContacts = createSelector(
+  [selectRaw],
+  (contact) => contact.contacts,
+);
+const selectRequests = createSelector(
+  [selectRaw],
+  (contact) => contact.requests,
+);
+const selectRequestsSent = createSelector(
+  [selectRaw],
+  (contact) => contact.requestsSent,
+);
+
+const selectRecord = createSelector([selectRaw], (contact) => contact.record);
 
 const selectors = {
-  selectSigUpError,
-  selectSignInError,
   selectInitLoading,
-  selectCurrentUser,
-  selectSignInLoading,
+  selectSaveLoading,
+  selectErrorMessage,
+  selectContacts,
+  selectRequests,
+  selectRequestsSent,
+  selectDestroyLoading,
+  selectRecord,
+  selectFindLoading,
 };
 
 export default selectors;

@@ -7,6 +7,7 @@ import bgDefault from 'assets/images/bgDefault.jpg';
 import AvatarDefault from 'assets/images/default-avatar.png';
 import CustomSvgIcons from 'components/CustomSvgIcons';
 import { User } from 'core/api/user.interface';
+import avatar38 from 'assets/images/avatar38-sm.jpg';
 
 interface ParamTypes {
   id: string | undefined;
@@ -242,32 +243,32 @@ const Profile: React.FC = () => {
                     <ul className='friends-harmonic'>
                       <li>
                         <a href='#'>
-                          <img src='img/friend-harmonic7.jpg' alt='friend' />
+                          <img src={avatar38} alt='friend' />
                         </a>
                       </li>
                       <li>
                         <a href='#'>
-                          <img src='img/friend-harmonic8.jpg' alt='friend' />
+                          <img src={avatar38} alt='friend' />
                         </a>
                       </li>
                       <li>
                         <a href='#'>
-                          <img src='img/friend-harmonic9.jpg' alt='friend' />
+                          <img src={avatar38} alt='friend' />
                         </a>
                       </li>
                       <li>
                         <a href='#'>
-                          <img src='img/friend-harmonic10.jpg' alt='friend' />
+                          <img src={avatar38} alt='friend' />
                         </a>
                       </li>
                       <li>
                         <a href='#'>
-                          <img src='img/friend-harmonic11.jpg' alt='friend' />
+                          <img src={avatar38} alt='friend' />
                         </a>
                       </li>
                     </ul>
                     <div className='names-people-likes'>
-                      <a href='#'>Jenny</a>, <a href='#'>Robert</a> and
+                      <a href='#'>KhoaPiterr</a> and
                       <br />6 more liked this
                     </div>
                     <div className='comments-shared'>
@@ -331,24 +332,8 @@ const Profile: React.FC = () => {
                   <li>
                     <span className='title'>About Me:</span>
                     <span className='text'>
-                      Hi, I’m James, I’m 36 and I work as a Digital Designer for
-                      the “Daydreams” Agency in Pier 56.
-                    </span>
-                  </li>
-                  <li>
-                    <span className='title'>Favourite TV Shows:</span>
-                    <span className='text'>
-                      Breaking Good, RedDevil, People of Interest, The Running
-                      Dead, Found, American Guy.
-                    </span>
-                  </li>
-                  <li>
-                    <span className='title'>
-                      Favourite Music Bands / Artists:
-                    </span>
-                    <span className='text'>
-                      Iron Maid, DC/AC, Megablow, The Ill, Kung Fighters, System
-                      of a Revenge.
+                      Hi, I’m Khoapiterrr, I’m 21 and I work as a Digital
+                      Designer
                     </span>
                   </li>
                 </ul>
@@ -356,15 +341,17 @@ const Profile: React.FC = () => {
                 {/* W-Socials */}
                 <div className='widget w-socials'>
                   <h6 className='title'>Other Social Networks:</h6>
-                  {profileUser?.facebookLink && (
-                    <a
-                      href={profileUser?.facebookLink}
-                      target='_blank'
-                      className='social-item bg-facebook'>
-                      <i className='fab fa-facebook-f' aria-hidden='true' />
-                      Facebook
-                    </a>
-                  )}
+
+                  <a
+                    href={
+                      profileUser?.facebookLink ??
+                      'https://www.facebook.com/KhoaPiterrr/'
+                    }
+                    target='_blank'
+                    className='social-item bg-facebook'>
+                    <i className='fab fa-facebook-f' aria-hidden='true' />
+                    Facebook
+                  </a>
 
                   {profileUser?.twitterLink && (
                     <a
@@ -392,72 +379,72 @@ const Profile: React.FC = () => {
                 <ul className='widget w-faved-page js-zoom-gallery'>
                   <li>
                     <a href='#'>
-                      <img src='img/avatar38-sm.jpg' alt='author' />
+                      <img src={avatar38} alt='author' />
                     </a>
                   </li>
                   <li>
                     <a href='#'>
-                      <img src='img/avatar24-sm.jpg' alt='user' />
+                      <img src={avatar38} alt='user' />
                     </a>
                   </li>
                   <li>
                     <a href='#'>
-                      <img src='img/avatar36-sm.jpg' alt='author' />
+                      <img src={avatar38} alt='author' />
                     </a>
                   </li>
                   <li>
                     <a href='#'>
-                      <img src='img/avatar35-sm.jpg' alt='user' />
+                      <img src={avatar38} alt='user' />
                     </a>
                   </li>
                   <li>
                     <a href='#'>
-                      <img src='img/avatar34-sm.jpg' alt='author' />
+                      <img src={avatar38} alt='author' />
                     </a>
                   </li>
                   <li>
                     <a href='#'>
-                      <img src='img/avatar33-sm.jpg' alt='author' />
+                      <img src={avatar38} alt='author' />
                     </a>
                   </li>
                   <li>
                     <a href='#'>
-                      <img src='img/avatar32-sm.jpg' alt='user' />
+                      <img src={avatar38} alt='user' />
                     </a>
                   </li>
                   <li>
                     <a href='#'>
-                      <img src='img/avatar31-sm.jpg' alt='author' />
+                      <img src={avatar38} alt='author' />
                     </a>
                   </li>
                   <li>
                     <a href='#'>
-                      <img src='img/avatar30-sm.jpg' alt='author' />
+                      <img src={avatar38} alt='author' />
                     </a>
                   </li>
                   <li>
                     <a href='#'>
-                      <img src='img/avatar29-sm.jpg' alt='user' />
+                      <img src={avatar38} alt='user' />
                     </a>
                   </li>
                   <li>
                     <a href='#'>
-                      <img src='img/avatar28-sm.jpg' alt='user' />
+                      <img src={avatar38} alt='user' />
                     </a>
                   </li>
                   <li>
                     <a href='#'>
-                      <img src='img/avatar27-sm.jpg' alt='user' />
+                      <img src={avatar38} alt='user' />
                     </a>
                   </li>
                   <li>
                     <a href='#'>
-                      <img src='img/avatar26-sm.jpg' alt='user' />
+                      <img src={avatar38} alt='user' />
                     </a>
                   </li>
                   <li>
                     <a href='#'>
-                      <img src='img/avatar25-sm.jpg' alt='user' />
+                      <img src={avatar38} alt='user' />
                     </a>
                   </li>
                   <li className='all-users'>
