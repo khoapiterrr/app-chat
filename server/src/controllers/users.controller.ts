@@ -3,9 +3,11 @@ import { CreateUserDto } from '../dtos/users.dto';
 import { RequestWithUser } from '../interfaces/auth.interface';
 import { User } from '../interfaces/users.interface';
 import userService from '../services/users.service';
+import friendService from '../services/friend.service';
 
 class UsersController {
   public userService = new userService();
+  public friendService = new friendService();
 
   public getUserById = async (req: Request, res: Response, next: NextFunction) => {
     const userId: string = req.params.id;
@@ -64,6 +66,15 @@ class UsersController {
     try {
       const response = await this.userService.friendSuggestions(req.user._id);
       res.status(200).json({ data: response, message: 'findFriendSuggestions' });
+    } catch (error) {
+      next(error);
+    }
+  };
+  public getFriendsInfo = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const userId: string = req.params.id;
+      const response = await this.friendService.getListFriendsInfo(userId);
+      res.status(200).json({ data: response, message: 'getFriendsInfo' });
     } catch (error) {
       next(error);
     }

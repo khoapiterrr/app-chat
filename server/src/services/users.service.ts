@@ -7,6 +7,7 @@ import contactModel from '../models/contact.model';
 import { isEmpty } from '../utils/util';
 import { DefaultObject, ParamsRequest } from '../interfaces/app';
 import FriendService from './friend.service';
+import { Contact } from '../interfaces/contact.interface';
 
 class UserService {
   public users = userModel;
@@ -14,7 +15,7 @@ class UserService {
   public friendService = new FriendService();
 
   public async findAllUser(queryParams: ParamsRequest): Promise<User[]> {
-    const { page, offset, size, keyword, sorts } = queryParams;
+    const { keyword } = queryParams;
     const reg = new RegExp(keyword, 'i');
 
     const users: User[] = await this.users.aggregate([
@@ -65,6 +66,7 @@ class UserService {
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
     const createUserData: User = await this.users.create({ ...userData, password: hashedPassword });
+    await this.friendService.addDefaultFriend(createUserData._id);
     return createUserData;
   }
 
@@ -135,7 +137,7 @@ class UserService {
               tmpItem.type = 'request';
               return;
             }
-          } else if (userItem._id.toString() == contactItem.contactId.toString()) {
+          } else if (userItem._id.toString() === contactItem.contactId.toString()) {
             // request
             if (!!contactItem.status) {
               // accepted
@@ -156,10 +158,21 @@ class UserService {
 
   // TODO: random users to friendSuggestions
   public friendSuggestions = async (userId: string) => {
-    const listFriend = await this.friendService.findListFriendByUserId(userId);
+    const listContactAdded: Contact[] = await this.contacts.find({
+      $or: [
+        {
+          contactId: userId,
+        },
+        {
+          userId: userId,
+        },
+      ],
+    });
     const friends = [userId];
-    if (!isEmpty(listFriend)) {
-      friends.push(...listFriend.friends);
+    if (!isEmpty(listContactAdded)) {
+      listContactAdded?.map(item => {
+        friends.push(...[item.contactId, item.userId]);
+      });
     }
     const filter: DefaultObject = {
       $and: [

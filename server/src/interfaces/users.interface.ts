@@ -23,3 +23,10 @@ export interface User {
   city?: string | null;
   province?: string | null;
 }
+export interface UserInfo {
+  _id: string;
+  email?: string;
+  firstName?: string | null;
+  avatar?: string | null;
+  lastName?: string | null;
+}
