@@ -2,6 +2,9 @@ import socketioJwt from 'socketio-jwt';
 import { User } from '../interfaces/users.interface';
 import UserService from '../services/users.service';
 import { logger } from '../utils/logger';
+import { sentMessage } from './chat/sentMessage';
+import { typingOff } from './chat/typingOff';
+import { typingOn } from './chat/typingOn';
 import { acceptRequestContact, addNewContact } from './contact';
 import { pushSocketIdToArray, removeSocketIdToArray } from './helper';
 
@@ -40,6 +43,12 @@ class ServerSocket {
         socket.on('add-new-contact', data => addNewContact(this.socketIo, data, this.clients, currentUser));
 
         socket.on('accept-request-contact', data => acceptRequestContact(this.socketIo, data, this.clients, currentUser));
+
+        socket.on('sent-message', data => sentMessage(this.socketIo, data, this.clients, currentUser));
+
+        socket.on('typing-on', data => typingOn(this.socketIo, data, this.clients, currentUser));
+
+        socket.on('typing-off', data => typingOff(this.socketIo, data, this.clients, currentUser));
       } catch (error) {
         logger.error(error);
       }

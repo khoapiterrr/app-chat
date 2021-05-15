@@ -3,7 +3,7 @@ import { NextFunction, Response } from 'express';
 import { Filters } from '../interfaces/app';
 import { RequestWithUser } from '../interfaces/auth.interface';
 
-export const paginationMiddleware = ({ maxSize = 500, defaultSize = 15, filterKeys = null, sortKeys = null }) => (
+export const paginationMiddleware = ({ maxSize = 500, defaultSize = 20, filterKeys = null, sortKeys = null }) => (
   req: RequestWithUser,
   res: Response,
   next: NextFunction,
