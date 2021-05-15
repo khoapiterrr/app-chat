@@ -1,5 +1,10 @@
 import { isAuthenticated } from 'api/permissionChecker';
 import {
+  onSentMessage,
+  onTypingOff,
+  onTypingOn,
+} from 'containers/ChatPage/socket';
+import {
   onAcceptRequestContact,
   onAddContact,
 } from 'containers/Contact/socket';
@@ -30,6 +35,10 @@ export const configSocket = () => {
   socket.on('disconnect', onDisconnect);
   socket.on('res-add-new-contact', onAddContact);
   socket.on('res-accept-request-contact', onAcceptRequestContact);
+  socket.on('res-sent-message', onSentMessage);
+  // socket.on('res-create-group', onCreateGroup);
+  socket.on('res-typing-on', onTypingOn);
+  socket.on('res-typing-off', onTypingOff);
   return socket;
 };
 export default function getSocket() {

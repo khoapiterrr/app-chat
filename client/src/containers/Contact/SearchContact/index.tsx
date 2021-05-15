@@ -19,12 +19,8 @@ interface IProps {
 
 const SearchContact: React.FC<IProps> = ({ keyword }) => {
   const dispatch = useDispatch();
-  const {
-    data,
-    afterDestroyRequest,
-    afterAddRequest,
-    afterAddSuccess,
-  } = useSearchFriends(keyword);
+  const { data, afterDestroyRequest, afterAddRequest, afterAddSuccess } =
+    useSearchFriends(keyword);
   const handleOnDestroyRequestSent = (e: any, data: any) => {
     e.preventDefault();
     dispatch(
@@ -109,11 +105,13 @@ const SearchContact: React.FC<IProps> = ({ keyword }) => {
                 ) : item.type === 'contact' ? (
                   <Tooltip title='Chat' aria-label='Chat'>
                     <span className='notification-icon'>
-                      <a href='#' className='accept-request'>
+                      <Link
+                        to={`/messages/${item._id}`}
+                        className='accept-request'>
                         <span className='icon-add without-text'>
                           <CustomSvgIcons id='olymp-chat---messages-icon' />
                         </span>
-                      </a>
+                      </Link>
                     </span>
                   </Tooltip>
                 ) : item.type === 'notContact' ? (

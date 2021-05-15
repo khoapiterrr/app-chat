@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import accountActionCreator from '../actions';
 import { showSnackbar } from 'containers/layout/actions';
 import { alertType } from 'constants/constants';
+
 const PersonalInfo = () => {
   const { formatMessage } = useIntl();
   const dispatch = useDispatch();

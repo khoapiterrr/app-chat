@@ -2,7 +2,7 @@ import IRoute from 'core/interfaces/IRoute';
 
 const privateRoutes: IRoute[] = [
   {
-    path: '/messages',
+    path: '/messages/:userId',
     exact: true,
     loader: () => import('views/MessagesPage'),
     label: 'Messages',

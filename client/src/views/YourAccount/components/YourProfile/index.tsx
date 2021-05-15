@@ -59,23 +59,13 @@ const YourProfile: React.FC<IProps> = ({ toggleCollapse, collapse }) => {
                   <li>
                     <Link to={`${url}/change-password`}>Change Password</Link>
                   </li>
-                  <li>
-                    <a href='# !' onClick={handleClickDefault}>
-                      Hobbies and Interests
-                    </a>
-                  </li>
-                  <li>
-                    <a href='# !' onClick={handleClickDefault}>
-                      Education and Employement
-                    </a>
-                  </li>
                 </ul>
               </div>
             </div>
           </div>
           <div className='ui-block-title'>
             <Link to={`${url}/notification`} className='h6 title'>
-              Notifications
+              Send Requests
             </Link>
             <a
               href='# !'
@@ -96,7 +86,6 @@ const YourProfile: React.FC<IProps> = ({ toggleCollapse, collapse }) => {
             </a>
           </div>
         </div>
-        {/* ... end Your Profile  */}
       </div>
     </div>
   );

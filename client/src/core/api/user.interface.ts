@@ -2,8 +2,8 @@ export interface User {
   _id: string;
   email: string;
   password?: string;
-  firstName: string | null;
-  lastName: string | null;
+  firstName: string;
+  lastName: string;
   phoneNumber?: string | null;
   role?: string | null;
   avatar?: string | null;

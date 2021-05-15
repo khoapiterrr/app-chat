@@ -1,26 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { Col, Container, Row } from 'reactstrap';
-import { Avatar } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import { getOffset } from 'utils/common';
-import './styles.scss';
-import ChatItem from './ChatItem';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import PhoneIcon from '@material-ui/icons/Phone';
-import HomeIcon from '@material-ui/icons/Home';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import UserInfo from './UserInfo';
+import SearchIcon from '@material-ui/icons/Search';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { Row } from 'reactstrap';
+import { getOffset } from 'utils/common';
+import messageActionCreator from './actions';
 import ChatContent from './ChatContent';
+import MessageList from './ChatItem/MessageList';
+import './styles.scss';
+import UserInfo from './UserInfo';
+import selectors from './selectors';
+interface ParamTypes {
+  userId: string | undefined;
+}
+
 const ChatPage = () => {
   const [style, setStyle] = useState({});
-
+  const dispatch = useDispatch();
+  const isShowUserInfo = useSelector(selectors.selectIsShowUserInfo);
+  const { userId } = useParams<ParamTypes>();
   useEffect(() => {
     const ofTop = getOffset(document.getElementById('listChat')).top;
     setStyle({ ...style, height: `calc(100vh - ${ofTop}px)` });
+
+    dispatch(messageActionCreator.list());
   }, []);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(messageActionCreator.doFind(userId));
+    }
+  }, [userId, dispatch]);
   return (
     <div className='page'>
       <div className='message-home-page'>
@@ -57,21 +68,12 @@ const ChatPage = () => {
                 className='list-chat scroll-chat'
                 id='listChat'
                 style={style}>
-                <ChatItem />
-                <ChatItem />
-                <ChatItem />
-                <ChatItem />
-                <ChatItem />
-                <ChatItem />
-                <ChatItem />
-                <ChatItem />
-                <ChatItem />
-                <ChatItem />
+                <MessageList />
               </div>
             </div>
           </div>
           <ChatContent />
-          <UserInfo />
+          {isShowUserInfo && <UserInfo userId={userId as string} />}
         </Row>
       </div>
     </div>
