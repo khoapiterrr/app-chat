@@ -11,6 +11,8 @@ import MessageList from './ChatItem/MessageList';
 import './styles.scss';
 import UserInfo from './UserInfo';
 import selectors from './selectors';
+import contactActionCreator from 'containers/Contact/actions';
+
 interface ParamTypes {
   userId: string | undefined;
 }
@@ -24,6 +26,9 @@ const ChatPage = () => {
     const ofTop = getOffset(document.getElementById('listChat')).top;
     setStyle({ ...style, height: `calc(100vh - ${ofTop}px)` });
 
+    dispatch(contactActionCreator.listContacts());
+    dispatch(contactActionCreator.listRequests());
+    dispatch(contactActionCreator.listRequestsSent());
     dispatch(messageActionCreator.list());
   }, []);
 
@@ -32,6 +37,7 @@ const ChatPage = () => {
       dispatch(messageActionCreator.doFind(userId));
     }
   }, [userId, dispatch]);
+
   return (
     <div className='page'>
       <div className='message-home-page'>
@@ -72,8 +78,10 @@ const ChatPage = () => {
               </div>
             </div>
           </div>
-          <ChatContent />
-          {isShowUserInfo && <UserInfo userId={userId as string} />}
+          {userId && <ChatContent />}
+
+          {userId && isShowUserInfo && <UserInfo userId={userId as string} />}
+          {!userId && <h2 className='welcome'>Welcome to the chat </h2>}
         </Row>
       </div>
     </div>

@@ -182,7 +182,7 @@ class UserService {
       ],
     };
 
-    const friendSuggestions: User[] = await this.users.find({ ...filter });
+    const friendSuggestions: User[] = await this.users.find({ ...filter }).limit(6);
     friendSuggestions?.map(async item => {
       // console.log(item._id, userId);
       // const mutualFriend = await this.friendService.findMutualFriend(item._id, userId);

@@ -18,6 +18,7 @@ const PrivateRoute: React.FC<any> = ({ component: Component, ...rest }) => {
     }
 
     if (!currentUser && isAuthenticated()) {
+      console.log(currentUser);
       dispatch(authActionCreator.fetchCurrentUser());
       dispatch(contactActionCreator.listContacts());
       dispatch(contactActionCreator.listRequests());
@@ -28,7 +29,7 @@ const PrivateRoute: React.FC<any> = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        !isAuthenticated() ? (
+        !isAuthenticated() && currentUser ? (
           <Redirect
             to={{
               pathname: '/login',

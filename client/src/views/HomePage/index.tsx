@@ -4,6 +4,9 @@ import React, { FC } from 'react';
 import HomeRouter from 'routes/HomeRoutes';
 
 const HomePage: FC = () => {
+  // React.useEffect(() => {
+  //   getHistory().push('/messages');
+  // }, []);
   return (
     <>
       <Header />

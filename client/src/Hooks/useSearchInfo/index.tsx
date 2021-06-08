@@ -1,5 +1,6 @@
 import React from 'react';
 import axiosClient from 'api/axiosClient';
+
 const useSearchInfo = (userId: string) => {
   const [userData, setUserData] = React.useState<any>();
   React.useEffect(() => {
@@ -8,7 +9,7 @@ const useSearchInfo = (userId: string) => {
       .then((res) => {
         setUserData(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err, 'useSearchInfo'));
   }, [userId]);
   return userData;
 };

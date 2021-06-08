@@ -7,7 +7,18 @@ const privateRoutes: IRoute[] = [
     loader: () => import('views/MessagesPage'),
     label: 'Messages',
   },
-
+  {
+    path: '/messages',
+    exact: true,
+    loader: () => import('views/MessagesPage'),
+    label: 'Messages',
+  },
+  {
+    path: '/call/:peerId',
+    exact: false,
+    loader: () => import('containers/CallPage'),
+    label: 'Trang chủ',
+  },
   {
     path: '/',
     exact: false,

@@ -142,7 +142,7 @@ const authReducer = (state = initialState, { type, payload }: Action) =>
       case constants.REQUEST_SENT_DESTROY_SUCCESS:
         draft.destroyLoading = false;
         draft.requestsSent = state.requestsSent.filter(
-          (contact: any) => contact.id !== payload,
+          (contact: any) => contact._id !== payload,
         );
         draft.error = null;
         break;

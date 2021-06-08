@@ -38,7 +38,7 @@ const authActionCreator: IAuthActionCreator = {
         type: constants.SIGNIN_SUCCESS,
         payload: response.data,
       });
-      getHistory().push('/');
+      getHistory().push('/messages');
       configSocket();
     } catch (error) {
       dispatch({
@@ -48,27 +48,26 @@ const authActionCreator: IAuthActionCreator = {
     }
   },
 
-  doSignUp: (userInfo: ISignUp, callback) => async (
-    dispatch: Dispatch<any>,
-  ) => {
-    try {
-      dispatch({ type: constants.SIGNUP_START });
+  doSignUp:
+    (userInfo: ISignUp, callback) => async (dispatch: Dispatch<any>) => {
+      try {
+        dispatch({ type: constants.SIGNUP_START });
 
-      // call api: signin
-      await postSignUp(userInfo);
+        // call api: signin
+        await postSignUp(userInfo);
 
-      dispatch({ type: constants.SIGNUP_SUCCESS });
-      dispatch(showSnackbar('Sign Up Successfully', alertType.SUCCESS));
-      if (callback) {
-        callback();
+        dispatch({ type: constants.SIGNUP_SUCCESS });
+        dispatch(showSnackbar('Sign Up Successfully', alertType.SUCCESS));
+        if (callback) {
+          callback();
+        }
+      } catch (error) {
+        dispatch({
+          type: constants.SIGNUP_ERROR,
+          payload: Errors.selectMessage(error),
+        });
       }
-    } catch (error) {
-      dispatch({
-        type: constants.SIGNUP_ERROR,
-        payload: Errors.selectMessage(error),
-      });
-    }
-  },
+    },
 
   fetchCurrentUser: () => async (dispatch: Dispatch<any>) => {
     try {

@@ -1,4 +1,5 @@
 import { isAuthenticated } from 'api/permissionChecker';
+import { onListenerOffline, onRequestPeerId } from 'containers/CallPage/socket';
 import {
   onSentMessage,
   onTypingOff,
@@ -39,6 +40,13 @@ export const configSocket = () => {
   // socket.on('res-create-group', onCreateGroup);
   socket.on('res-typing-on', onTypingOn);
   socket.on('res-typing-off', onTypingOff);
+
+  // Trả về trạng thái on/off của listener
+  socket.on('server-caller-listener-status', onListenerOffline);
+
+  // lắng nghe yêu cầu peerid
+  socket.on('server-listener-request-peer-id', onRequestPeerId);
+
   return socket;
 };
 export default function getSocket() {

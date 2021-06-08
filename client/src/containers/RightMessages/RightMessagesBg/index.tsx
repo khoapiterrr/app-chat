@@ -3,8 +3,11 @@ import ChatUsersItem from '../ChatUsersItem';
 import AvatarUser from 'assets/images/avatar62-sm.jpg';
 import CustomSvgIcons from 'components/CustomSvgIcons';
 import { Link } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
+import contactSelectors from 'containers/Contact/selectors';
+import AvatarDefault from 'assets/images/default-avatar.png';
 const RightMessagesBG = () => {
+  const contacts = useSelector(contactSelectors.selectContacts);
   const rightMesSideBar: MutableRefObject<HTMLDivElement | null> = useRef(null);
   const openRightMessages = (e: any) => {
     e.preventDefault();
@@ -16,20 +19,15 @@ const RightMessagesBG = () => {
         <div className='mCustomScrollbar' data-mcs-theme='dark'>
           <div className='scrollbar-hidden'>
             <ul className='chat-users'>
-              <ChatUsersItem avatar={AvatarUser} status='online' />
-              <ChatUsersItem avatar={AvatarUser} status='away' />
-              <ChatUsersItem avatar={AvatarUser} status='online' />
-              <ChatUsersItem avatar={AvatarUser} status='away' />
-              <ChatUsersItem avatar={AvatarUser} status='online' />
-              <ChatUsersItem avatar={AvatarUser} status='disconected' />
-              <ChatUsersItem avatar={AvatarUser} status='online' />
-              <ChatUsersItem avatar={AvatarUser} status='away' />
-              <ChatUsersItem avatar={AvatarUser} status='disconected' />
-              <ChatUsersItem avatar={AvatarUser} status='online' />
-              <ChatUsersItem avatar={AvatarUser} status='online' />
-              <ChatUsersItem avatar={AvatarUser} status='away' />
-              <ChatUsersItem avatar={AvatarUser} status='disconected' />
-              <ChatUsersItem avatar={AvatarUser} status='online' />
+              {contacts?.map((item: any) => (
+                <ChatUsersItem
+                  avatar={
+                    item?.avatar ??
+                    'https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-9/184357069_2879808265627694_3492303132633566580_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=Z8osWdrHmV4AX_zTOTP&tn=MqdNpmKyF81KT_i2&_nc_ht=scontent.fhan4-1.fna&oh=52c96bf52bda6007462e4280fc442c77&oe=60DDDDB2'
+                  }
+                  status='online'
+                />
+              ))}
             </ul>
           </div>
         </div>
@@ -54,90 +52,18 @@ const RightMessagesBG = () => {
             <a href='#'>Settings</a>
           </div>
           <ul className='chat-users'>
-            <ChatUsersItem
-              avatar={AvatarUser}
-              status='online'
-              isOpen={true}
-              authorName='Trọng khoa'
-            />
-            <ChatUsersItem
-              avatar={AvatarUser}
-              isOpen={true}
-              authorName='Trọng khoa'
-              status='away'
-            />
-            <ChatUsersItem
-              avatar={AvatarUser}
-              isOpen={true}
-              authorName='Trọng khoa'
-              status='online'
-            />
-            <ChatUsersItem
-              avatar={AvatarUser}
-              isOpen={true}
-              authorName='Trọng khoa'
-              status='away'
-            />
-            <ChatUsersItem
-              avatar={AvatarUser}
-              isOpen={true}
-              authorName='Trọng khoa'
-              status='online'
-            />
-            <ChatUsersItem
-              avatar={AvatarUser}
-              isOpen={true}
-              authorName='Trọng khoa'
-              status='disconected'
-            />
-            <ChatUsersItem
-              avatar={AvatarUser}
-              isOpen={true}
-              authorName='Trọng khoa'
-              status='online'
-            />
-            <ChatUsersItem
-              avatar={AvatarUser}
-              isOpen={true}
-              authorName='Trọng khoa'
-              status='away'
-            />
-            <ChatUsersItem
-              avatar={AvatarUser}
-              isOpen={true}
-              authorName='Trọng khoa'
-              status='disconected'
-            />
-            <ChatUsersItem
-              avatar={AvatarUser}
-              isOpen={true}
-              authorName='Trọng khoa'
-              status='online'
-            />
-            <ChatUsersItem
-              avatar={AvatarUser}
-              isOpen={true}
-              authorName='Trọng khoa'
-              status='online'
-            />
-            <ChatUsersItem
-              avatar={AvatarUser}
-              isOpen={true}
-              authorName='Trọng khoa'
-              status='away'
-            />
-            <ChatUsersItem
-              avatar={AvatarUser}
-              isOpen={true}
-              authorName='Trọng khoa'
-              status='disconected'
-            />
-            <ChatUsersItem
-              avatar={AvatarUser}
-              isOpen={true}
-              authorName='Trọng khoa'
-              status='online'
-            />
+            {contacts?.map((item: any) => (
+              <ChatUsersItem
+                avatar={
+                  item?.avatar ??
+                  'https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-9/184357069_2879808265627694_3492303132633566580_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=Z8osWdrHmV4AX_zTOTP&tn=MqdNpmKyF81KT_i2&_nc_ht=scontent.fhan4-1.fna&oh=52c96bf52bda6007462e4280fc442c77&oe=60DDDDB2'
+                }
+                status='online'
+                isOpen={true}
+                id={item?._id}
+                authorName={`${item.firstName} ${item.lastName}`}
+              />
+            ))}
           </ul>
         </div>
         <div className='search-friend inline-items'>

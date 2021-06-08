@@ -3,6 +3,8 @@ import React from 'react';
 import classnames from 'classnames';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Link, useRouteMatch } from 'react-router-dom';
+import contactSelectors from 'containers/Contact/selectors';
+import { useSelector } from 'react-redux';
 
 interface IProps {
   toggleCollapse: any;
@@ -11,6 +13,8 @@ interface IProps {
 
 const YourProfile: React.FC<IProps> = ({ toggleCollapse, collapse }) => {
   const { url } = useRouteMatch();
+  const friendRequest = useSelector(contactSelectors.selectRequests);
+  const friendRequestSend = useSelector(contactSelectors.selectRequestsSent);
 
   const handleClickDefault = (e: any) => {
     e.preventDefault();
@@ -71,7 +75,7 @@ const YourProfile: React.FC<IProps> = ({ toggleCollapse, collapse }) => {
               href='# !'
               onClick={handleClickDefault}
               className='items-round-little bg-primary'>
-              8
+              {friendRequestSend?.length ?? 0}
             </a>
           </div>
           <div className='ui-block-title'>
@@ -82,7 +86,7 @@ const YourProfile: React.FC<IProps> = ({ toggleCollapse, collapse }) => {
               href='# !'
               onClick={handleClickDefault}
               className='items-round-little bg-blue'>
-              4
+              {friendRequest?.length ?? 0}
             </a>
           </div>
         </div>

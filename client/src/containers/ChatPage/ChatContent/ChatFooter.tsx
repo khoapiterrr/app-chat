@@ -5,12 +5,26 @@ import SendOutlinedIcon from '@material-ui/icons/SendOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import mesSelectors from '../selectors';
 import authSelectors from 'containers/Auth/selectors';
-import { emitTypingOff } from '../socket';
+import { emitTypingOff, emitTypingOn } from '../socket';
 import * as constants from '../constants';
 import messageActionCreator from '../actions';
+import { debounce } from 'lodash';
+import { Picker } from 'emoji-mart';
+import { IconButton, Popover } from '@material-ui/core';
 
 const ChatFooter = () => {
   const inputMessageRef = useRef<any>();
+  const [anchorEl, setAnchorEl] = React.useState<any>(null);
+  const handleClick = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
   const dispatch = useDispatch();
   const [typing, setTyping] = useState(false);
   const record = useSelector(mesSelectors.selectRecord);
@@ -65,7 +79,20 @@ const ChatFooter = () => {
     inputMessageRef?.current!.focus();
   };
   const handleOnPressEnter = (event: any) => {
-    console.log(event);
+    if (!typing) {
+      setTyping(true);
+      if (inputMessage.text.trim() !== '') {
+        emitTypingOn({
+          info: currentUser,
+          receiver: record.receiver,
+          conversationType: record.conversationType,
+        });
+      }
+    }
+    debounce(() => {
+      handleTypingOff();
+      setTyping(false);
+    }, 1000);
     if (event.keyCode === 13) {
       handleSendClick();
     }
@@ -92,9 +119,27 @@ const ChatFooter = () => {
               rows={1}
               onKeyUp={handleOnPressEnter}></textarea>
             <div className='input-group-prepend mr-sm-2 mr-1'>
-              <div className='w-100 dropdown'>
+              <div
+                className='w-100 dropdown'
+                onClick={handleClick}
+                style={{ cursor: 'pointer' }}>
                 <MoodOutlinedIcon />
               </div>
+              <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center',
+                }}>
+                <Picker set='facebook' sheetSize={32} onSelect={addEmoji} />
+              </Popover>
             </div>
           </div>
         </div>

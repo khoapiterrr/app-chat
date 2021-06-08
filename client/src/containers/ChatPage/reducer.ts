@@ -177,7 +177,7 @@ const messageReducer = (state = initialState, { type, payload }: Action) =>
           });
         } else if (message.conversationType === 'User') {
           // xử lý chat riêng tư
-          receivedMessageIndex = state.messages.findIndex((item: any) => {
+          receivedMessageIndex = state.messages?.findIndex((item: any) => {
             return (
               (message.sender._id === item.sender._id &&
                 message.receiver._id === item.receiver._id) ||
@@ -204,7 +204,7 @@ const messageReducer = (state = initialState, { type, payload }: Action) =>
           });
         } else {
           // Nếu tin nhắn hiện tại trong danh sách thì đưa lên đầu
-          let [removedMessge] = draft.messages.splice(receivedMessageIndex, 1);
+          let [removedMessge] = draft.messages?.splice(receivedMessageIndex, 1);
           draft.messages.unshift({
             ...removedMessge,
             message: message.message,

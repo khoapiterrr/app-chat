@@ -1,0 +1,72 @@
+.callPage {
+  position: relative;
+  color: #fff;
+
+  .action-call {
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    bottom: 10px;
+  }
+  .current-user-call {
+    width: 100%;
+    text-align: right;
+    position: fixed;
+    bottom: 20px;
+
+    .caller-video {
+      width: 350px;
+      height: 200px;
+      object-fit: cover;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+  }
+  .contacting {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .listener-avatar {
+      width: 70px;
+      height: 70px;
+    }
+    .listener-name {
+      font-size: 14px;
+    }
+  }
+  .listener-user-call {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    z-index: -10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .listener-video {
+      width: 100vw;
+      height: 100vh;
+    }
+  }
+
+  .icon-action {
+    background-color: rgba(173, 173, 173, 0.8);
+    margin: 0 5px;
+    color: white;
+
+    &:hover {
+      background-color: rgba(173, 173, 173, 0.5);
+    }
+  }
+  .icon-action-red {
+    background-color: red;
+    margin: 0 5px;
+    color: white;
+
+    &:hover {
+      background-color: rgb(255, 47, 47);
+    }
+  }
+}

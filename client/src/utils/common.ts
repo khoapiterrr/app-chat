@@ -36,3 +36,25 @@ export const textAbstract = (text: string, length: number) => {
   text = text.substring(0, last);
   return text + '...';
 };
+export function PopupCenter(
+  pageURL: string,
+  title: string,
+  w: number,
+  h: number,
+) {
+  var left = window.screen.width / 2 - w / 2;
+  var top = window.screen.height / 2 - h / 2;
+  var targetWin = window.open(
+    pageURL,
+    title,
+    'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
+      w +
+      ', height=' +
+      h +
+      ', top=' +
+      top +
+      ', left=' +
+      left,
+  );
+  return targetWin;
+}

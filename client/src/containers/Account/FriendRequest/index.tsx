@@ -1,6 +1,22 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import contactSelectors from 'containers/Contact/selectors';
+import contactActionCreator from 'containers/Contact/actions';
+import CustomSvgIcons from 'components/CustomSvgIcons';
 
 const FriendRequest = () => {
+  const dispatch = useDispatch();
+  const friendRequest = useSelector(contactSelectors.selectRequests);
+
+  const handleOnDestroyRequest = (e: any, data: any) => {
+    e.preventDefault();
+    dispatch(contactActionCreator.doDestroyRequest(data, () => {}));
+  };
+
+  const handleOnUpdateContact = (e: any, data: any) => {
+    e.preventDefault();
+    dispatch(contactActionCreator.doUpdateContact(data, () => {}));
+  };
   return (
     <>
       <div className='ui-block'>
@@ -9,145 +25,63 @@ const FriendRequest = () => {
         </div>
         <div className='ui-block-content'>
           <ul className='notification-list friend-requests'>
-            <li>
-              <div className='author-thumb'>
-                <img src='img/avatar15-sm.jpg' alt='author' />
-              </div>
-              <div className='notification-event'>
-                <a href='#' className='h6 notification-friend'>
-                  Tamara Romanoff
-                </a>
-                <span className='chat-message-item'>
-                  Mutual Friend: Sarah Hetfield
+            {friendRequest?.map((item: any) => (
+              <li>
+                <div className='author-thumb'>
+                  <img
+                    src={
+                      item?.avatar ??
+                      `https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-9/184357069_2879808265627694_3492303132633566580_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=Z8osWdrHmV4AX_zTOTP&tn=MqdNpmKyF81KT_i2&_nc_ht=scontent.fhan4-1.fna&oh=52c96bf52bda6007462e4280fc442c77&oe=60DDDDB2`
+                    }
+                    style={{ width: 32 }}
+                    alt='author'
+                  />
+                </div>
+                <div className='notification-event'>
+                  <a href='#' className='h6 notification-friend'>
+                    {`${item?.firstName} ${item?.lastName}`}
+                  </a>
+                  <span className='chat-message-item'>
+                    Mutual Friend: KhoaPiterrr
+                  </span>
+                </div>
+                <span className='notification-icon'>
+                  <a
+                    href='#'
+                    className='accept-request'
+                    onClick={(e) => handleOnUpdateContact(e, item)}>
+                    <span className='icon-add'>
+                      <CustomSvgIcons
+                        className='olymp-happy-face-icon'
+                        id='olymp-happy-face-icon'
+                      />
+                    </span>
+                    Accept Friend Request
+                  </a>
+                  <a
+                    href='#'
+                    className='accept-request request-del'
+                    onClick={(e) => handleOnDestroyRequest(e, item)}>
+                    <span className='icon-minus'>
+                      <CustomSvgIcons
+                        className='olymp-happy-face-icon'
+                        id='olymp-happy-face-icon'
+                      />
+                    </span>
+                  </a>
                 </span>
-              </div>
-              <span className='notification-icon'>
-                <a href='#' className='accept-request'>
-                  <span className='icon-add'>
-                    <svg className='olymp-happy-face-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-happy-face-icon' />
-                    </svg>
-                  </span>
-                  Accept Friend Request
-                </a>
-                <a href='#' className='accept-request request-del'>
-                  <span className='icon-minus'>
-                    <svg className='olymp-happy-face-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-happy-face-icon' />
-                    </svg>
-                  </span>
-                </a>
-              </span>
-              <div className='more'>
-                <svg className='olymp-three-dots-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-three-dots-icon' />
-                </svg>
-                <svg className='olymp-little-delete'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-little-delete' />
-                </svg>
-              </div>
-            </li>
-            <li>
-              <div className='author-thumb'>
-                <img src='img/avatar16-sm.jpg' alt='author' />
-              </div>
-              <div className='notification-event'>
-                <a href='#' className='h6 notification-friend'>
-                  Tony Stevens
-                </a>
-                <span className='chat-message-item'>4 Friends in Common</span>
-              </div>
-              <span className='notification-icon'>
-                <a href='#' className='accept-request'>
-                  <span className='icon-add'>
-                    <svg className='olymp-happy-face-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-happy-face-icon' />
-                    </svg>
-                  </span>
-                  Accept Friend Request
-                </a>
-                <a href='#' className='accept-request request-del'>
-                  <span className='icon-minus'>
-                    <svg className='olymp-happy-face-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-happy-face-icon' />
-                    </svg>
-                  </span>
-                </a>
-              </span>
-              <div className='more'>
-                <svg className='olymp-three-dots-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-three-dots-icon' />
-                </svg>
-                <svg className='olymp-little-delete'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-little-delete' />
-                </svg>
-              </div>
-            </li>
-            <li className='accepted'>
-              <div className='author-thumb'>
-                <img src='img/avatar17-sm.jpg' alt='author' />
-              </div>
-              <div className='notification-event'>
-                You and{' '}
-                <a href='#' className='h6 notification-friend'>
-                  Mary Jane Stark
-                </a>{' '}
-                just became friends. Write on{' '}
-                <a href='#' className='notification-link'>
-                  his wall
-                </a>
-                .
-              </div>
-              <span className='notification-icon'>
-                <svg className='olymp-happy-face-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-happy-face-icon' />
-                </svg>
-              </span>
-              <div className='more'>
-                <svg className='olymp-three-dots-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-three-dots-icon' />
-                </svg>
-                <svg className='olymp-little-delete'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-little-delete' />
-                </svg>
-              </div>
-            </li>
-            <li>
-              <div className='author-thumb'>
-                <img src='img/avatar18-sm.jpg' alt='author' />
-              </div>
-              <div className='notification-event'>
-                <a href='#' className='h6 notification-friend'>
-                  Stagg Clothing
-                </a>
-                <span className='chat-message-item'>9 Friends in Common</span>
-              </div>
-              <span className='notification-icon'>
-                <a href='#' className='accept-request'>
-                  <span className='icon-add'>
-                    <svg className='olymp-happy-face-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-happy-face-icon' />
-                    </svg>
-                  </span>
-                  Accept Friend Request
-                </a>
-                <a href='#' className='accept-request request-del'>
-                  <span className='icon-minus'>
-                    <svg className='olymp-happy-face-icon'>
-                      <use xlinkHref='svg-icons/sprites/icons.svg#olymp-happy-face-icon' />
-                    </svg>
-                  </span>
-                </a>
-              </span>
-              <div className='more'>
-                <svg className='olymp-three-dots-icon'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-three-dots-icon' />
-                </svg>
-                <svg className='olymp-little-delete'>
-                  <use xlinkHref='svg-icons/sprites/icons.svg#olymp-little-delete' />
-                </svg>
-              </div>
-            </li>
+                <div className='more'>
+                  <CustomSvgIcons
+                    className='olymp-three-dots-icon'
+                    id='olymp-three-dots-icon'
+                  />
+                  <CustomSvgIcons
+                    className='olymp-little-delete'
+                    id='olymp-little-delete'
+                  />
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

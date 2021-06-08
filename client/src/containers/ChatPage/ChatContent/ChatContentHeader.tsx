@@ -8,6 +8,8 @@ import authSelectors from 'containers/Auth/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import AvatarDefault from 'assets/images/default-avatar.png';
 import mesActions from '../actions';
+import { PopupCenter } from 'utils/common';
+import { emitCheckListenerStatus } from 'containers/CallPage/socket';
 
 const ChatContentHeader = () => {
   const dispatch = useDispatch();
@@ -22,8 +24,13 @@ const ChatContentHeader = () => {
       lastName: currentUser?.lastName,
       avatar: currentUser?.avatar,
     };
-    console.log('caller', caller);
-    // emitCheckListenerStatus({ caller, listener: record.receiver });
+
+    PopupCenter(
+      `http://localhost:8686/call/${record.receiver?._id}?status=contacting`,
+      'Call videos',
+      1300,
+      700,
+    );
   };
   const handleToggleUserInfo = () => {
     dispatch(mesActions.doToggleUserInfo());
@@ -42,8 +49,10 @@ const ChatContentHeader = () => {
         <span>{record?.receiver?.status}</span>
       </div>
       <div className='contact d-flex justify-content-end'>
-        <VideocamOutlinedIcon className='icon' />
-        <CallOutlinedIcon className='icon' />
+        <span style={{ cursor: 'pointer' }} onClick={handleCallVideoClick}>
+          <VideocamOutlinedIcon className='icon' />
+        </span>
+        {/* <CallOutlinedIcon className='icon' /> */}
         <span style={{ cursor: 'pointer' }} onClick={handleToggleUserInfo}>
           <InfoIcon className='icon' />
         </span>

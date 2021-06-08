@@ -22,6 +22,7 @@ const Conversation: React.FC<IProps> = ({ messages }) => {
   const handleInfiniteOnLoad = () => {
     console.log('load more messages');
   };
+
   return (
     <>
       <InfiniteScroll

@@ -2,6 +2,7 @@ import socketioJwt from 'socketio-jwt';
 import { User } from '../interfaces/users.interface';
 import UserService from '../services/users.service';
 import { logger } from '../utils/logger';
+import { checkListenerStatus, sendPeerToAnswers, sendPeerToCaller } from './call/checkListenerStatus';
 import { sentMessage } from './chat/sentMessage';
 import { typingOff } from './chat/typingOff';
 import { typingOn } from './chat/typingOn';
@@ -49,6 +50,12 @@ class ServerSocket {
         socket.on('typing-on', data => typingOn(this.socketIo, data, this.clients, currentUser));
 
         socket.on('typing-off', data => typingOff(this.socketIo, data, this.clients, currentUser));
+
+        socket.on('caller-server-check-listener-status', data => checkListenerStatus(this.socketIo, data, this.clients, currentUser));
+
+        socket.on('send-peer-to-request-call-user', data => sendPeerToAnswers(this.socketIo, data, this.clients, currentUser));
+
+        socket.on('listener-user-send-peer', data => sendPeerToCaller(this.socketIo, data, this.clients, currentUser));
       } catch (error) {
         logger.error(error);
       }

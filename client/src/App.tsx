@@ -5,6 +5,7 @@
 import 'assets/css/bootstrap-reboot.css';
 import 'assets/css/bootstrap.css';
 import 'assets/css/bootstrap-grid.css';
+import 'emoji-mart/css/emoji-mart.css';
 //  Main Styles SCSS
 import 'assets/scss/fonts.scss';
 import 'assets/scss/main.scss';

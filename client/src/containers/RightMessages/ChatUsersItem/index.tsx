@@ -1,5 +1,6 @@
 import CustomSvgIcons from 'components/CustomSvgIcons';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { isEmpty } from 'utils/common';
 interface IProps {
   status?: string;
@@ -7,18 +8,25 @@ interface IProps {
   avatar?: any;
   isOpen?: boolean;
   authorName?: string;
+  id?: string;
 }
 const ChatUsersItem: React.FC<IProps> = ({
   status,
   author,
   avatar,
   isOpen,
+  id,
   authorName,
 }) => {
   return (
     <li className='inline-items js-chat-open'>
       <div className='author-thumb'>
-        <img alt='author' src={avatar} className='avatar' />
+        <img
+          alt='author'
+          src={avatar}
+          style={{ width: 32 }}
+          className='avatar'
+        />
         <span className={`icon-status ${status}`} />
       </div>
       {isEmpty(isOpen) ? null : (
@@ -36,13 +44,15 @@ const ChatUsersItem: React.FC<IProps> = ({
             />
             <ul className='more-icons'>
               <li>
-                <CustomSvgIcons
-                  data-toggle='tooltip'
-                  data-placement='top'
-                  data-original-title='START CONVERSATION'
-                  className='olymp-comments-post-icon'
-                  id='olymp-comments-post-icon'
-                />
+                <Link to={`/messages/${id}`}>
+                  <CustomSvgIcons
+                    data-toggle='tooltip'
+                    data-placement='top'
+                    data-original-title='START CONVERSATION'
+                    className='olymp-comments-post-icon'
+                    id='olymp-comments-post-icon'
+                  />
+                </Link>
               </li>
               <li>
                 <CustomSvgIcons
