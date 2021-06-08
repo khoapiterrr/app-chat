@@ -1,5 +1,4 @@
 import { emitNotifyToArray } from '../helper';
-import userModel from '../../models/users.model';
 
 export const checkListenerStatus = (io, data, clients, user) => {
   console.log(data, 'data checkListenerStatus');
@@ -17,13 +16,14 @@ export const checkListenerStatus = (io, data, clients, user) => {
     emitNotifyToArray(clients, data.listenerId, io, 'server-listener-request-peer-id', user);
   }
 };
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const sendPeerToAnswers = (io, data, clients, user) => {
   emitNotifyToArray(clients, data.listenerId, io, 'send-peer-answer-to-caller', {
     signal: data.signalData,
   });
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const sendPeerToCaller = (io, data, clients, user) => {
   console.log('sendPeerToCaller', data);
   emitNotifyToArray(clients, data.to, io, 'user-call-accepted', data.signal);
