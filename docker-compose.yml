@@ -8,7 +8,7 @@ services:
     restart: always
     volumes:
       - ./data/db:/data/db
-      - ./data/configdb:/data/configdb
+      # - ./data/configdb:/data/configdb
       - ./server/src/database/mongo-init.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
     expose: 
       - 27017
@@ -16,7 +16,6 @@ services:
       - 27017:27017
     networks:
       - backend
-    entrypoint: ['/usr/bin/mongod', '--bind_ip_all', '--replSet', 'devrs']
 
   ltk-server:
     build:
