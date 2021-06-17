@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import contactSelectors from 'containers/Contact/selectors';
 import contactActionCreator from 'containers/Contact/actions';
 import CustomSvgIcons from 'components/CustomSvgIcons';
+import { avatarFB } from 'constants/constants';
 
 const FriendRequest = () => {
   const dispatch = useDispatch();
@@ -29,10 +30,7 @@ const FriendRequest = () => {
               <li>
                 <div className='author-thumb'>
                   <img
-                    src={
-                      item?.avatar ??
-                      `https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-9/184357069_2879808265627694_3492303132633566580_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=Z8osWdrHmV4AX_zTOTP&tn=MqdNpmKyF81KT_i2&_nc_ht=scontent.fhan4-1.fna&oh=52c96bf52bda6007462e4280fc442c77&oe=60DDDDB2`
-                    }
+                    src={item?.avatar ?? avatarFB}
                     style={{ width: 32 }}
                     alt='author'
                   />

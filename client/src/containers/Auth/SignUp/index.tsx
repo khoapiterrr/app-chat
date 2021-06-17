@@ -61,7 +61,7 @@ const SignUp: React.FC<IProps> = ({ goToSign }) => {
   ];
   return (
     <>
-      <div className='title h6'>Register to Olympus</div>
+      <div className='title h6'>Đăng kí hệ thống</div>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

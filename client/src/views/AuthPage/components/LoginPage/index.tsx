@@ -17,11 +17,12 @@ const LoginPage: React.FC<IProps> = ({
       <div className='row display-flex'>
         <div className='col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12'>
           <div className='landing-content'>
-            <h1>Welcome to the Biggest Social Network in the World</h1>
+            <h1>Chào mừng bạn đến với Mạng xã hội lớn nhất của chúng tôi</h1>
             <p>
-              We are the best and biggest social network with 5 billion active
-              users all around the world. Share you thoughts, write blog posts,
-              show your favourite music via Stopify, earn badges and much more!
+              Chúng tôi là mạng xã hội tốt nhất và lớn nhất với 5 tỷ hoạt động
+              người dùng trên toàn thế giới. Chia sẻ suy nghĩ của bạn, viết bài
+              đăng trên blog, thể hiện âm nhạc yêu thích của bạn qua Stopify,
+              kiếm huy hiệu và hơn thế nữa!
             </p>
             <a
               href='# !'
@@ -30,7 +31,7 @@ const LoginPage: React.FC<IProps> = ({
                 onClickChangeTab('register');
               }}
               className='btn btn-md btn-border c-white'>
-              Register Now!
+              Đăng kí ngay!
             </a>
           </div>
         </div>

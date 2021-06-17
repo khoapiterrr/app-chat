@@ -31,7 +31,7 @@ class ServerSocket {
     this.socketIo.on('connection', async socket => {
       try {
         const currentUser: User = await this.userService.findUserById(socket.decoded_token._id);
-
+        console.log(this.clients, 'currentUser');
         if (currentUser) {
           this.clients = pushSocketIdToArray(this.clients, currentUser._id, socket.id);
         }

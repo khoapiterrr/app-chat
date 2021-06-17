@@ -91,7 +91,7 @@ const HeaderBG = () => {
                         <img
                           src={
                             item?.avatar ??
-                            `https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-9/184357069_2879808265627694_3492303132633566580_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=Z8osWdrHmV4AX_zTOTP&tn=MqdNpmKyF81KT_i2&_nc_ht=scontent.fhan4-1.fna&oh=52c96bf52bda6007462e4280fc442c77&oe=60DDDDB2`
+                            `https://scontent-hkt1-1.xx.fbcdn.net/v/t1.15752-9/196738773_301890864916198_2236989249047047852_n.png?_nc_cat=110&ccb=1-3&_nc_sid=ae9488&_nc_ohc=49qmTBfPo_wAX_NV_vy&_nc_ht=scontent-hkt1-1.xx&oh=14a4f0b5d57de9d95fa54bcbc72fe57d&oe=60C9BFA1`
                           }
                           style={{ width: 32 }}
                           alt={item?.avatar}

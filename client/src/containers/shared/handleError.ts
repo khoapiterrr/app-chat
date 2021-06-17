@@ -51,7 +51,7 @@ export default class Errors {
     if (selectErrorCode(error) === 401) {
       // gửi yêu cầu token mới với refresh token và email
       // window.localStorage.removeItem('token');
-      getHistory().push('/401');
+      getHistory().push('/login');
       return;
     }
     if (selectErrorCode(error) === 403) {
