@@ -73,7 +73,6 @@ const authActionCreator: IAuthActionCreator = {
     try {
       // call api: signin
       let response = await fetchCurrentAuth();
-      console.log(response, 'response');
       dispatch({
         type: constants.SIGNIN_SUCCESS,
         payload: response.data,

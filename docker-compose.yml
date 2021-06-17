@@ -1,0 +1,80 @@
+version: '3.7'
+
+services:
+  mongo:
+    hostname: mongoltk
+    image: mongo:latest
+    container_name: mongo
+    restart: always
+    volumes:
+      - ./data/db:/data/db
+      # - ./data/configdb:/data/configdb
+      - ./server/src/database/mongo-init.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    expose: 
+      - 27017
+    ports:
+      - 27017:27017
+    networks:
+      - backend
+
+  ltk-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: ltk-server
+    ports:
+      - '8600:8600'
+    environment:
+      NODE_ENV: development
+      PORT: 8600
+      JWT_SECRET: jwt_secret
+      MONGO_HOST: mongoltk
+      MONGO_PORT: 27017
+      MONGO_USER: ltk
+      MONGO_PASSWORD: ltk1999
+      MONGO_DATABASE: app-chat
+      CLIENT_HOME_PAGE_URL: http://localhost:8686
+      FACEBOOK_ID: 973771346473752
+      FACEBOOK_SECRET: 501ab9833a40895452922c3337c4dc4a
+    volumes:
+      - ./server:/server
+      - /server/node_modules
+    restart: 'unless-stopped'
+    networks:
+      - backend
+    links:
+      - mongo
+    depends_on:
+      - mongo
+  ltk-client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: ltk-client
+    ports:
+      - '8686:8686'
+    environment:
+      NODE_ENV: production
+      REACT_APP_API_URL: http://localhost:8600/apiv1
+      LINK_LOGIN_FACEBOOK: http://localhost:8600
+      LINK_LOGIN_GITHUB: http://localhost:8600
+      LINK_LOGIN_gOOGLE: http://localhost:8600
+      LINK_LOGIN_gOOGLE: http://localhost:8600
+      REACT_APP_SOCKET_ENDPOINT: http://localhost:8600
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+    restart: 'unless-stopped'
+    networks:
+      - backend
+    links:
+      - ltk-server
+    depends_on:
+      - ltk-server
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  data:
+    driver: local

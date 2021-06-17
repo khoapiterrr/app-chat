@@ -15,7 +15,7 @@ const privateRoutes: IRoute[] = [
   },
   {
     path: '/call/:peerId',
-    exact: false,
+    exact: true,
     loader: () => import('containers/CallPage'),
     label: 'Trang chủ',
   },

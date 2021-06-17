@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import contactSelectors from 'containers/Contact/selectors';
 import AvatarDefault from 'assets/images/default-avatar.png';
+import { avatarFB } from 'constants/constants';
 const RightMessagesBG = () => {
   const contacts = useSelector(contactSelectors.selectContacts);
   const rightMesSideBar: MutableRefObject<HTMLDivElement | null> = useRef(null);
@@ -21,10 +22,7 @@ const RightMessagesBG = () => {
             <ul className='chat-users'>
               {contacts?.map((item: any) => (
                 <ChatUsersItem
-                  avatar={
-                    item?.avatar ??
-                    'https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-9/184357069_2879808265627694_3492303132633566580_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=Z8osWdrHmV4AX_zTOTP&tn=MqdNpmKyF81KT_i2&_nc_ht=scontent.fhan4-1.fna&oh=52c96bf52bda6007462e4280fc442c77&oe=60DDDDB2'
-                  }
+                  avatar={item?.avatar ?? avatarFB}
                   status='online'
                 />
               ))}
@@ -54,10 +52,7 @@ const RightMessagesBG = () => {
           <ul className='chat-users'>
             {contacts?.map((item: any) => (
               <ChatUsersItem
-                avatar={
-                  item?.avatar ??
-                  'https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-9/184357069_2879808265627694_3492303132633566580_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=Z8osWdrHmV4AX_zTOTP&tn=MqdNpmKyF81KT_i2&_nc_ht=scontent.fhan4-1.fna&oh=52c96bf52bda6007462e4280fc442c77&oe=60DDDDB2'
-                }
+                avatar={item?.avatar ?? avatarFB}
                 status='online'
                 isOpen={true}
                 id={item?._id}

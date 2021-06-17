@@ -1,4 +1,4 @@
-const { MONGO_HOST, MONGO_PORT, MONGO_DATABASE } = process.env;
+const { MONGO_HOST, MONGO_PORT, MONGO_DATABASE, MONGO_USER, MONGO_PASSWORD } = process.env;
 
 export const dbConnection = {
   url: `mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE}`,
@@ -6,5 +6,6 @@ export const dbConnection = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
+    useCreateIndex: true,
   },
 };

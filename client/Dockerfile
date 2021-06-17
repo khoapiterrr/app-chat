@@ -1,13 +1,20 @@
 FROM node:14.16.0-alpine3.12
 
-WORKDIR /app
+COPY . ./client
 
-COPY ["package.json", "package-lock.json*", "yarn.lock", "./"]
+WORKDIR /client
 
-RUN yarn install --production
+COPY package.json ./
 
-EXPOSE 3000
+COPY yarn.lock ./
 
-COPY . .
 
-CMD ["yarn","start"]
+RUN npm install -g serve
+
+RUN npm install
+
+RUN yarn build
+
+EXPOSE 8686
+
+CMD ["serve", "-s", "build", "-l", "8686"]
