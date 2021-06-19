@@ -111,9 +111,9 @@
     "yup": "^0.32.8"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
+    "start": "node ./scripts/start.js",
+    "build": "node ./scripts/build.js",
+    "test": "node ./scripts/test.js",
     "build:css": "postcss src/assets/css/Tailwind.css -o src/assets/css/App.css "
   },
   "eslintConfig": {

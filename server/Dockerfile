@@ -1,12 +1,11 @@
 FROM node:14.14.0-alpine3.12
+RUN mkdir -p /usr/src/server
 
-COPY . ./server
+COPY . ./usr/src/server
 
-WORKDIR /server
+WORKDIR /usr/src/server
 
 COPY package.json ./
-
-COPY yarn.lock ./
 
 RUN npm install
 
