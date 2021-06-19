@@ -5,15 +5,10 @@ import AuthRoute from './AuthRoute';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import routes from './routes';
-// Lazy load - Code splitting
-const HomePage = React.lazy(() => import('views/HomePage'));
-const AuthPage = React.lazy(() => import('views/AuthPage'));
 const RoutesComponent = () => {
+  console.log('RoutesComponent');
   return (
     <Switch>
-      {/* <Route exact path='/' component={AuthPage} />
-      <Route exact path='/login' component={HomePage} /> */}
-
       {routes.authRoutes.map((route) => (
         <AuthRoute
           key={route.path}

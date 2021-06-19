@@ -7,8 +7,7 @@ services:
     container_name: mongo
     restart: always
     volumes:
-      - ./data/db:/data/db
-      # - ./data/configdb:/data/configdb
+      - ./data/db:/usr/src/data/db
       - ./server/src/database/mongo-init.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
     expose: 
       - 27017
@@ -37,8 +36,8 @@ services:
       FACEBOOK_ID: 973771346473752
       FACEBOOK_SECRET: 501ab9833a40895452922c3337c4dc4a
     volumes:
-      - ./server:/server
-      - /server/node_modules
+      # - ./server:/usr/src/server
+      - /usr/src/server/node_modules
     restart: 'unless-stopped'
     networks:
       - backend
@@ -62,8 +61,8 @@ services:
       LINK_LOGIN_gOOGLE: http://localhost:8600
       REACT_APP_SOCKET_ENDPOINT: http://localhost:8600
     volumes:
-      - ./client:/client
-      - /client/node_modules
+      # - ./client:/usr/src/app
+      - /usr/src/app/node_modules
     restart: 'unless-stopped'
     networks:
       - backend

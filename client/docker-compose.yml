@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  ltk-client:
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    container_name: ltk-client
+    ports:
+      - '8686:8686'
+    environment:
+      NODE_ENV: production
+      REACT_APP_API_URL: http://localhost:8600/apiv1
+      LINK_LOGIN_FACEBOOK: http://localhost:8600
+      LINK_LOGIN_GITHUB: http://localhost:8600
+      LINK_LOGIN_gOOGLE: http://localhost:8600
+      LINK_LOGIN_gOOGLE: http://localhost:8600
+      REACT_APP_SOCKET_ENDPOINT: http://localhost:8600
+    volumes:
+      - ./:/client
+      - /client/node_modules
+    restart: 'unless-stopped'
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  data:
+    driver: local
