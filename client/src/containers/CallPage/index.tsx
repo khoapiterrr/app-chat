@@ -103,6 +103,10 @@ const CallPage = () => {
 
     peer.signal(callerSignal);
   };
+
+  const handleEndCall = () => {
+    
+  }
   return (
     <div className='callPage'>
       <div className='current-user-call'>

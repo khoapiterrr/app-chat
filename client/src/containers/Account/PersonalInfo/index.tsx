@@ -29,7 +29,11 @@ const PersonalInfo = () => {
     city: currentUser?.city,
     province: currentUser?.province,
   };
-  const validationSchema = Yup.object().shape({});
+  const validationSchema = Yup.object().shape({
+    firstName: Yup.string().required('Vui lòng nhập họ và tên đệm'),
+    lastName: Yup.string().required('Vui lòng nhập tên của bạn'),
+    email: Yup.string().required('Vui lòng nhập địa chỉ email'),
+  });
   const genders = [
     {
       id: 'Male',
@@ -40,7 +44,7 @@ const PersonalInfo = () => {
       title: 'Female',
     },
   ];
-  const onSubmit = (values: any) => {
+  const onSubmit = (values: any, { resetForm }: any) => {
     console.log(values);
     dispatch(
       accountActionCreator.updateProfile(
@@ -55,7 +59,7 @@ const PersonalInfo = () => {
               alertType.SUCCESS,
             ),
           );
-          console.log(res);
+          resetForm({ values });
         },
       ),
     );
@@ -198,7 +202,7 @@ const PersonalInfo = () => {
                           type='gender'
                           name='gender'
                           component={SelectField}
-                          value={10}
+                          value={formikProps.values.gender}
                           options={genders}
                           label={formatMessage({
                             id: 'Auth.form.gender.label',
@@ -238,7 +242,9 @@ const PersonalInfo = () => {
                       </FormGroup>
                     </div>
                     <div className='col col-lg-6 col-md-6 col-sm-12 col-12'>
-                      <button className='btn btn-secondary btn-lg full-width'>
+                      <button
+                        className='btn btn-secondary btn-lg full-width'
+                        type='button'>
                         Restore all Attributes
                       </button>
                     </div>

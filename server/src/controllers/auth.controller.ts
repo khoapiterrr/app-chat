@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto, LoginUserDto } from '../dtos/users.dto';
 import AuthService from '../services/auth.service';
 import { User } from '../interfaces/users.interface';
-import { RequestWithUser } from '../interfaces/auth.interface';
+import { ChangePasswordDto, RequestWithUser } from '../interfaces/auth.interface';
 
 class AuthController {
   public authService = new AuthService();
@@ -69,6 +69,16 @@ class AuthController {
       success: false,
       message: 'user failed to authenticate.',
     });
+  };
+  public changePassword = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    const userData: User = req.user;
+    const data: ChangePasswordDto = req.body;
+    try {
+      const objReturn = await this.authService.changePassword(data, userData._id);
+      res.status(200).json({ data: objReturn, message: 'Đổi mật khẩu thành công' });
+    } catch (error) {
+      next(error);
+    }
   };
 }
 

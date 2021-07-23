@@ -29,18 +29,15 @@ const SelectField: FC<IProps> = (props: IProps) => {
     multiline,
     disabled,
     options,
+    value,
   } = props;
   const { name } = field;
   const { errors, touched } = form;
   const showError = errors[name] && touched[name];
   const handleChange = (e: any) => {
-    console.log(e.target.value, 'e.target.value');
-    console.log(form, 'form');
     form.setFieldValue(name, e.target.value);
   };
-  // useEffect(() => {
 
-  // },[])
   return (
     <>
       <FormControl
@@ -53,7 +50,7 @@ const SelectField: FC<IProps> = (props: IProps) => {
         <Select
           labelId='demo-simple-select-outlined-label'
           id='demo-simple-select-outlined'
-          // value={state}
+          value={value}
           multiple={multiline}
           onChange={(event) => handleChange(event)}
           label={label}>

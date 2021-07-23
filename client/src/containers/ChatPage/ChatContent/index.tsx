@@ -37,6 +37,7 @@ const ChatContent = () => {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   };
   if (isScrollToBottom) {
+    console.log(isScrollToBottom, 'isScrollToBottom');
     scrollToBottom();
     dispatch(messageActionCreator.doToggleScrollToBottom());
   }

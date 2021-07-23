@@ -19,6 +19,7 @@ class UsersRoute implements Route {
     this.router.get('/findFriend', authMiddleware, paginationMiddleware({}), this.usersController.findFriend);
     this.router.get('/findFriendSuggestions', authMiddleware, this.usersController.findFriendSuggestions);
     this.router.get(`/listFriend/:id`, this.usersController.getFriendsInfo);
+    this.router.put(`/change-status`, authMiddleware, this.usersController.changeStatus);
     // this.router.get(`/`, this.usersController.getUsers);
     this.router.get(`/:id`, this.usersController.getUserById);
     this.router.post(`/`, validationMiddleware(CreateUserDto, 'body'), this.usersController.createUser);

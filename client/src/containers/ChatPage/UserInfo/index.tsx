@@ -81,7 +81,7 @@ const UserInfo: React.FC<IProps> = ({ userId }) => {
         </div>
       </div>
 
-      <div className='bg-white position-relative  rounded p-2 mb-3'>
+      {/* <div className='bg-white position-relative  rounded p-2 mb-3'>
         <h5 className='title'>Shared document</h5>
         {showShareDocuments ? (
           <div className='share-document d-flex flex-column'>
@@ -100,7 +100,7 @@ const UserInfo: React.FC<IProps> = ({ userId }) => {
             {showShareDocuments ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </a>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

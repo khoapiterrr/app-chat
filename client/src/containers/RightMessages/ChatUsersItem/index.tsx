@@ -32,7 +32,10 @@ const ChatUsersItem: React.FC<IProps> = ({
       {isEmpty(isOpen) ? null : (
         <React.Fragment>
           <div className='author-status'>
-            <a href='# ' className='h6 author-name'>
+            <a
+              href={'/messages/' + id}
+              // onClick={(e) => e.preventDefault()}
+              className='h6 author-name'>
               {authorName}
             </a>
             <span className='status text-uppercase'>{status}</span>

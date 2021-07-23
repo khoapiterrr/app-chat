@@ -15,3 +15,9 @@ export interface RequestWithUser extends Request {
   user: User;
   pagination: ParamsRequest;
 }
+
+export interface ChangePasswordDto {
+  currentPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}

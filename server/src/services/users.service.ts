@@ -191,6 +191,11 @@ class UserService {
     });
     return friendSuggestions;
   };
+
+  public changeStatus = async (status: string, userId: string) => {
+    const findUser = await this.users.findByIdAndUpdate(userId, { status: status });
+    return findUser;
+  };
 }
 
 export default UserService;

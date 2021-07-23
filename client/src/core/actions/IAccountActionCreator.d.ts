@@ -3,4 +3,5 @@ import PostType from '../PostType';
 
 export default interface IAccountActionCreator {
   updateProfile(userId: string, data: any, callback: any): any;
+  changePassword(data: any, callback: any): any;
 }

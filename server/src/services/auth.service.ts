@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 import { CreateUserDto, LoginUserDto } from '../dtos/users.dto';
 import HttpException from '../exceptions/HttpException';
-import { DataStoredInToken, TokenData } from '../interfaces/auth.interface';
+import { ChangePasswordDto, DataStoredInToken, TokenData } from '../interfaces/auth.interface';
 import { User } from '../interfaces/users.interface';
 import userModel from '../models/users.model';
 import { isEmpty } from '../utils/util';
@@ -70,6 +70,20 @@ class AuthService {
 
   public createCookie(tokenData: TokenData): string {
     return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn};`;
+  }
+  public async changePassword(data: ChangePasswordDto, userId: string): Promise<User> {
+    const findUser = await this.users.findById(userId);
+
+    const isPasswordMatching: boolean = await bcrypt.compare(data.currentPassword, findUser.password);
+    if (!isPasswordMatching) throw new HttpException(409, 'Mậu khẩu cũ không chính xác');
+
+    const hashedPassword: string = await bcrypt.hash(data.newPassword, 10);
+
+    findUser.password = hashedPassword;
+
+    const dataReturn: User = await findUser.save();
+
+    return dataReturn;
   }
 }
 

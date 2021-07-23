@@ -79,6 +79,16 @@ class UsersController {
       next(error);
     }
   };
+  public changeStatus = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    try {
+      const userId: string = req.params.id;
+      const status: string = req.body.status;
+      const response = await this.userService.changeStatus(status, userId);
+      res.status(200).json({ data: response, message: 'changeStatus' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default UsersController;

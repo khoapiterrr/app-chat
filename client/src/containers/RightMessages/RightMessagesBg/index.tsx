@@ -9,10 +9,22 @@ import AvatarDefault from 'assets/images/default-avatar.png';
 import { avatarFB } from 'constants/constants';
 const RightMessagesBG = () => {
   const contacts = useSelector(contactSelectors.selectContacts);
+
+  const [listFriend, setListFriend] = React.useState<any>(contacts);
   const rightMesSideBar: MutableRefObject<HTMLDivElement | null> = useRef(null);
   const openRightMessages = (e: any) => {
     e.preventDefault();
     rightMesSideBar.current!.classList.toggle('open');
+  };
+
+  const handleOnchangeKeyword = (event: any) => {
+    setListFriend(
+      contacts?.filter((x: any) =>
+        `${x.firstName} ${x.lastName}`
+          .toLowerCase()
+          .includes(event.target.value),
+      ),
+    );
   };
   return (
     <div className='fixed-sidebar right' ref={rightMesSideBar}>
@@ -20,7 +32,7 @@ const RightMessagesBG = () => {
         <div className='mCustomScrollbar' data-mcs-theme='dark'>
           <div className='scrollbar-hidden'>
             <ul className='chat-users'>
-              {contacts?.map((item: any) => (
+              {listFriend?.map((item: any) => (
                 <ChatUsersItem
                   avatar={item?.avatar ?? avatarFB}
                   status='online'
@@ -50,7 +62,7 @@ const RightMessagesBG = () => {
             <a href='#'>Settings</a>
           </div>
           <ul className='chat-users'>
-            {contacts?.map((item: any) => (
+            {listFriend?.map((item: any) => (
               <ChatUsersItem
                 avatar={item?.avatar ?? avatarFB}
                 status='online'
@@ -66,6 +78,8 @@ const RightMessagesBG = () => {
             <input
               className='form-control'
               placeholder='Search Friends...'
+              // value={keyworkSearch}
+              onChange={handleOnchangeKeyword}
               type='text'
             />
           </form>

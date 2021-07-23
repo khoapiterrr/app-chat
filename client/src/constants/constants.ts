@@ -9,4 +9,4 @@ export const alertType = {
 };
 
 export const avatarFB =
-  'https://scontent-hkt1-1.xx.fbcdn.net/v/t1.15752-9/197527428_2936643543276502_7824305527880911357_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=ae9488&_nc_ohc=3fWkXbU1w3UAX_I_IcV&tn=Q_VLEezKdXumyuYV&_nc_ht=scontent-hkt1-1.xx&oh=2abbc8a9fc4a6e7e996a0bd5e5d5d021&oe=60CF0DDF';
+  'https://scontent-hkt1-1.xx.fbcdn.net/v/t1.30497-1/c94.0.320.320a/p320x320/84241059_189132118950875_4138507100605120512_n.jpg?_nc_cat=1&ccb=1-3&_nc_sid=7206a8&_nc_ohc=METaY8v6Sa4AX_kNMrn&_nc_ht=scontent-hkt1-1.xx&oh=8c10fe7246ac1156ae6ac6fe76ca5e6a&oe=61209EBD';
