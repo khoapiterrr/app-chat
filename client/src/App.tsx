@@ -10,6 +10,9 @@ import 'emoji-mart/css/emoji-mart.css';
 import 'assets/scss/fonts.scss';
 import 'assets/scss/main.scss';
 
+// demo https://codesandbox.io/s/l9n3vnz8yz?file=/index.js:123-163
+import 'react-image-lightbox/style.css';
+
 import React, { Suspense } from 'react';
 import Spinner from './components/Spinner';
 import { configStore, getHistory } from 'app/store';

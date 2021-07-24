@@ -10,17 +10,50 @@ import * as constants from '../constants';
 import messageActionCreator from '../actions';
 import { debounce } from 'lodash';
 import { Picker } from 'emoji-mart';
-import { IconButton, Popover } from '@material-ui/core';
+import { IconButton, Popover, withStyles } from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import SendIcon from '@material-ui/icons/Send';
+import { DropzoneDialog } from 'material-ui-dropzone';
+import { uploadFileToFirebase } from 'utils/firebaseUltil';
+import { FileObject } from 'core/api/objectFile.interface';
+
+const StyledMenuItem = withStyles((theme) => ({
+  root: {
+    '&:focus': {
+      backgroundColor: '#ff5e3ab3',
+      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+        color: theme.palette.common.white,
+      },
+      '& .MuiListItemIcon-root': {
+        minWidth: 40,
+      },
+    },
+  },
+}))(MenuItem);
 
 const ChatFooter = () => {
   const inputMessageRef = useRef<any>();
   const [anchorEl, setAnchorEl] = React.useState<any>(null);
+  const [anchorElAction, setAnchorElAction] = React.useState<any>(null);
+  const [openDropzoneDialog, setOpenDropzoneDialog] = React.useState<any>('');
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleClickAction = (event: any) => {
+    setAnchorElAction(event.currentTarget);
+  };
+
+  const handleCloseAction = () => {
+    setAnchorElAction(null);
   };
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
@@ -97,14 +130,42 @@ const ChatFooter = () => {
       handleSendClick();
     }
   };
-
+  const handleOnClickFile = (e: any) => {
+    handleCloseAction();
+    setOpenDropzoneDialog('files');
+  };
+  const handleOnClickImage = (e: any) => {
+    handleCloseAction();
+    setOpenDropzoneDialog('images');
+  };
+  const handleSaveFiles = async (files: any) => {
+    if (files.length > 0) {
+      setOpenDropzoneDialog(false);
+      const listResult = await uploadFileToFirebase(files);
+      dispatch(
+        messageActionCreator.doCreate({
+          images:
+            openDropzoneDialog === 'images'
+              ? listResult.map((item: FileObject) => item.path)
+              : null,
+          files: openDropzoneDialog === 'files' ? listResult : null,
+          type: openDropzoneDialog === 'images' ? 'image' : 'file',
+          receiver: record.receiver._id,
+          conversationType: record.conversationType,
+        }),
+      );
+    }
+  };
   return (
     <div className='chat-footer bg-white rounded' id='chatFooter'>
       <div className='form-row align-items-center px-2'>
         <div className='col'>
           <div className='input-group align-items-center'>
             <div className='input-group-prepend mr-sm-2 mr-1'>
-              <div className='dropdown'>
+              <div
+                className='dropdown'
+                style={{ cursor: 'pointer' }}
+                onClick={handleClickAction}>
                 <AddIcon />
               </div>
             </div>
@@ -115,7 +176,7 @@ const ChatFooter = () => {
               onChange={(e) => {
                 onInputMessageChange(e.target.value);
               }}
-              placeholder='Write your message...'
+              placeholder='Nhập văn bản nhắn tin....'
               rows={1}
               onKeyUp={handleOnPressEnter}></textarea>
             <div className='input-group-prepend mr-sm-2 mr-1'>
@@ -140,6 +201,62 @@ const ChatFooter = () => {
                 }}>
                 <Picker set='facebook' sheetSize={32} onSelect={addEmoji} />
               </Popover>
+              <Popover
+                id={id}
+                open={Boolean(anchorElAction)}
+                anchorEl={anchorElAction}
+                onClose={handleCloseAction}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center',
+                }}>
+                <StyledMenuItem onClick={handleOnClickImage}>
+                  <ListItemIcon>
+                    <SendIcon fontSize='small' />
+                  </ListItemIcon>
+                  <ListItemText primary='Gửi ảnh' />
+                </StyledMenuItem>
+                <StyledMenuItem onClick={handleOnClickFile}>
+                  <ListItemIcon>
+                    <DraftsIcon fontSize='small' />
+                  </ListItemIcon>
+                  <ListItemText primary='Gửi file' />
+                </StyledMenuItem>
+              </Popover>
+              <DropzoneDialog
+                open={Boolean(openDropzoneDialog)}
+                onSave={handleSaveFiles}
+                acceptedFiles={
+                  openDropzoneDialog === 'images'
+                    ? ['image/jpeg', 'image/png', 'image/bmp']
+                    : [
+                        '.xlsx',
+                        '.xls',
+                        '.doc',
+                        '.docx',
+                        '.ppt',
+                        '.pptx',
+                        '.txt',
+                        '.pdf',
+                      ]
+                }
+                showPreviews={true}
+                maxFileSize={5000000}
+                onClose={() => setOpenDropzoneDialog(false)}
+                submitButtonText={
+                  openDropzoneDialog === 'images' ? 'Gửi ảnh' : 'Gửi files'
+                }
+                cancelButtonText='Hủy'
+                dialogTitle={
+                  openDropzoneDialog === 'images'
+                    ? 'Gửi tin nhắn ảnh'
+                    : 'Gửi tin nhắn files'
+                }
+              />
             </div>
           </div>
         </div>

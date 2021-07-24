@@ -9,9 +9,11 @@ import './styles.scss';
 import { getOffset } from 'utils/common';
 import AvatarDefault from 'assets/images/default-avatar.png';
 import { IconButton } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import actions from '../actions';
 import useSearchInfo from 'Hooks/useSearchInfo';
+import mesSelectors from '../selectors';
+import Lightbox from 'react-image-lightbox';
 
 interface IProps {
   userId: string;
@@ -21,10 +23,22 @@ interface IProps {
 const UserInfo: React.FC<IProps> = ({ userId }) => {
   const dispatch = useDispatch();
   const userInfo = useSearchInfo(userId);
-  const [showPersionalInfo, setShowPersionalInfo] = useState(false);
+  const record = useSelector(mesSelectors.selectRecord);
+  const [showPersionalInfo, setShowPersionalInfo] = useState(true);
   const [showCustomChat, setShowCustomChat] = useState(false);
   const [showShareDocuments, setShowShareDocuments] = useState(false);
+  const [showShareImages, setShowShareImages] = useState(true);
   const [style, setStyle] = useState({});
+  const [photoIndex, setPhotoIndex] = useState<number>(-1);
+  const images: string[] = [];
+  record?.messages
+    ?.filter((x: any) => x.type === 'image')
+    ?.map((itemFiles: any) =>
+      itemFiles?.images?.map((itemSingleFile: any) =>
+        images.push(itemSingleFile),
+      ),
+    );
+
   useEffect(() => {
     const ofTop = getOffset(document.getElementById('userInfo')).top;
     setStyle({ ...style, height: `calc(100vh - ${ofTop}px)` });
@@ -32,10 +46,14 @@ const UserInfo: React.FC<IProps> = ({ userId }) => {
   const handleClose = () => {
     dispatch(actions.doHideUserInfo());
   };
+  const handleClickLightbox = (e: any, index: number) => {
+    e.preventDefault();
+    setPhotoIndex(index);
+  };
   return (
     <div className='user-info-wrapper' id='userInfo' style={style}>
       <div className='title'>
-        <h4 className='title'>User Info</h4>
+        <h4 className='title'>Thông tin </h4>
         <span style={{ cursor: 'pointer' }} onClick={handleClose}>
           <HighlightOffIcon />
         </span>
@@ -48,11 +66,10 @@ const UserInfo: React.FC<IProps> = ({ userId }) => {
           className='info-avatar'
         />
         <h4 className='title'>{`${userInfo?.firstName} ${userInfo?.lastName}`}</h4>
-        <span>Admin</span>
       </div>
 
       <div className='bg-white position-relative d-flex flex-column rounded p-2 mb-3'>
-        <h5 className='title'>Personal Information</h5>
+        <h5 className='title'>Thông tin cá nhân</h5>
         {showPersionalInfo ? (
           <div className='info-chat'>
             <p className='d-flex align-items-center pl-1'>
@@ -75,20 +92,30 @@ const UserInfo: React.FC<IProps> = ({ userId }) => {
         <div
           className='position-absolute'
           style={{ top: '0.5rem', right: '0.5rem' }}>
-          <a href='# ' onClick={() => setShowPersionalInfo(!showPersionalInfo)}>
+          <a
+            href='# '
+            onClick={(e) => {
+              e.preventDefault();
+              setShowPersionalInfo(!showPersionalInfo);
+            }}>
             {showPersionalInfo ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </a>
         </div>
       </div>
 
-      {/* <div className='bg-white position-relative  rounded p-2 mb-3'>
-        <h5 className='title'>Shared document</h5>
+      <div className='bg-white position-relative  rounded p-2 mb-3'>
+        <h5 className='title'>Tài liệu chia sẻ</h5>
         {showShareDocuments ? (
           <div className='share-document d-flex flex-column'>
-            <a href=''> Change theme</a>
-            <a href=''> Change emoticons</a>
-            <a href=''> Edit aliases</a>
-            <a href=''> Search in conversation</a>
+            {record?.messages
+              ?.filter((x: any) => x.type === 'file')
+              ?.map((itemFiles: any) =>
+                itemFiles?.files?.map((itemSingleFile: any) => (
+                  <a href={itemSingleFile.path} target='_blank'>
+                    {itemSingleFile.name}
+                  </a>
+                )),
+              )}
           </div>
         ) : null}
         <div
@@ -96,11 +123,62 @@ const UserInfo: React.FC<IProps> = ({ userId }) => {
           style={{ top: '0.5rem', right: '0.5rem' }}>
           <a
             href='# '
-            onClick={() => setShowShareDocuments(!showShareDocuments)}>
+            onClick={(e) => {
+              e.preventDefault();
+              setShowShareDocuments(!showShareDocuments);
+            }}>
             {showShareDocuments ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </a>
         </div>
-      </div> */}
+      </div>
+      <div className='bg-white position-relative  rounded p-2 mb-3'>
+        <h5 className='title'>Hình ảnh chia sẻ</h5>
+        {showShareImages ? (
+          <div className='share-document row'>
+            {images?.map((linkUrl: string, index: number) => (
+              <div className='col-md-6'>
+                <a
+                  className='popup-media'
+                  href='linkUrl'
+                  onClick={(event: any) => handleClickLightbox(event, index)}>
+                  <img
+                    className='img-fluid rounded img-mes'
+                    src={linkUrl}
+                    alt=''
+                  />
+                </a>
+              </div>
+            ))}
+          </div>
+        ) : null}
+
+        <div
+          className='position-absolute'
+          style={{ top: '0.5rem', right: '0.5rem' }}>
+          <a
+            href='# '
+            onClick={(e: any) => {
+              e.preventDefault();
+              setShowShareImages(!showShareImages);
+            }}>
+            {showShareImages ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </a>
+        </div>
+      </div>
+      {photoIndex >= 0 && (
+        <Lightbox
+          mainSrc={images[photoIndex]}
+          nextSrc={images[(photoIndex + 1) % images.length]}
+          prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+          onCloseRequest={() => setPhotoIndex(-1)}
+          onMovePrevRequest={() =>
+            setPhotoIndex((photoIndex + images.length - 1) % images.length)
+          }
+          onMoveNextRequest={() =>
+            setPhotoIndex((photoIndex + 1) % images.length)
+          }
+        />
+      )}
     </div>
   );
 };
