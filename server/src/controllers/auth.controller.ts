@@ -80,6 +80,16 @@ class AuthController {
       next(error);
     }
   };
+
+  public restorePassword = async (req: Request, res: Response, next: NextFunction) => {
+    const email = req.body.email;
+    try {
+      const objReturn = await this.authService.restorePassword(email);
+      res.status(200).json({ data: objReturn, message: 'Restore password' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default AuthController;

@@ -17,7 +17,7 @@ const SearchPage = () => {
           <div className='row'>
             <div className='col col-lg-8 m-auto col-md-8 col-sm-12 col-12'>
               <div className='main-header-content'>
-                <h1>Results search friends</h1>
+                <h1>Kết quả tìm kiếm bạn bè</h1>
                 {/* <p>
                   Welcome to your friends groups! Do you wanna know what your
                   close friends have been up to? Groups will let you easily

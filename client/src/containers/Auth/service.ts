@@ -14,3 +14,6 @@ export const postSignUp = async (data: ISignUp) => {
 export const fetchCurrentAuth = async () => {
   return axiosClient.get('/auth/me');
 };
+export const putRestorePwdApi = async (email: string) => {
+  return axiosClient.put('/auth/restore-password', { email });
+};

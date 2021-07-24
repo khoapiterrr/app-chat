@@ -13,6 +13,7 @@ import LogoWeb from 'assets/images/logo.png';
 import contactSelectors from 'containers/Contact/selectors';
 import AvatarDefault from 'assets/images/default-avatar.png';
 import contactActionCreator from 'containers/Contact/actions';
+import { avatarFB } from 'constants/constants';
 
 const HeaderBG = () => {
   const currentUser = useSelector(authSelectors.selectCurrentUser);
@@ -48,7 +49,7 @@ const HeaderBG = () => {
         </Link>
       </div>
       <div className='page-title'>
-        <h6>Profile Page</h6>
+        <h6>App chat</h6>
       </div>
       <div className='header-content-wrapper'>
         <form className='search-bar w-search notification-list friend-requests'>
@@ -79,61 +80,68 @@ const HeaderBG = () => {
             )}
             <div className='more-dropdown more-with-triangle triangle-top-center'>
               <div className='ui-block-title ui-block-title-small'>
-                <h6 className='title'>FRIEND REQUESTS</h6>
+                <h6 className='title'>Yêu cầu kết bạn</h6>
                 {/* <a href='#'>Find Friends</a>
                 <a href='#'>Settings</a> */}
               </div>
               <div className='mCustomScrollbar' data-mcs-theme='dark'>
                 <ul className='notification-list friend-requests'>
-                  {friendRequest?.map((item: any) => (
-                    <li>
-                      <div className='author-thumb'>
-                        <img
-                          src={
-                            item?.avatar ??
-                            `https://scontent-hkt1-1.xx.fbcdn.net/v/t1.15752-9/196738773_301890864916198_2236989249047047852_n.png?_nc_cat=110&ccb=1-3&_nc_sid=ae9488&_nc_ohc=49qmTBfPo_wAX_NV_vy&_nc_ht=scontent-hkt1-1.xx&oh=14a4f0b5d57de9d95fa54bcbc72fe57d&oe=60C9BFA1`
-                          }
-                          style={{ width: 32 }}
-                          alt={item?.avatar}
-                        />
-                      </div>
-                      <div className='notification-event'>
-                        <Link
-                          to={`/profile/${item._id}`}
-                          className='h6 notification-friend'>
-                          {`${item.firstName} ${item.lastName}`}
-                        </Link>
-                        <span className='chat-message-item'>
-                          Mutual Friend: Trong Khoa
+                  {friendRequest?.length > 0 ? (
+                    friendRequest?.map((item: any) => (
+                      <li>
+                        <div className='author-thumb'>
+                          <img
+                            src={item?.avatar ?? avatarFB}
+                            style={{
+                              width: 32,
+                              height: 32,
+                              objectFit: 'cover',
+                            }}
+                            alt={item?.avatar}
+                          />
+                        </div>
+                        <div className='notification-event'>
+                          <Link
+                            to={`/profile/${item._id}`}
+                            className='h6 notification-friend'>
+                            {`${item.firstName} ${item.lastName}`}
+                          </Link>
+                          <span className='chat-message-item'>
+                            Bạn chung: Trong Khoa
+                          </span>
+                        </div>
+                        <span className='notification-icon'>
+                          <a
+                            href='#'
+                            className='accept-request'
+                            onClick={(e) => handleOnUpdateContact(e, item)}>
+                            <span className='icon-add without-text'>
+                              <CustomSvgIcons id='olymp-happy-face-icon' />
+                            </span>
+                          </a>
+                          <a
+                            href='#'
+                            className='accept-request request-del'
+                            onClick={(e) => handleOnDestroyRequest(e, item)}>
+                            <span className='icon-minus'>
+                              <CustomSvgIcons id='olymp-happy-face-icon' />
+                            </span>
+                          </a>
                         </span>
-                      </div>
-                      <span className='notification-icon'>
-                        <a
-                          href='#'
-                          className='accept-request'
-                          onClick={(e) => handleOnUpdateContact(e, item)}>
-                          <span className='icon-add without-text'>
-                            <CustomSvgIcons id='olymp-happy-face-icon' />
-                          </span>
-                        </a>
-                        <a
-                          href='#'
-                          className='accept-request request-del'
-                          onClick={(e) => handleOnDestroyRequest(e, item)}>
-                          <span className='icon-minus'>
-                            <CustomSvgIcons id='olymp-happy-face-icon' />
-                          </span>
-                        </a>
-                      </span>
-                      <div className='more'>
-                        <CustomSvgIcons id='olymp-three-dots-icon' />
-                      </div>
-                    </li>
-                  ))}
+                        <div className='more'>
+                          <CustomSvgIcons id='olymp-three-dots-icon' />
+                        </div>
+                      </li>
+                    ))
+                  ) : (
+                    <p className='text-center pt-2'>
+                      Không có yêu cầu kết bạn nào
+                    </p>
+                  )}
                 </ul>
               </div>
               <Link to='/account/friend-requests' className='view-all bg-blue'>
-                Check all your Events
+                Kiếm tra tất cả
               </Link>
             </div>
           </div>
@@ -142,14 +150,14 @@ const HeaderBG = () => {
             <div className='author-thumb'>
               <img
                 alt='author'
-                src={currentUser?.avatar ?? AvatarDefault}
+                src={currentUser?.avatar ?? avatarFB}
                 className={classnames(classes.avatar, 'avatar')}
               />
               <span className='icon-status online' />
               <div className='more-dropdown more-with-triangle'>
                 <div className='mCustomScrollbar' data-mcs-theme='dark'>
                   <div className='ui-block-title ui-block-title-small'>
-                    <h6 className='title'>Your Account</h6>
+                    <h6 className='title'>Tài khoản</h6>
                   </div>
                   <ul className='account-settings'>
                     <li>
@@ -158,7 +166,7 @@ const HeaderBG = () => {
                           className='olymp-logout-icon'
                           id='olymp-menu-icon'
                         />
-                        <span>Profile Settings</span>
+                        <span>Cài đặt tài khoản</span>
                       </Link>
                     </li>
                     <li>
@@ -167,12 +175,12 @@ const HeaderBG = () => {
                           className='olymp-logout-icon'
                           id='olymp-logout-icon'
                         />
-                        <span>Log Out</span>
+                        <span>Đăng xuất</span>
                       </a>
                     </li>
                   </ul>
                   <div className='ui-block-title ui-block-title-small'>
-                    <h6 className='title'>Chat Settings</h6>
+                    <h6 className='title'>Cài đặt hội thoại</h6>
                   </div>
                   <ul className='chat-settings'>
                     <li>
@@ -201,7 +209,7 @@ const HeaderBG = () => {
                     </li>
                   </ul>
                   <div className='ui-block-title ui-block-title-small'>
-                    <h6 className='title'>Custom Status</h6>
+                    <h6 className='title'>Chỉnh sửa trạng thái</h6>
                   </div>
                   <form className='form-group with-button custom-status'>
                     <input
@@ -217,17 +225,19 @@ const HeaderBG = () => {
                     </button>
                   </form>
                   <div className='ui-block-title ui-block-title-small'>
-                    <h6 className='title'>About us</h6>
+                    <h6 className='title'>Về chúng tôi</h6>
                   </div>
                   <ul>
                     <li>
                       <a href='javascript:void(0)'>
-                        <span>Terms and Conditions</span>
+                        <span>Điều khoản</span>
                       </a>
                     </li>
                     <li>
-                      <a href='https://www.facebook.com/KhoaPiterrr/'>
-                        <span>Contact</span>
+                      <a
+                        href='https://www.facebook.com/KhoaPiterrr/'
+                        target='_blank'>
+                        <span>Liên hệ</span>
                       </a>
                     </li>
                   </ul>

@@ -16,6 +16,7 @@ const PersonalInfo = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(authSelectors.selectCurrentUser);
   const initialValues = {
+    ...currentUser,
     firstName: currentUser?.firstName,
     lastName: currentUser?.lastName,
     email: currentUser?.email,
@@ -28,6 +29,7 @@ const PersonalInfo = () => {
     country: currentUser?.country,
     city: currentUser?.city,
     province: currentUser?.province,
+    phoneNumber: currentUser?.phoneNumber,
   };
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required('Vui lòng nhập họ và tên đệm'),
@@ -69,7 +71,8 @@ const PersonalInfo = () => {
       <div className='ui-block'>
         <div className='ui-block-title'>
           <h6 className='title'>
-            <FormattedMessage id='Account.personalInfo.label' />
+            {/* <FormattedMessage id='Account.personalInfo.label' /> */}
+            Cập nhật thông tin
           </h6>
         </div>
         <div className='ui-block-content'>
@@ -86,18 +89,20 @@ const PersonalInfo = () => {
                         <FastField
                           name='firstName'
                           component={InputField}
-                          label={formatMessage({
-                            id: 'Auth.form.firstName.label',
-                          })}
+                          // label={formatMessage({
+                          //   id: 'Auth.form.firstName.label',
+                          // })}
+                          label={'Họ và tên đệm'}
                         />
                       </FormGroup>
                       <FormGroup>
                         <FastField
                           name='email'
                           component={InputField}
-                          label={formatMessage({
-                            id: 'Auth.form.email.label',
-                          })}
+                          // label={formatMessage({
+                          //   id: 'Auth.form.email.label',
+                          // })}
+                          label='Email'
                         />
                       </FormGroup>
 
@@ -107,9 +112,10 @@ const PersonalInfo = () => {
                           name='birthday'
                           defaultValue='1999-06-23'
                           component={InputField}
-                          label={formatMessage({
-                            id: 'Auth.form.birthday.label',
-                          })}
+                          // label={formatMessage({
+                          //   id: 'Auth.form.birthday.label',
+                          // })}
+                          label='Ngày sinh'
                         />
                       </FormGroup>
                     </div>
@@ -118,27 +124,30 @@ const PersonalInfo = () => {
                         <FastField
                           name='lastName'
                           component={InputField}
-                          label={formatMessage({
-                            id: 'Auth.form.lastName.label',
-                          })}
+                          // label={formatMessage({
+                          //   id: 'Auth.form.lastName.label',
+                          // })}
+                          label='Tên'
                         />
                       </FormGroup>
                       <FormGroup>
                         <FastField
                           name='websiteLink'
                           component={InputField}
-                          label={formatMessage({
-                            id: 'Auth.form.yourWebsite.label',
-                          })}
+                          // label={formatMessage({
+                          //   id: 'Auth.form.yourWebsite.label',
+                          // })}
+                          label='Website'
                         />
                       </FormGroup>
                       <FormGroup>
                         <FastField
                           name='phoneNumber'
                           component={InputField}
-                          label={formatMessage({
-                            id: 'Auth.form.phoneNumber.label',
-                          })}
+                          // label={formatMessage({
+                          //   id: 'Auth.form.phoneNumber.label',
+                          // })}
+                          label='Số điện thoại'
                         />
                       </FormGroup>
                     </div>
@@ -147,9 +156,10 @@ const PersonalInfo = () => {
                         <FastField
                           name='country'
                           component={InputField}
-                          label={formatMessage({
-                            id: 'Auth.form.country.label',
-                          })}
+                          // label={formatMessage({
+                          //   id: 'Auth.form.country.label',
+                          // })}
+                          label='Quốc gia'
                         />
                       </FormGroup>
                     </div>
@@ -158,9 +168,10 @@ const PersonalInfo = () => {
                         <FastField
                           name='province'
                           component={InputField}
-                          label={formatMessage({
-                            id: 'Auth.form.province.label',
-                          })}
+                          // label={formatMessage({
+                          //   id: 'Auth.form.province.label',
+                          // })}
+                          label='Quận/huyện'
                         />
                       </FormGroup>
                     </div>
@@ -169,9 +180,10 @@ const PersonalInfo = () => {
                         <FastField
                           name='city'
                           component={InputField}
-                          label={formatMessage({
-                            id: 'Auth.form.city.label',
-                          })}
+                          // label={formatMessage({
+                          //   id: 'Auth.form.city.label',
+                          // })}
+                          label='Thành phố'
                         />
                       </FormGroup>
                     </div>
@@ -181,9 +193,10 @@ const PersonalInfo = () => {
                           name='description'
                           multiline={true}
                           component={InputField}
-                          label={formatMessage({
-                            id: 'Auth.form.description.label',
-                          })}
+                          // label={formatMessage({
+                          //   id: 'Auth.form.description.label',
+                          // })}
+                          label='Mô tả'
                         />
                       </FormGroup>
                     </div>
@@ -192,9 +205,10 @@ const PersonalInfo = () => {
                         <FastField
                           name='birthplace'
                           component={InputField}
-                          label={formatMessage({
-                            id: 'Auth.form.birthplace.label',
-                          })}
+                          // label={formatMessage({
+                          //   id: 'Auth.form.birthplace.label',
+                          // })}
+                          label='Nơi sinh'
                         />
                       </FormGroup>
                       <FormGroup>
@@ -204,9 +218,10 @@ const PersonalInfo = () => {
                           component={SelectField}
                           value={formikProps.values.gender}
                           options={genders}
-                          label={formatMessage({
-                            id: 'Auth.form.gender.label',
-                          })}
+                          // label={formatMessage({
+                          //   id: 'Auth.form.gender.label',
+                          // })}
+                          label='Giới tính'
                         />
                       </FormGroup>
                     </div>
@@ -215,9 +230,10 @@ const PersonalInfo = () => {
                         <FastField
                           name='facebookLink'
                           component={InputField}
-                          label={formatMessage({
-                            id: 'Auth.form.facebook.label',
-                          })}
+                          // label={formatMessage({
+                          //   id: 'Auth.form.facebook.label',
+                          // })}
+                          label='Facebook'
                         />
                       </FormGroup>
 
@@ -225,13 +241,14 @@ const PersonalInfo = () => {
                         <FastField
                           name='twitterLink'
                           component={InputField}
-                          label={formatMessage({
-                            id: 'Auth.form.twitter.label',
-                          })}
+                          // label={formatMessage({
+                          //   id: 'Auth.form.twitter.label',
+                          // })}
+                          label='Twitter'
                         />
                       </FormGroup>
 
-                      <FormGroup>
+                      {/* <FormGroup>
                         <FastField
                           name='spotifyLink'
                           component={InputField}
@@ -239,20 +256,20 @@ const PersonalInfo = () => {
                             id: 'Auth.form.spotify.label',
                           })}
                         />
-                      </FormGroup>
+                      </FormGroup> */}
                     </div>
                     <div className='col col-lg-6 col-md-6 col-sm-12 col-12'>
                       <button
                         className='btn btn-secondary btn-lg full-width'
                         type='button'>
-                        Restore all Attributes
+                        Hoàn tác
                       </button>
                     </div>
                     <div className='col col-lg-6 col-md-6 col-sm-12 col-12'>
                       <button
                         className='btn btn-primary btn-lg full-width'
                         type='submit'>
-                        Save all Changes
+                        Lưu tất cả
                       </button>
                     </div>
                   </div>

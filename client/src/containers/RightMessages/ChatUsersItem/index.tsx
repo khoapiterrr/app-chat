@@ -24,8 +24,8 @@ const ChatUsersItem: React.FC<IProps> = ({
         <img
           alt='author'
           src={avatar}
-          style={{ width: 32 }}
-          className='avatar'
+          style={{ width: 32, height: 32, objectFit: 'cover' }}
+          className='avatar '
         />
         <span className={`icon-status ${status}`} />
       </div>

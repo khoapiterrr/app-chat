@@ -25,6 +25,7 @@ class AuthRoute implements Route {
 
     this.router.get('/me', authMiddleware, this.authController.getCurrentAuth);
     this.router.put('/change-password', authMiddleware, this.authController.changePassword);
+    this.router.put('/restore-password', this.authController.restorePassword);
     this.router.get(
       '/facebook',
       passport.authenticate('facebook', {

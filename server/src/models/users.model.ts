@@ -68,6 +68,7 @@ const userSchema: Schema = new Schema(
     country: String,
     city: String,
     province: String,
+    background: String,
   },
   {
     timestamps: true,

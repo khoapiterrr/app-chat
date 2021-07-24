@@ -42,7 +42,8 @@ const FriendSuggestions = () => {
       <div className='ui-block'>
         <div className='ui-block-title'>
           <h6 className='title'>
-            <FormattedMessage id='Label.title.contact' />
+            {/* <FormattedMessage id='Label.title.contact' /> */}
+            Gợi ý kết bạn
           </h6>
           <a href='# !' className='more'>
             <CustomSvgIcons
@@ -52,42 +53,46 @@ const FriendSuggestions = () => {
           </a>
         </div>
         <ul className='widget w-friend-pages-added notification-list friend-requests'>
-          {friendSuggestions?.map((item: any, index: number) => {
-            return (
-              <li className='inline-items' key={index}>
-                <div className='author-thumb'>
-                  <img
-                    src={item?.avatar ?? AvatarDefault}
-                    style={{ width: '100%' }}
-                    alt='author'
-                  />
-                </div>
-                <div className='notification-event'>
-                  <Link
-                    to={`/profile/${item._id}`}
-                    className='h6 notification-friend'>
-                    {`${item.firstName} ${item.lastName}`}
-                  </Link>
-                  <span className='chat-message-item'>
-                    6 <FormattedMessage id='Label.mutualFriend' />
-                  </span>
-                </div>
-                <span className='notification-icon'>
-                  <a
-                    href='# !'
-                    className='accept-request'
-                    onClick={(e) => handleClickAddFriends(e, item?._id)}>
-                    <span className='icon-add without-text'>
-                      <CustomSvgIcons
-                        className='olymp-happy-face-icon'
-                        id='olymp-happy-face-icon'
-                      />
+          {friendSuggestions?.length ? (
+            friendSuggestions?.map((item: any, index: number) => {
+              return (
+                <li className='inline-items' key={index}>
+                  <div className='author-thumb'>
+                    <img
+                      src={item?.avatar ?? AvatarDefault}
+                      className='avatar-cover-parent'
+                      alt='author'
+                    />
+                  </div>
+                  <div className='notification-event'>
+                    <Link
+                      to={`/profile/${item._id}`}
+                      className='h6 notification-friend'>
+                      {`${item.firstName} ${item.lastName}`}
+                    </Link>
+                    <span className='chat-message-item'>
+                      6 <FormattedMessage id='Label.mutualFriend' />
                     </span>
-                  </a>
-                </span>
-              </li>
-            );
-          })}
+                  </div>
+                  <span className='notification-icon'>
+                    <a
+                      href='# !'
+                      className='accept-request'
+                      onClick={(e) => handleClickAddFriends(e, item?._id)}>
+                      <span className='icon-add without-text'>
+                        <CustomSvgIcons
+                          className='olymp-happy-face-icon'
+                          id='olymp-happy-face-icon'
+                        />
+                      </span>
+                    </a>
+                  </span>
+                </li>
+              );
+            })
+          ) : (
+            <p className='text-center pt-2'>Không tìm thấy bạn bè phù hợp</p>
+          )}
         </ul>
       </div>
     </>

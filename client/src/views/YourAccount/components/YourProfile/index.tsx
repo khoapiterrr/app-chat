@@ -25,7 +25,7 @@ const YourProfile: React.FC<IProps> = ({ toggleCollapse, collapse }) => {
         {/* Your Profile  */}
         <div className='your-profile'>
           <div className='ui-block-title ui-block-title-small'>
-            <h6 className='title'>Your PROFILE</h6>
+            <h6 className='title'>Tài khoản</h6>
           </div>
           <div id='accordion' role='tablist' aria-multiselectable='true'>
             <div className='card'>
@@ -36,7 +36,7 @@ const YourProfile: React.FC<IProps> = ({ toggleCollapse, collapse }) => {
                     aria-expanded={collapse}
                     onClick={toggleCollapse}
                     aria-controls='collapseOne'>
-                    Profile Settings
+                    Cài đặt tài khoản
                     {collapse ? (
                       <CustomSvgIcons
                         className='olymp-dropdown-arrow-icon'
@@ -55,13 +55,11 @@ const YourProfile: React.FC<IProps> = ({ toggleCollapse, collapse }) => {
                 aria-labelledby='headingOne'>
                 <ul className='your-profile-menu'>
                   <li>
-                    <Link to={`${url}/personal-info`}>
-                      Personal Information
-                    </Link>
+                    <Link to={`${url}/personal-info`}>Thông tin cá nhân</Link>
                   </li>
 
                   <li>
-                    <Link to={`${url}/change-password`}>Change Password</Link>
+                    <Link to={`${url}/change-password`}>Đổi mật khẩu</Link>
                   </li>
                 </ul>
               </div>
@@ -69,7 +67,7 @@ const YourProfile: React.FC<IProps> = ({ toggleCollapse, collapse }) => {
           </div>
           <div className='ui-block-title'>
             <Link to={`${url}/notification`} className='h6 title'>
-              Send Requests
+              Yêu cầu kết bạn
             </Link>
             <a
               href='# !'
@@ -80,7 +78,7 @@ const YourProfile: React.FC<IProps> = ({ toggleCollapse, collapse }) => {
           </div>
           <div className='ui-block-title'>
             <Link to={`${url}/friend-requests`} className='h6 title'>
-              Friend Requests
+              Lời mời kết bạn
             </Link>
             <a
               href='# !'

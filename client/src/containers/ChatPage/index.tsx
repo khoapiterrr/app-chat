@@ -134,7 +134,11 @@ const ChatPage = () => {
           {userId && <ChatContent />}
 
           {userId && isShowUserInfo && <UserInfo userId={userId as string} />}
-          {!userId && <h2 className='welcome'>Welcome to the chat </h2>}
+          {!userId && (
+            <h2 className='welcome'>
+              Chào mừng bạn đến với <br /> ứng dụng nhắn tin của chúng tôi
+            </h2>
+          )}
         </Row>
       </div>
     </div>

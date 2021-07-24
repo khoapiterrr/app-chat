@@ -12,6 +12,7 @@ import { socketDisconnect, configSocket } from 'app/rootSocket';
 import IAccountActionCreator from 'core/actions/IAccountActionCreator';
 
 const accountActionCreator: IAccountActionCreator = {
+  // Todo : allows update current user
   updateProfile:
     (userId: string, dataInfo: any, callback: any) =>
     async (dispatch: Dispatch<any>) => {
@@ -21,6 +22,10 @@ const accountActionCreator: IAccountActionCreator = {
         if (callback) {
           callback(response.data);
         }
+        dispatch({
+          type: constants.SIGNIN_SUCCESS,
+          payload: response.data,
+        });
       } catch (error) {
         const mes = Errors.handle(error);
         if (mes) {

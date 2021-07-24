@@ -24,13 +24,13 @@ const YourAccount = () => {
           <div className='row'>
             <div className='col col-lg-8 m-auto col-md-8 col-sm-12 col-12'>
               <div className='main-header-content'>
-                <h1>Your Account Dashboard</h1>
+                <h1>Cài đặt tài khoản</h1>
                 <p>
-                  Welcome to your account dashboard! Here you’ll find everything
-                  you need to change your profile information, settings, read
-                  notifications and requests, view your latest messages, change
-                  your pasword and much more! Also you can create or manage your
-                  own favourite page, have fun!
+                  Chào mừng bạn đến với trang tổng quan tài khoản của bạn! Ở đây
+                  bạn sẽ tìm thấy mọi thứ bạn cần thay đổi thông tin hồ sơ, cài
+                  đặt, đọc thông báo và yêu cầu, xem tin nhắn mới nhất của bạn,
+                  thay đổi mật khẩu của bạn và nhiều hơn nữa! Ngoài ra, bạn có
+                  thể tạo hoặc quản lý trang yêu thích của riêng bạn!
                 </p>
               </div>
             </div>

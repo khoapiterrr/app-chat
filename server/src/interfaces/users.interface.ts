@@ -21,6 +21,7 @@ export interface User {
   description?: string | null;
   country?: string | null;
   city?: string | null;
+  background?: string | null;
   province?: string | null;
 }
 export interface UserInfo {

@@ -1,7 +1,12 @@
 import { Dispatch } from 'react';
 import { AnyAction as Action } from 'redux';
 import IAuthActionCreator from '../../core/actions/IAuthActionCreator';
-import { fetchCurrentAuth, postSignIn, postSignUp } from './service';
+import {
+  fetchCurrentAuth,
+  postSignIn,
+  postSignUp,
+  putRestorePwdApi,
+} from './service';
 import { getHistory } from 'app/store';
 import * as constants from './constants';
 import Errors from 'containers/shared/handleError';
@@ -54,18 +59,45 @@ const authActionCreator: IAuthActionCreator = {
         dispatch({ type: constants.SIGNUP_START });
 
         // call api: signin
-        await postSignUp(userInfo);
+        const res = await postSignUp(userInfo);
 
         dispatch({ type: constants.SIGNUP_SUCCESS });
         dispatch(showSnackbar('Sign Up Successfully', alertType.SUCCESS));
         if (callback) {
-          callback();
+          callback(true);
         }
       } catch (error) {
         dispatch({
           type: constants.SIGNUP_ERROR,
           payload: Errors.selectMessage(error),
         });
+        if (callback) {
+          callback(false);
+        }
+      }
+    },
+
+  doRestorePassword:
+    (email: string, callback) => async (dispatch: Dispatch<any>) => {
+      try {
+        // call api: signin
+        await putRestorePwdApi(email);
+        if (callback) {
+          callback();
+          dispatch(
+            showSnackbar(
+              'Vui lòng kiểm tra lại mail để lấy mật khẩu',
+              alertType.SUCCESS,
+            ),
+          );
+        }
+      } catch (error) {
+        console.log(
+          JSON.stringify(Errors.selectMessage(error)),
+          'doRestorePassword error',
+        );
+
+        dispatch(showSnackbar(Errors.selectMessage(error), alertType.ERROR));
       }
     },
 

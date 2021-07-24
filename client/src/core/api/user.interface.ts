@@ -22,4 +22,5 @@ export interface User {
   country?: string | null;
   city?: string | null;
   province?: string | null;
+  background?: string | null;
 }

@@ -77,7 +77,7 @@ const SearchContact: React.FC<IProps> = ({ keyword }) => {
                 <div className='author-thumb'>
                   <img
                     src={item?.avatar ?? AvatarDefault}
-                    style={{ width: 32 }}
+                    style={{ width: 32, height: 32, objectFit: 'cover' }}
                     alt='author'
                   />
                 </div>

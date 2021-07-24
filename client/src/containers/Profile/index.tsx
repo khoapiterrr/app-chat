@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import authSelectors from '../Auth/selectors';
 import { fetchUserByIdCB } from './actions';
 import bgDefault from 'assets/images/bgDefault.jpg';
@@ -9,7 +9,11 @@ import CustomSvgIcons from 'components/CustomSvgIcons';
 import { User } from 'core/api/user.interface';
 import avatar38 from 'assets/images/avatar38-sm.jpg';
 import contactSelectors from '../Contact/selectors';
-import { avatarFB } from 'constants/constants';
+import { alertType, avatarFB } from 'constants/constants';
+import { DropzoneDialog } from 'material-ui-dropzone';
+import { uploadSingleFile } from 'utils/firebaseUltil';
+import accountActionCreator from '../Account/actions';
+import { showSnackbar } from 'containers/layout/actions';
 
 interface ParamTypes {
   id: string | undefined;
@@ -20,6 +24,7 @@ const Profile: React.FC = () => {
   const [profileUser, setProfileUser] = React.useState<User>();
   const dispatch = useDispatch();
   const contacts = useSelector(contactSelectors.selectContacts);
+  const [openDropzoneDialog, setOpenDropzoneDialog] = useState<any>('');
   React.useEffect(() => {
     if (id === 'me') {
       id = currentUser?._id;
@@ -28,6 +33,40 @@ const Profile: React.FC = () => {
   }, [id, currentUser]);
   const onClickUnknow = (e: any) => {
     e.preventDefault();
+  };
+  const handleClickUpAvatar = (e: any) => {
+    onClickUnknow(e);
+    setOpenDropzoneDialog('avatar');
+  };
+  const handleClickUpBg = (e: any) => {
+    onClickUnknow(e);
+    setOpenDropzoneDialog('Bg');
+  };
+  const handleSaveFiles = async (files: any) => {
+    if (files.length > 0) {
+      setOpenDropzoneDialog(false);
+      const result = await uploadSingleFile(files[0]);
+      dispatch(
+        accountActionCreator.updateProfile(
+          profileUser!._id,
+          {
+            ...profileUser,
+            avatar:
+              openDropzoneDialog === 'avatar'
+                ? result.path
+                : profileUser?.avatar,
+            background:
+              openDropzoneDialog === 'Bg'
+                ? result.path
+                : profileUser?.background,
+          },
+          (res: any) => {
+            console.log(res, 'data');
+            dispatch(showSnackbar('Cập nhật thành công', alertType.SUCCESS));
+          },
+        ),
+      );
+    }
   };
   return (
     <>
@@ -40,7 +79,7 @@ const Profile: React.FC = () => {
               <div className='top-header'>
                 <div className='top-header-thumb'>
                   <img
-                    src={bgDefault}
+                    src={profileUser?.background ?? bgDefault}
                     alt='nature'
                     style={{ height: '50vh', objectFit: 'cover' }}
                   />
@@ -51,7 +90,7 @@ const Profile: React.FC = () => {
                     <div className='col col-lg-5 ml-auto col-md-5 col-sm-12 col-12'></div>
                   </div>
                   <div className='control-block-button'>
-                    <a
+                    {/* <a
                       href='!# '
                       onClick={onClickUnknow}
                       className='btn btn-control bg-blue'>
@@ -59,45 +98,73 @@ const Profile: React.FC = () => {
                         className='olymp-happy-face-icon'
                         id='olymp-happy-face-icon'
                       />
-                    </a>
-                    <a
-                      href='!# '
-                      onClick={onClickUnknow}
-                      className='btn btn-control bg-purple'>
-                      <CustomSvgIcons
-                        className='olymp-chat---messages-icon'
-                        id='olymp-chat---messages-icon'
-                      />
-                    </a>
-                    <div className='btn btn-control bg-primary more'>
-                      <CustomSvgIcons
-                        className='olymp-settings-icon'
-                        id='olymp-settings-icon'
-                      />
-                      <ul className='more-dropdown more-with-triangle triangle-bottom-right'>
-                        <li>
-                          <a
-                            href='!# '
-                            onClick={onClickUnknow}
-                            data-toggle='modal'
-                            data-target='#update-header-photo'>
-                            Update Profile Photo
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href='!# '
-                            onClick={onClickUnknow}
-                            data-toggle='modal'
-                            data-target='#update-header-photo'>
-                            Update Header Photo
-                          </a>
-                        </li>
-                        <li>
-                          <a href='!# '>Account Settings</a>
-                        </li>
-                      </ul>
-                    </div>
+                    </a> */}
+                    {currentUser?._id !== profileUser?._id ? (
+                      <Link
+                        to={`/messages/${profileUser?._id}`}
+                        className='btn btn-control bg-purple'>
+                        <CustomSvgIcons
+                          className='olymp-chat---messages-icon'
+                          id='olymp-chat---messages-icon'
+                        />
+                      </Link>
+                    ) : (
+                      <div className='btn btn-control bg-primary more'>
+                        <CustomSvgIcons
+                          className='olymp-settings-icon'
+                          id='olymp-settings-icon'
+                        />
+                        <ul className='more-dropdown more-with-triangle triangle-bottom-right'>
+                          <li>
+                            <a
+                              href='!# '
+                              onClick={handleClickUpBg}
+                              data-toggle='modal'
+                              data-target='#update-header-photo'>
+                              Tải ảnh bìa
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href='!# '
+                              onClick={handleClickUpAvatar}
+                              data-toggle='modal'
+                              data-target='#update-header-photo'>
+                              Tải ảnh đại diện
+                            </a>
+                          </li>
+                          <li>
+                            <Link to='/account/personal-info'>
+                              Cài đặt tài khoản
+                            </Link>
+                          </li>
+                        </ul>
+                        <DropzoneDialog
+                          open={Boolean(openDropzoneDialog)}
+                          onSave={handleSaveFiles}
+                          acceptedFiles={[
+                            'image/jpeg',
+                            'image/png',
+                            'image/bmp',
+                          ]}
+                          showPreviews={true}
+                          filesLimit={1}
+                          maxFileSize={5000000}
+                          onClose={() => setOpenDropzoneDialog(false)}
+                          submitButtonText={
+                            openDropzoneDialog === 'Bg'
+                              ? 'Tải ảnh bìa'
+                              : 'Tải ảnh đại diện'
+                          }
+                          cancelButtonText='Hủy'
+                          dialogTitle={
+                            openDropzoneDialog === 'Bg'
+                              ? 'Thay đổi ảnh bìa'
+                              : 'Thay đổi ảnh đại diện'
+                          }
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className='top-header-author'>
@@ -118,7 +185,9 @@ const Profile: React.FC = () => {
                       className='h4 author-name'>
                       {`${profileUser?.firstName} ${profileUser?.lastName}`}
                     </a>
-                    <div className='country'>{`${profileUser?.city}, ${profileUser?.country}`}</div>
+                    <div className='country'>{`${
+                      profileUser?.city ?? 'Hà nội'
+                    }, ${profileUser?.country ?? 'Việt Nam'}`}</div>
                   </div>
                 </div>
               </div>

@@ -96,7 +96,7 @@ const RightMessagesBG = () => {
           </a>
         </div>
         <Link to='/messages' className='olympus-chat inline-items'>
-          <h6 className='olympus-chat-title'>OLYMPUS CHAT</h6>
+          <h6 className='olympus-chat-title'> APP CHAT</h6>
           <CustomSvgIcons
             className='olymp-chat---messages-icon'
             id='olymp-chat---messages-icon'

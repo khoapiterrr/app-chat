@@ -8,4 +8,5 @@ export default interface IAuthActionCreator {
   doSignIn(dataLogin: any): any;
   fetchCurrentUser(): any;
   doSignUp(data: any, callback: any): any;
+  doRestorePassword(email: string, callback: any): any;
 }

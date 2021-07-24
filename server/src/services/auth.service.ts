@@ -4,9 +4,11 @@ import jwt from 'jsonwebtoken';
 import { CreateUserDto, LoginUserDto } from '../dtos/users.dto';
 import HttpException from '../exceptions/HttpException';
 import { ChangePasswordDto, DataStoredInToken, TokenData } from '../interfaces/auth.interface';
+import { mailRestorePwd } from '../interfaces/mail.interface';
 import { User } from '../interfaces/users.interface';
+import { sendMailRestorePassword } from '../libs/mail.service';
 import userModel from '../models/users.model';
-import { isEmpty } from '../utils/util';
+import { isEmpty, makeIdRandom } from '../utils/util';
 import FriendService from './friend.service';
 
 class AuthService {
@@ -84,6 +86,27 @@ class AuthService {
     const dataReturn: User = await findUser.save();
 
     return dataReturn;
+  }
+
+  public async restorePassword(email: string): Promise<any> {
+    const findUser = await this.users.findOne({ email: email });
+    if (!findUser) {
+      throw new HttpException(400, 'Email không tồn tại, vui lòng nhập chính xác.');
+    }
+    const randomPwd = makeIdRandom(10);
+    const hashedPassword: string = await bcrypt.hash(randomPwd, 10);
+
+    findUser.password = hashedPassword;
+
+    const dataReturn: User = await findUser.save();
+
+    const mailRestorePwd: mailRestorePwd = {
+      email: email,
+      fullName: `${dataReturn.firstName} ${dataReturn.lastName}`,
+      newPassword: randomPwd,
+    };
+    const resMail = await sendMailRestorePassword(mailRestorePwd);
+    return resMail;
   }
 }
 

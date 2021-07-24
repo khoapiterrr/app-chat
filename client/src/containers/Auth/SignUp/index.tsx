@@ -140,7 +140,6 @@ const SignUp: React.FC<IProps> = ({ goToSign }) => {
                       type='gender'
                       name='gender'
                       component={SelectField}
-                      value={10}
                       options={genders}
                       label={formatMessage({
                         id: 'Auth.form.gender.label',
