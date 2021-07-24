@@ -115,6 +115,11 @@
     background: #3c91ec;
     color: #fff;
   }
+  .img-mes {
+    width: 103;
+    width: 103;
+    object-fit: cover;
+  }
 }
 
 .message {
@@ -198,4 +203,32 @@
   left: 50%;
   font-weight: 500;
   transform: translateX(-50%);
+}
+.document,
+.media {
+  display: flex;
+  align-items: flex-start;
+  flex: 1;
+
+  .document-body,
+  .media-body {
+    flex: 1;
+    align-self: center;
+    overflow: hidden;
+
+    h6 {
+      margin-bottom: 4px;
+    }
+
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .document-options,
+  .media-options {
+    align-self: center;
+  }
 }

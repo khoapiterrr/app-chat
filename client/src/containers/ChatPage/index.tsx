@@ -92,8 +92,8 @@ const ChatPage = () => {
                   <ExpandMoreIcon />
                 </div>
                 <div className='col-md-6 d-flex align-items-center justify-content-end'>
-                  Tạo nhóm
-                  <ExpandMoreIcon />
+                  {/* Tạo nhóm
+                  <ExpandMoreIcon /> */}
                 </div>
               </div>
               {keyword ? (

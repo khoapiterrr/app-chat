@@ -8,6 +8,8 @@ import AvatarDefault from 'assets/images/default-avatar.png';
 import CustomSvgIcons from 'components/CustomSvgIcons';
 import { User } from 'core/api/user.interface';
 import avatar38 from 'assets/images/avatar38-sm.jpg';
+import contactSelectors from '../Contact/selectors';
+import { avatarFB } from 'constants/constants';
 
 interface ParamTypes {
   id: string | undefined;
@@ -17,7 +19,7 @@ const Profile: React.FC = () => {
   const currentUser = useSelector(authSelectors.selectCurrentUser);
   const [profileUser, setProfileUser] = React.useState<User>();
   const dispatch = useDispatch();
-
+  const contacts = useSelector(contactSelectors.selectContacts);
   React.useEffect(() => {
     if (id === 'me') {
       id = currentUser?._id;
@@ -45,58 +47,8 @@ const Profile: React.FC = () => {
                 </div>
                 <div className='profile-section'>
                   <div className='row'>
-                    <div className='col col-lg-5 col-md-5 col-sm-12 col-12'>
-                      <ul className='profile-menu'>
-                        <li>
-                          <a
-                            href='!# '
-                            onClick={onClickUnknow}
-                            className='active'>
-                            Timeline
-                          </a>
-                        </li>
-                        <li>
-                          <a href='!# ' onClick={onClickUnknow}>
-                            About
-                          </a>
-                        </li>
-                        <li>
-                          <a href='!# ' onClick={onClickUnknow}>
-                            Friends
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className='col col-lg-5 ml-auto col-md-5 col-sm-12 col-12'>
-                      <ul className='profile-menu'>
-                        <li>
-                          <a href='#' onClick={onClickUnknow}>
-                            Photos
-                          </a>
-                        </li>
-                        <li>
-                          <a href='#' onClick={onClickUnknow}>
-                            Videos
-                          </a>
-                        </li>
-                        <li>
-                          <div className='more'>
-                            <CustomSvgIcons
-                              className='olymp-three-dots-icon'
-                              id='olymp-three-dots-icon'
-                            />
-                            <ul className='more-dropdown more-with-triangle'>
-                              <li>
-                                <a href='#'>Report Profile</a>
-                              </li>
-                              <li>
-                                <a href='#'>Block Profile</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
+                    <div className='col col-lg-5 col-md-5 col-sm-12 col-12'></div>
+                    <div className='col col-lg-5 ml-auto col-md-5 col-sm-12 col-12'></div>
                   </div>
                   <div className='control-block-button'>
                     <a
@@ -154,7 +106,8 @@ const Profile: React.FC = () => {
                     onClick={onClickUnknow}
                     className='author-thumb'>
                     <img
-                      src={profileUser?.avatar ?? AvatarDefault}
+                      src={profileUser?.avatar ?? avatarFB}
+                      style={{ width: '100%' }}
                       alt='author'
                     />
                   </a>
@@ -196,7 +149,7 @@ const Profile: React.FC = () => {
                       </a>
                       <div className='post__date'>
                         <time className='published' dateTime='2017-03-24T18:18'>
-                          19 hours ago
+                          a few seconds ago.
                         </time>
                       </div>
                     </div>
@@ -222,12 +175,9 @@ const Profile: React.FC = () => {
                     </div>
                   </div>
                   <p>
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum. Sed ut perspiciatis
-                    unde omnis iste natus error sit voluptatem accusantium
-                    doloremque.
+                    Xin chào các bạn đây là chức năng cập nhật trạng thái, Chúng
+                    tôi sẽ cập nhật chức năng trong thời gian gần nhất cảm ơn
+                    các bạn đã quan tâm.
                   </p>
                   <div className='post-additional-info inline-items'>
                     <a href='#' className='post-add-icon inline-items'>
@@ -238,38 +188,22 @@ const Profile: React.FC = () => {
                         className='olymp-heart-icon'
                         id='olymp-heart-icon'
                       />
-                      <span>8</span>
+                      <span>1</span>
                     </a>
                     <ul className='friends-harmonic'>
                       <li>
                         <a href='#'>
-                          <img src={avatar38} alt='friend' />
-                        </a>
-                      </li>
-                      <li>
-                        <a href='#'>
-                          <img src={avatar38} alt='friend' />
-                        </a>
-                      </li>
-                      <li>
-                        <a href='#'>
-                          <img src={avatar38} alt='friend' />
-                        </a>
-                      </li>
-                      <li>
-                        <a href='#'>
-                          <img src={avatar38} alt='friend' />
-                        </a>
-                      </li>
-                      <li>
-                        <a href='#'>
-                          <img src={avatar38} alt='friend' />
+                          <img
+                            src={
+                              'https://scontent-hkt1-2.xx.fbcdn.net/v/t35.18174-12/p1080x2048/26772005_1984909901784206_926763981_o.jpg?_nc_cat=107&ccb=1-3&_nc_sid=ae9488&_nc_ohc=g-txI0tfU5EAX9NYg97&_nc_ht=scontent-hkt1-2.xx&oh=f13d34f40f2292ce172866483ef589c3&oe=60FD8992'
+                            }
+                            alt='friend'
+                          />
                         </a>
                       </li>
                     </ul>
                     <div className='names-people-likes'>
-                      <a href='#'>KhoaPiterr</a> and
-                      <br />6 more liked this
+                      <a href='#'>KhoaPiterr</a>
                     </div>
                     <div className='comments-shared'>
                       <a href='#' className='post-add-icon inline-items'>
@@ -324,23 +258,25 @@ const Profile: React.FC = () => {
           <div className='col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12'>
             <div className='ui-block'>
               <div className='ui-block-title'>
-                <h6 className='title'>Profile Intro</h6>
+                {/* Profile Intro */}
+                <h6 className='title'>Thông tin</h6>
               </div>
               <div className='ui-block-content'>
                 {/* W-Personal-Info */}
                 <ul className='widget w-personal-info item-block'>
                   <li>
-                    <span className='title'>About Me:</span>
+                    <span className='title'>Giới thiệu:</span>
                     <span className='text'>
-                      Hi, I’m Khoapiterrr, I’m 21 and I work as a Digital
-                      Designer
+                      Xin chào, tôi là{' '}
+                      {`${profileUser?.firstName} ${profileUser?.lastName}`},
+                      rất vui khi bạn ghé thăm.
                     </span>
                   </li>
                 </ul>
                 {/* .. end W-Personal-Info */}
                 {/* W-Socials */}
                 <div className='widget w-socials'>
-                  <h6 className='title'>Other Social Networks:</h6>
+                  <h6 className='title'>Các mạng xã hội:</h6>
 
                   <a
                     href={
@@ -372,84 +308,18 @@ const Profile: React.FC = () => {
           <div className='col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12'>
             <div className='ui-block'>
               <div className='ui-block-title'>
-                <h6 className='title'>Friends (86)</h6>
+                <h6 className='title'>Bạn bè ({contacts?.length})</h6>
               </div>
               <div className='ui-block-content'>
                 {/* W-Faved-Page */}
                 <ul className='widget w-faved-page js-zoom-gallery'>
-                  <li>
-                    <a href='#'>
-                      <img src={avatar38} alt='author' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <img src={avatar38} alt='user' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <img src={avatar38} alt='author' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <img src={avatar38} alt='user' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <img src={avatar38} alt='author' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <img src={avatar38} alt='author' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <img src={avatar38} alt='user' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <img src={avatar38} alt='author' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <img src={avatar38} alt='author' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <img src={avatar38} alt='user' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <img src={avatar38} alt='user' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <img src={avatar38} alt='user' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <img src={avatar38} alt='user' />
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <img src={avatar38} alt='user' />
-                    </a>
-                  </li>
-                  <li className='all-users'>
-                    <a href='#'>+74</a>
-                  </li>
+                  {contacts?.map((item: any) => (
+                    <li>
+                      <a href='#'>
+                        <img src={item.avatar ?? avatarFB} alt='author' />
+                      </a>
+                    </li>
+                  ))}
                 </ul>
                 {/* .. end W-Faved-Page */}
               </div>
