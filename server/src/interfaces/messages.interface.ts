@@ -5,11 +5,11 @@ export interface Messages {
   conversationType: string;
   type: string;
   message: string;
-  images: string[];
-  files: FileObject[];
+  images: string[] | undefined;
+  files: FileObject[] | undefined;
   conversationId: string;
 }
 export interface FileObject {
-  name: string;
-  path: string;
+  name: string | undefined;
+  path: string | undefined;
 }

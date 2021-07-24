@@ -1,4 +1,4 @@
-const { MONGO_HOST, MONGO_PORT, MONGO_DATABASE, MONGO_USER, MONGO_PASSWORD } = process.env;
+const { MONGO_HOST, MONGO_PORT, MONGO_DATABASE } = process.env;
 
 export const dbConnection = {
   url: `mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE}`,
