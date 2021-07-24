@@ -1,5 +1,4 @@
 import { Promise } from 'mongoose';
-import { CreateContactDto } from '../dtos/contact.dto';
 import HttpException from '../exceptions/HttpException';
 import { Contact } from '../interfaces/contact.interface';
 import { User } from '../interfaces/users.interface';
