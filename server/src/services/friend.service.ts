@@ -35,7 +35,7 @@ class FriendService {
     return mutualFriend;
   };
   public addDefaultFriend = async (userId: string) => {
-    return this.friends.create({ userId: userId });
+    return this.friends.create({ userId: userId, friends: [] });
   };
 
   public findListFriendByUserId = async (userId: string): Promise<Friends> => {

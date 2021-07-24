@@ -60,7 +60,7 @@ class ContactService {
     return findContact;
   };
 
-  public addContact = async (currentUser: User, contact: CreateContactDto) => {
+  public addContact = async (currentUser: User, contact: any) => {
     if (currentUser._id.toString() === contact.contactId.toString()) {
       throw new HttpException(400, 'Something went wrong');
     }
