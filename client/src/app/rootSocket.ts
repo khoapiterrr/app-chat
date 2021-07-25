@@ -31,6 +31,7 @@ export const configSocket = () => {
     query: {
       token: isAuthenticated() as string,
     },
+    transports: ['websocket', 'polling', 'flashsocket'],
   });
   socket.on('connect', onConnected);
   socket.on('disconnect', onDisconnect);

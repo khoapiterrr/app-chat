@@ -33,7 +33,6 @@ const CallPage = () => {
 
   React.useEffect(() => {
     if (listener) {
-      console.log(listener, 'listener hello ae');
       navigator.mediaDevices
         .getUserMedia({ video: true, audio: true })
         .then((stream) => {
@@ -66,6 +65,12 @@ const CallPage = () => {
       initiator: true,
       trickle: false,
       stream: stream,
+      config: {
+        iceServers: [
+          { urls: 'stun:stun.l.google.com:19302' },
+          { urls: 'stun:global.stun.twilio.com:3478?transport=udp' },
+        ],
+      },
     });
     peer.on('signal', (data) => {
       getSocket().emit('send-peer-to-request-call-user', {
@@ -91,6 +96,12 @@ const CallPage = () => {
       initiator: false,
       trickle: false,
       stream: stream,
+      config: {
+        iceServers: [
+          { urls: 'stun:stun.l.google.com:19302' },
+          { urls: 'stun:global.stun.twilio.com:3478?transport=udp' },
+        ],
+      },
     });
 
     peer.on('signal', (data) => {
@@ -104,9 +115,7 @@ const CallPage = () => {
     peer.signal(callerSignal);
   };
 
-  const handleEndCall = () => {
-    
-  }
+  const handleEndCall = () => {};
   return (
     <div className='callPage'>
       <div className='current-user-call'>

@@ -17,13 +17,13 @@ const ChatContentHeader = () => {
   const currentUser = useSelector(authSelectors.selectCurrentUser);
   // const peerId = useSelector(callSelectors.selectPeerId);
   const handleCallVideoClick = () => {
-    // b01. kiểm trả listener có online hay không
-    let caller = {
-      _id: currentUser?._id,
-      firstName: currentUser?.firstName,
-      lastName: currentUser?.lastName,
-      avatar: currentUser?.avatar,
-    };
+    // // b01. kiểm trả listener có online hay không
+    // let caller = {
+    //   _id: currentUser?._id,
+    //   firstName: currentUser?.firstName,
+    //   lastName: currentUser?.lastName,
+    //   avatar: currentUser?.avatar,
+    // };
 
     PopupCenter(
       `${document.location.origin}/call/${record.receiver?._id}?status=contacting`,
