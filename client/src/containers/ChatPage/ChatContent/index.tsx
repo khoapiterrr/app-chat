@@ -37,11 +37,34 @@ const ChatContent = () => {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   };
   if (isScrollToBottom) {
-    console.log(isScrollToBottom, 'isScrollToBottom');
     scrollToBottom();
     dispatch(messageActionCreator.doToggleScrollToBottom());
   }
   useEffect(() => {
+    console.log('hook 1');
+    if (isScrollToBottom) {
+      scrollToBottom();
+      dispatch(messageActionCreator.doToggleScrollToBottom());
+    }
+  }, []);
+  useEffect(() => {
+    console.log(
+      'hook 2 with dependence isScrollToBottom, record?.messages',
+      record?.messages.length,
+      'height',
+      scrollRef.current.scrollHeight,
+      'ref',
+      scrollRef.current.scrollTop,
+    );
+
+    if (isScrollToBottom) {
+      scrollToBottom();
+      dispatch(messageActionCreator.doToggleScrollToBottom());
+    }
+  }, [isScrollToBottom, record?.messages]);
+
+  useEffect(() => {
+    console.log('scrollToBottom', userId);
     scrollToBottom();
   }, [userId]);
   return (

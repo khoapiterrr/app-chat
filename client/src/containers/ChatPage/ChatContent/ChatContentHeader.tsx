@@ -26,7 +26,7 @@ const ChatContentHeader = () => {
     };
 
     PopupCenter(
-      `${document.location.origin}/call/${record.receiver?._id}?status=contacting`,
+      `${process.env.REACT_APP_PAGE}/call/${record.receiver?._id}?status=contacting`,
       'Call videos',
       1300,
       700,

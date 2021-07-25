@@ -67,7 +67,6 @@ const messageReducer = (state = initialState, { type, payload }: Action) =>
         draft.hasMoreConversation = true;
         break;
       case constants.CHAT_FIND_SUCCESS:
-        console.log('CHAT_FIND_SUCCESS');
         draft.findLoading = false;
         if (payload && payload.skip && payload.data) {
           // Nếu cuộc trò chuyện là 0 => hết data
