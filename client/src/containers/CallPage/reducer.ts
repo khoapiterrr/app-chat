@@ -42,9 +42,8 @@ const callReducer = (state = initialState, { type, payload }: Action) =>
 
       case constants.CALL_RESPONSE_CONTACTING:
         draft.status = 'contacting';
-
         PopupCenter(
-          `${process.env.REACT_APP_PAGE}/call/${payload.listener?._id}`,
+          `${document.location.origin}/call/${payload.listener?._id}`,
           'Call videos',
           1300,
           700,

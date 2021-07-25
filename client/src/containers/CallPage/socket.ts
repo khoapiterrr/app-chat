@@ -34,7 +34,7 @@ export const onListenerOffline = (payload: any) => {
 export const onRequestPeerId = (payload: any) => {
   // let state = getStore().getState();
   PopupCenter(
-    `${process.env.REACT_APP_PAGE}/call/${payload?._id}?status=requestAnswer`,
+    `${document.location.origin}/call/${payload?._id}?status=requestAnswer`,
     'answer videos',
     1300,
     700,
