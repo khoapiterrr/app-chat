@@ -2,5 +2,11 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "editor.formatOnSave": false
+  "editor.formatOnSave": false,
+  "appService.zipIgnorePattern": [
+    "node_modules{,/**}",
+    ".vscode{,/**}"
+  ],
+  "appService.defaultWebAppToDeploy": "/subscriptions/574c8e09-9094-4dbd-8536-454ab21a6e7f/resourceGroups/khoapiterrr/providers/Microsoft.Web/sites/app-chhat",
+  "appService.deploySubpath": "."
 }
