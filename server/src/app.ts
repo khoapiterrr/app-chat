@@ -39,7 +39,7 @@ class App {
       cors: {
         origin: true,
       },
-      transports: ['websocket', 'polling'],
+      // transports: ['websocket', 'polling'],
     });
 
     // this.io.listen(this.server);
