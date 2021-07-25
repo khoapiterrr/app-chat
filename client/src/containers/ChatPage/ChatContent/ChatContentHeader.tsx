@@ -26,7 +26,7 @@ const ChatContentHeader = () => {
     };
 
     PopupCenter(
-      `http://localhost:8686/call/${record.receiver?._id}?status=contacting`,
+      `${document.location.origin}/call/${record.receiver?._id}?status=contacting`,
       'Call videos',
       1300,
       700,
