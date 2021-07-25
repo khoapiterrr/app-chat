@@ -39,9 +39,12 @@ class App {
       cors: {
         origin: true,
       },
+      transports: ['websocket', 'polling'],
     });
+
     // this.io.listen(this.server);
     this.serverSocket = new ServerSocket(this.io);
+
     this.connectToDatabase();
     this.initializePassport();
     this.initializeMiddlewares();
