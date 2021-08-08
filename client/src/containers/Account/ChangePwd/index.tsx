@@ -58,6 +58,7 @@ const ChangePwd = () => {
                           type='password'
                           component={InputField}
                           label={'Mật khẩu cũ'}
+                          className='mt-4'
                         />
                       </FormGroup>
                       <FormGroup>
@@ -66,6 +67,7 @@ const ChangePwd = () => {
                           type='password'
                           component={InputField}
                           label={'Mật khẩu mới'}
+                          className='mt-4'
                         />
                       </FormGroup>
                       <FormGroup>

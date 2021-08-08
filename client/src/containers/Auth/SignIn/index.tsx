@@ -1,29 +1,22 @@
-import React, { useEffect } from 'react';
-import { FastField, Form, Formik } from 'formik';
-import InputField from 'custom-fields/InputField';
-import * as Yup from 'yup';
-import { FormattedMessage, useIntl } from 'react-intl';
 import {
-  Grid,
-  FormControlLabel,
   Checkbox,
-  Button,
   CircularProgress,
+  FormControlLabel,
 } from '@material-ui/core';
-import ServiceLogin from 'components/ServiceLogin';
-import githubImage from 'assets/images/github-image.png';
-import googleImage from 'assets/images/shapes-and-symbols.png';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import { FormGroup } from 'reactstrap';
-import classes from './styles.module.scss';
 import classnames from 'classnames';
-import authActionCreator from '../actions';
+import { useToggleModal } from 'components/CustomModal';
+import InputField from 'custom-fields/InputField';
+import firebaseApp, { providerFb } from 'firebaseSetting';
+import { FastField, Form, Formik } from 'formik';
+import React, { useEffect } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { getHistory } from 'app/store';
-import { useHistory } from 'react-router-dom';
-import selectors from '../selectors';
-import CustomModal, { useToggleModal } from 'components/CustomModal';
+import { FormGroup } from 'reactstrap';
+import * as Yup from 'yup';
+import authActionCreator from '../actions';
 import RestorePassword from '../RestorePassword';
+import selectors from '../selectors';
+import classes from './styles.module.scss';
 interface IProps {
   goToSignUp?: any;
 }
@@ -37,11 +30,8 @@ const SignIn: React.FC<IProps> = ({ goToSignUp }) => {
   const signInLoading = useSelector(selectors.selectSignInLoading);
   const signInError = useSelector(selectors.selectSignInError);
 
-  const {
-    LINK_LOGIN_FACEBOOK,
-    LINK_LOGIN_GITHUB,
-    LINK_LOGIN_gOOGLE,
-  } = process.env;
+  const { LINK_LOGIN_FACEBOOK, LINK_LOGIN_GITHUB, LINK_LOGIN_gOOGLE } =
+    process.env;
 
   const initialValues = {
     email: '',
@@ -61,6 +51,17 @@ const SignIn: React.FC<IProps> = ({ goToSignUp }) => {
   useEffect(() => {
     console.log('Sign In form');
   }, []);
+  const handleLoginWithFacebook = (event: any) => {
+    event.preventDefault();
+
+    providerFb.addScope('user_birthday');
+    firebaseApp
+      .auth()
+      .signInWithPopup(providerFb)
+      .then((authData) => {
+        console.log(authData, 'authData');
+      });
+  };
   return (
     <>
       <div className='title h6'>
@@ -138,7 +139,8 @@ const SignIn: React.FC<IProps> = ({ goToSignUp }) => {
                   <div className='or' />
                   <a
                     href=' #'
-                    className='btn btn-lg bg-facebook full-width btn-icon-left'>
+                    className='btn btn-lg bg-facebook full-width btn-icon-left'
+                    onClick={handleLoginWithFacebook}>
                     <i className='fab fa-facebook-f' aria-hidden='true' />
                     <FormattedMessage id='Auth.form.loginService.facebook' />
                   </a>

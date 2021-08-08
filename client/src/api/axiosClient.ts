@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import { isAuthenticated } from './permissionChecker';
 // Set up default config for http requests here
 // Please have a look at here `https://github.com/axios/axios#request- config` for the full list of configs
+console.log(process.env.REACT_APP_API_URL, 'process.env.REACT_APP_API_URL');
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {

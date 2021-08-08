@@ -31,6 +31,7 @@ import CustomSnackbar from 'components/Snackbar';
 
 const store = configStore();
 // const store = configStore();
+
 function App() {
   return (
     <Suspense fallback={<Spinner />}>
