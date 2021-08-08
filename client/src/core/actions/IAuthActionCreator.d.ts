@@ -6,6 +6,7 @@ export default interface IAuthActionCreator {
   doClearErrorMessage(): Action;
   doSignOut(): any;
   doSignIn(dataLogin: any): any;
+  doSignInWithFb(dataLogin: any): any;
   fetchCurrentUser(): any;
   doSignUp(data: any, callback: any): any;
   doRestorePassword(email: string, callback: any): any;

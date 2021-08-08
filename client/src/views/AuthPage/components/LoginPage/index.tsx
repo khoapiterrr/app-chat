@@ -17,12 +17,11 @@ const LoginPage: React.FC<IProps> = ({
       <div className='row display-flex'>
         <div className='col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12'>
           <div className='landing-content'>
-            <h1>Chào mừng bạn đến với Mạng xã hội lớn nhất của chúng tôi</h1>
+            <h1>
+              <FormattedMessage id='Auth.intro.welcome' />
+            </h1>
             <p>
-              Chúng tôi là mạng xã hội tốt nhất và lớn nhất với 5 tỷ hoạt động
-              người dùng trên toàn thế giới. Chia sẻ suy nghĩ của bạn, viết bài
-              đăng trên blog, thể hiện âm nhạc yêu thích của bạn qua Stopify,
-              kiếm huy hiệu và hơn thế nữa!
+              <FormattedMessage id='Auth.intro.description' />
             </p>
             <a
               href='# !'
@@ -31,7 +30,7 @@ const LoginPage: React.FC<IProps> = ({
                 onClickChangeTab('register');
               }}
               className='btn btn-md btn-border c-white'>
-              Đăng kí ngay!
+              <FormattedMessage id='Auth.form.button.register-now' /> !
             </a>
           </div>
         </div>

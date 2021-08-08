@@ -5,6 +5,7 @@ import {
 } from '@material-ui/core';
 import classnames from 'classnames';
 import { useToggleModal } from 'components/CustomModal';
+import playBell from 'containers/shared/sound/bell';
 import InputField from 'custom-fields/InputField';
 import firebaseApp, { providerFb } from 'firebaseSetting';
 import { FastField, Form, Formik } from 'formik';
@@ -59,8 +60,23 @@ const SignIn: React.FC<IProps> = ({ goToSignUp }) => {
       .auth()
       .signInWithPopup(providerFb)
       .then((authData) => {
-        console.log(authData, 'authData');
+        console.log(authData.user, 'authData');
+        const { profile } = authData?.additionalUserInfo as any;
+        const { user } = authData;
+        const register = {
+          firstName: profile.first_name,
+          lastName: profile.last_name,
+          email: profile.email,
+          avatar: user!.photoURL,
+          facebookId: profile.id,
+        };
+        dispatch(authActionCreator.doSignInWithFb(register));
       });
+  };
+  const playBellLoginTwitter = (e: any) => {
+    e.preventDefault();
+    // console.log('gaf');
+    // playBell('new-message');
   };
   return (
     <>
@@ -146,7 +162,8 @@ const SignIn: React.FC<IProps> = ({ goToSignUp }) => {
                   </a>
                   <a
                     href=' #'
-                    className='btn btn-lg bg-twitter full-width btn-icon-left'>
+                    className='btn btn-lg bg-twitter full-width btn-icon-left'
+                    onClick={playBellLoginTwitter}>
                     <i className='fab fa-twitter' aria-hidden='true' />
                     <FormattedMessage
                       id='Auth.form.loginService.twitter'

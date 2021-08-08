@@ -61,6 +61,7 @@ const CallPage = () => {
   }, [peerId, listener]);
 
   const handleCallUser = () => {
+    setStatus('calling');
     const peer = new Peer({
       initiator: true,
       trickle: false,
@@ -85,7 +86,6 @@ const CallPage = () => {
     });
 
     getSocket().on('user-call-accepted', (signal: any) => {
-      setStatus('calling');
       peer.signal(signal);
     });
   };
@@ -115,7 +115,9 @@ const CallPage = () => {
     peer.signal(callerSignal);
   };
 
-  const handleEndCall = () => {};
+  const handleEndCall = () => {
+    window.close();
+  };
   return (
     <div className='callPage'>
       <div className='current-user-call'>
@@ -164,7 +166,7 @@ const CallPage = () => {
         )}
       </div>
       <div className='action-call'>
-        <IconButton className='icon-action-red'>
+        <IconButton className='icon-action-red' onClick={handleEndCall}>
           <CallEndIcon />
         </IconButton>
       </div>

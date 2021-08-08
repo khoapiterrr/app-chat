@@ -90,15 +90,6 @@ const Profile: React.FC = () => {
                     <div className='col col-lg-5 ml-auto col-md-5 col-sm-12 col-12'></div>
                   </div>
                   <div className='control-block-button'>
-                    {/* <a
-                      href='!# '
-                      onClick={onClickUnknow}
-                      className='btn btn-control bg-blue'>
-                      <CustomSvgIcons
-                        className='olymp-happy-face-icon'
-                        id='olymp-happy-face-icon'
-                      />
-                    </a> */}
                     {currentUser?._id !== profileUser?._id ? (
                       <Link
                         to={`/messages/${profileUser?._id}`}
@@ -214,7 +205,9 @@ const Profile: React.FC = () => {
                         className='h6 post__author-name fn'
                         href='#'
                         onClick={onClickUnknow}>
-                        {`${profileUser?.firstName} ${profileUser?.lastName}`}
+                        {`${profileUser?.firstName ?? ''} ${
+                          profileUser?.lastName ?? ''
+                        }`}
                       </a>
                       <div className='post__date'>
                         <time className='published' dateTime='2017-03-24T18:18'>

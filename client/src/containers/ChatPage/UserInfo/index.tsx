@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import PhoneIcon from '@material-ui/icons/Phone';
-import HomeIcon from '@material-ui/icons/Home';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import './styles.scss';
-import { getOffset } from 'utils/common';
+import HomeIcon from '@material-ui/icons/Home';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import PhoneIcon from '@material-ui/icons/Phone';
 import AvatarDefault from 'assets/images/default-avatar.png';
-import { IconButton } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
-import actions from '../actions';
 import useSearchInfo from 'Hooks/useSearchInfo';
-import mesSelectors from '../selectors';
+import React, { useEffect, useState } from 'react';
 import Lightbox from 'react-image-lightbox';
+import { useIntl } from 'react-intl';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOffset } from 'utils/common';
+import actions from '../actions';
+import mesSelectors from '../selectors';
+import './styles.scss';
 
 interface IProps {
   userId: string;
@@ -22,6 +22,7 @@ interface IProps {
 
 const UserInfo: React.FC<IProps> = ({ userId }) => {
   const dispatch = useDispatch();
+  const { formatMessage } = useIntl();
   const userInfo = useSearchInfo(userId);
   const record = useSelector(mesSelectors.selectRecord);
   const [showPersionalInfo, setShowPersionalInfo] = useState(true);
@@ -53,7 +54,10 @@ const UserInfo: React.FC<IProps> = ({ userId }) => {
   return (
     <div className='user-info-wrapper' id='userInfo' style={style}>
       <div className='title'>
-        <h4 className='title'>Thông tin </h4>
+        <h4 className='title'>
+          {formatMessage({ id: 'MesConversation.info' })}
+        </h4>
+
         <span style={{ cursor: 'pointer' }} onClick={handleClose}>
           <HighlightOffIcon />
         </span>
@@ -65,11 +69,15 @@ const UserInfo: React.FC<IProps> = ({ userId }) => {
           alt='Image avatar'
           className='info-avatar'
         />
-        <h4 className='title'>{`${userInfo?.firstName} ${userInfo?.lastName}`}</h4>
+        <h4 className='title'>{`${userInfo?.firstName ?? ''} ${
+          userInfo?.lastName ?? ''
+        }`}</h4>
       </div>
 
       <div className='bg-white position-relative d-flex flex-column rounded p-2 mb-3'>
-        <h5 className='title'>Thông tin cá nhân</h5>
+        <h5 className='title'>
+          {formatMessage({ id: 'MesConversation.infoUser' })}
+        </h5>
         {showPersionalInfo ? (
           <div className='info-chat'>
             <p className='d-flex align-items-center pl-1'>
@@ -104,7 +112,9 @@ const UserInfo: React.FC<IProps> = ({ userId }) => {
       </div>
 
       <div className='bg-white position-relative  rounded p-2 mb-3'>
-        <h5 className='title'>Tài liệu chia sẻ</h5>
+        <h5 className='title'>
+          {formatMessage({ id: 'MesConversation.shareFile' })}
+        </h5>
         {showShareDocuments ? (
           <div className='share-document d-flex flex-column'>
             {record?.messages
@@ -132,7 +142,9 @@ const UserInfo: React.FC<IProps> = ({ userId }) => {
         </div>
       </div>
       <div className='bg-white position-relative  rounded p-2 mb-3'>
-        <h5 className='title'>Hình ảnh chia sẻ</h5>
+        <h5 className='title'>
+          {formatMessage({ id: 'MesConversation.imgFile' })}
+        </h5>
         {showShareImages ? (
           <div className='share-document row'>
             {images?.map((linkUrl: string, index: number) => (

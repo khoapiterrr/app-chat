@@ -29,6 +29,17 @@ class AuthController {
       next(error);
     }
   };
+  public handleLoginWithFacebook = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    const userData: any = req.body;
+    try {
+      const findUser = await this.authService.loginWithFb(userData);
+      // findUser['password'] = '';
+      delete findUser.password;
+      res.status(200).json({ data: findUser, message: 'login' });
+    } catch (error) {
+      next(error);
+    }
+  };
 
   public getCurrentAuth = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {

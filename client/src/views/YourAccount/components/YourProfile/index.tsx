@@ -5,6 +5,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Link, useRouteMatch } from 'react-router-dom';
 import contactSelectors from 'containers/Contact/selectors';
 import { useSelector } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 
 interface IProps {
   toggleCollapse: any;
@@ -25,7 +26,9 @@ const YourProfile: React.FC<IProps> = ({ toggleCollapse, collapse }) => {
         {/* Your Profile  */}
         <div className='your-profile'>
           <div className='ui-block-title ui-block-title-small'>
-            <h6 className='title'>Tài khoản</h6>
+            <h6 className='title'>
+              <FormattedMessage id='Account.setting.label' />
+            </h6>
           </div>
           <div id='accordion' role='tablist' aria-multiselectable='true'>
             <div className='card'>
@@ -36,7 +39,7 @@ const YourProfile: React.FC<IProps> = ({ toggleCollapse, collapse }) => {
                     aria-expanded={collapse}
                     onClick={toggleCollapse}
                     aria-controls='collapseOne'>
-                    Cài đặt tài khoản
+                    <FormattedMessage id='Account.setting' />
                     {collapse ? (
                       <CustomSvgIcons
                         className='olymp-dropdown-arrow-icon'
@@ -55,11 +58,15 @@ const YourProfile: React.FC<IProps> = ({ toggleCollapse, collapse }) => {
                 aria-labelledby='headingOne'>
                 <ul className='your-profile-menu'>
                   <li>
-                    <Link to={`${url}/personal-info`}>Thông tin cá nhân</Link>
+                    <Link to={`${url}/personal-info`}>
+                      <FormattedMessage id='MesConversation.info' />
+                    </Link>
                   </li>
 
                   <li>
-                    <Link to={`${url}/change-password`}>Đổi mật khẩu</Link>
+                    <Link to={`${url}/change-password`}>
+                      <FormattedMessage id='ChangePassword.label' />
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -67,7 +74,7 @@ const YourProfile: React.FC<IProps> = ({ toggleCollapse, collapse }) => {
           </div>
           <div className='ui-block-title'>
             <Link to={`${url}/notification`} className='h6 title'>
-              Yêu cầu kết bạn
+              <FormattedMessage id='Contact.request' />
             </Link>
             <a
               href='# !'
@@ -78,7 +85,7 @@ const YourProfile: React.FC<IProps> = ({ toggleCollapse, collapse }) => {
           </div>
           <div className='ui-block-title'>
             <Link to={`${url}/friend-requests`} className='h6 title'>
-              Lời mời kết bạn
+              <FormattedMessage id='Contact.send' />
             </Link>
             <a
               href='# !'

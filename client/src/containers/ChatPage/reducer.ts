@@ -3,6 +3,7 @@ import produce from 'immer';
 import { AnyAction as Action } from 'redux';
 import { User } from 'core/api/user.interface';
 import IChatState from 'core/stateApp/IChatState';
+import playBell from 'containers/shared/sound/bell';
 
 const initialState: IChatState = {
   initLoading: true,
@@ -137,9 +138,11 @@ const messageReducer = (state = initialState, { type, payload }: Action) =>
               state.record.receiver.id === message.receiver._id &&
               message.conversationType === 'ChatGroup')
           ) {
-            // playBell('sent');
+            playBell('sent');
+            console.log(' playBell sent');
           } else {
-            // playBell('new-message');
+            playBell('new-message');
+            console.log(' playBell new-message');
           }
         } else {
           // người gửi tin nhắn
@@ -240,7 +243,7 @@ const messageReducer = (state = initialState, { type, payload }: Action) =>
             draft.typing.status = true;
             draft.typing.info = payload.info;
             draft.scrollToBottom = true;
-            // playBell('typing');
+            playBell('typing');
           } else if (
             payload.conversationType === 'User' &&
             payload.info.id === state.record.receiver.id
@@ -248,7 +251,7 @@ const messageReducer = (state = initialState, { type, payload }: Action) =>
             draft.typing.status = true;
             draft.typing.info = payload.info;
             draft.scrollToBottom = true;
-            // playBell('typing');
+            playBell('typing');
           }
         }
         break;

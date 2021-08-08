@@ -4,6 +4,7 @@ import contactSelectors from 'containers/Contact/selectors';
 import contactActionCreator from 'containers/Contact/actions';
 import CustomSvgIcons from 'components/CustomSvgIcons';
 import { avatarFB } from 'constants/constants';
+import { FormattedMessage } from 'react-intl';
 
 const FriendRequest = () => {
   const dispatch = useDispatch();
@@ -82,7 +83,9 @@ const FriendRequest = () => {
                 </li>
               ))
             ) : (
-              <p className='text-center pt-2'>Không có lời mời kết bạn nào.</p>
+              <p className='text-center pt-2'>
+                <FormattedMessage id='Notfound' />
+              </p>
             )}
           </ul>
         </div>

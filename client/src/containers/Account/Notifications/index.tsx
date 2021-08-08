@@ -4,6 +4,7 @@ import contactSelectors from 'containers/Contact/selectors';
 import contactActionCreator from 'containers/Contact/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { avatarFB } from 'constants/constants';
+import { FormattedMessage } from 'react-intl';
 
 const Notifications = () => {
   const dispatch = useDispatch();
@@ -65,7 +66,9 @@ const Notifications = () => {
                 </li>
               ))
             ) : (
-              <p className='text-center pt-2'>Không có yêu cầu kết bạn nào.</p>
+              <p className='text-center pt-2'>
+                <FormattedMessage id='Notfound' />
+              </p>
             )}
           </ul>
         </div>

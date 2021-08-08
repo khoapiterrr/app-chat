@@ -3,6 +3,7 @@ import { AnyAction as Action } from 'redux';
 import IAuthActionCreator from '../../core/actions/IAuthActionCreator';
 import {
   fetchCurrentAuth,
+  loginWithFbApi,
   postSignIn,
   postSignUp,
   putRestorePwdApi,
@@ -14,6 +15,7 @@ import { showSnackbar } from 'containers/layout/actions';
 import { alertType } from 'constants/constants';
 import { ISignUp } from './interfaces';
 import { socketDisconnect, configSocket } from 'app/rootSocket';
+import { initSetting } from 'containers/shared/settings';
 
 const authActionCreator: IAuthActionCreator = {
   doInitLoadingDone: (): Action => {
@@ -45,6 +47,7 @@ const authActionCreator: IAuthActionCreator = {
       });
       getHistory().push('/messages');
       configSocket();
+      initSetting();
     } catch (error) {
       dispatch({
         type: constants.SIGNIN_ERROR,
@@ -52,7 +55,23 @@ const authActionCreator: IAuthActionCreator = {
       });
     }
   },
+  doSignInWithFb: (userInfo) => async (dispatch: Dispatch<any>) => {
+    try {
+      // call api: signin
+      let response = await loginWithFbApi(userInfo);
+      console.log(userInfo, 'userInfo');
+      window.localStorage.setItem('token', response.data.token);
 
+      getHistory().push('/messages');
+      configSocket();
+      initSetting();
+    } catch (error) {
+      dispatch({
+        type: constants.SIGNIN_ERROR,
+        payload: Errors.selectMessage(error),
+      });
+    }
+  },
   doSignUp:
     (userInfo: ISignUp, callback) => async (dispatch: Dispatch<any>) => {
       try {
@@ -109,6 +128,7 @@ const authActionCreator: IAuthActionCreator = {
         type: constants.SIGNIN_SUCCESS,
         payload: response.data,
       });
+      initSetting();
     } catch (error) {
       const mes = Errors.handle(error);
       if (mes) {

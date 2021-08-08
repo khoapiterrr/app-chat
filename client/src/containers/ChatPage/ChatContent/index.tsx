@@ -9,6 +9,7 @@ import mesSelectors from '../selectors';
 import Conversation from './Conversation';
 import messageActionCreator from '../actions';
 import { useParams } from 'react-router-dom';
+import Spinner from 'components/Spinner';
 interface ParamTypes {
   userId: string | undefined;
 }
@@ -26,37 +27,33 @@ const ChatContent = () => {
     setStyle({
       ...style,
       height: `calc(100vh - ${ofTop}px - ${
-        chatFooterEl!.offsetHeight
+        chatFooterEl?.offsetHeight ?? 50
       }px - 10px)`,
     });
-    scrollToBottom();
-  }, []);
+    setTimeout(() => {
+      scrollToBottom();
+    }, 0);
+  }, [record]);
 
   const scrollToBottom = () => {
-    if (scrollRef.current)
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    if (scrollRef.current) {
+      setTimeout(() => {
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      }, 0);
+    }
   };
   if (isScrollToBottom) {
     scrollToBottom();
+
     dispatch(messageActionCreator.doToggleScrollToBottom());
   }
   useEffect(() => {
-    console.log('hook 1');
     if (isScrollToBottom) {
       scrollToBottom();
       dispatch(messageActionCreator.doToggleScrollToBottom());
     }
   }, []);
   useEffect(() => {
-    console.log(
-      'hook 2 with dependence isScrollToBottom, record?.messages',
-      record?.messages.length,
-      'height',
-      scrollRef.current.scrollHeight,
-      'ref',
-      scrollRef.current.scrollTop,
-    );
-
     if (isScrollToBottom) {
       scrollToBottom();
       dispatch(messageActionCreator.doToggleScrollToBottom());
@@ -70,6 +67,7 @@ const ChatContent = () => {
   return (
     <div className='chat-wrapper'>
       <ChatContentHeader />
+
       <div
         className='conversation-content'
         id='conversationContent'
@@ -80,7 +78,13 @@ const ChatContent = () => {
             &nbsp;
           </div>
         </div> */}
-        {record?.messages && <Conversation messages={record?.messages} />}
+        {record?.receiver?._id !== userId ? (
+          <div className='loading-mes'>
+            <Spinner />
+          </div>
+        ) : (
+          record?.messages && <Conversation messages={record?.messages} />
+        )}
       </div>
 
       <ChatFooter />

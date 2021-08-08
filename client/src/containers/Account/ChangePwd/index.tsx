@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { FormGroup } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import accountActionCreator from '../actions';
+import { FormattedMessage } from 'react-intl';
 const ChangePwd = () => {
   const dispatch = useDispatch();
   const initialValues = {
@@ -40,7 +41,9 @@ const ChangePwd = () => {
     <>
       <div className='ui-block'>
         <div className='ui-block-title'>
-          <h6 className='title'>Đổi mật khẩu</h6>
+          <h6 className='title'>
+            <FormattedMessage id='ChangePassword.label' />
+          </h6>
         </div>
         <div className='ui-block-content'>
           <Formik
@@ -57,7 +60,9 @@ const ChangePwd = () => {
                           name='currentPassword'
                           type='password'
                           component={InputField}
-                          label={'Mật khẩu cũ'}
+                          label={
+                            <FormattedMessage id='ChangePassword.oldPwd' />
+                          }
                           className='mt-4'
                         />
                       </FormGroup>
@@ -66,7 +71,9 @@ const ChangePwd = () => {
                           name='newPassword'
                           type='password'
                           component={InputField}
-                          label={'Mật khẩu mới'}
+                          label={
+                            <FormattedMessage id='ChangePassword.newPwd' />
+                          }
                           className='mt-4'
                         />
                       </FormGroup>
@@ -75,13 +82,15 @@ const ChangePwd = () => {
                           name='confirmNewPassword'
                           component={InputField}
                           type='password'
-                          label={'Mật khẩu xác thực'}
+                          label={
+                            <FormattedMessage id='ChangePassword.newPwdConfirm' />
+                          }
                         />
                       </FormGroup>
                       <button
                         className='btn btn-primary btn-lg full-width'
                         type='submit'>
-                        Đổi mật khẩu
+                        <FormattedMessage id='ChangePassword.label' />
                       </button>
                     </div>
                   </div>

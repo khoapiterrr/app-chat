@@ -44,7 +44,9 @@ const ChatContentHeader = () => {
       />
       <div className='info-user'>
         <h5 className='title' style={{ marginBottom: '0' }}>
-          {`${record?.receiver?.firstName} ${record?.receiver?.lastName}`}
+          {`${record?.receiver?.firstName ?? ''} ${
+            record?.receiver?.lastName ?? ''
+          }`}
         </h5>
         <span>{record?.receiver?.status}</span>
       </div>

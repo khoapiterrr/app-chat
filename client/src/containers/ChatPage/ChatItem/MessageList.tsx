@@ -40,7 +40,7 @@ const MessageList = () => {
                   : item.sender;
             }
             return (
-              <Link to={`/messages/${user._id}`}>
+              <Link to={`/messages/${user._id}`} key={user._id}>
                 <ChatItem
                   avatar={user.avatar}
                   firstName={user.firstName}

@@ -61,14 +61,14 @@ const SignUp: React.FC<IProps> = ({ goToSign }) => {
   ];
   return (
     <>
-      <div className='title h6'>Đăng kí hệ thống</div>
+      <div className='title h6'>
+        <FormattedMessage id='Auth.form.register.title' />
+      </div>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}>
         {(formikProps) => {
-          const { values, errors, touched, isSubmitting } = formikProps;
-
           return (
             <Form className='content'>
               <div className='row'>
@@ -125,16 +125,7 @@ const SignUp: React.FC<IProps> = ({ goToSign }) => {
                       })}
                     />
                   </FormGroup>
-                  {/* <FormGroup>
-                    <FastField
-                      type='gender'
-                      name='gender'
-                      component={InputField}
-                      label={formatMessage({
-                        id: 'Auth.form.gender.label',
-                      })}
-                    />
-                  </FormGroup> */}
+
                   <FormGroup>
                     <FastField
                       type='gender'

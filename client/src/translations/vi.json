@@ -37,5 +37,35 @@
   "Auth.form.password.error.mainLength": "Mật khẩu ít nhất 6 kí tự.",
 
   "Auth.form.rememberMe.label": "Nhớ mật khẩu",
-  "Auth.form.forgotPassword.label": "Quên mật khẩu"
+  "Auth.form.forgotPassword.label": "Quên mật khẩu",
+
+  "Auth.RestorePwd.title": "Khôi phục mật khẩu",
+  "Auth.RestorePwd.submit": "Gửi mật khẩu",
+
+  "Auth.RestorePwd.desc": "Nhập email của bạn và nhấp gửi. Bạn sẽ nhận được mật khẩu mới trong email của bạn. Vui lòng sử dụng mật khẩu đó để đăng nhập vào và đổi mật khẩu.",
+
+  "MesConversation.title": "Cuộc trò chuyện",
+  "MesConversation.inputSearch": "Tìm kiếm ở đây",
+  "MesConversation.text": "Trờ chuyện gần đây",
+  "Notfound": "Không tìm thấy",
+  "MesConversation.welcome": "Chào mừng bạn đến ứng dụng của tôi",
+  "MesConversation.info": "Thông tin",
+  "MesConversation.infoUser": "Thông tin cá nhân",
+  "MesConversation.shareFile": "Tài liệu chia sẻ",
+  "MesConversation.imgFile": "Hình ảnh chia sẻ",
+
+  "Account.saveAll": "Lưu tất cả",
+  "Account.reset": "làm mới",
+  "Account.setting": "Cài đặt tài khoản",
+  "Account.setting.des": "Chào mừng bạn đến với trang tổng quan tài khoản của bạn! Ở đây bạn sẽ tìm thấy mọi thứ bạn cần thay đổi thông tin hồ sơ, cài đặt, đọc thông báo và yêu cầu, xem tin nhắn mới nhất của bạn, thay đổi mật khẩu của bạn và nhiều hơn nữa! Ngoài ra, bạn có thể tạo hoặc quản lý trang yêu thích của riêng bạn!",
+  "Account.setting.label": "Tài khoản",
+  "Account.settingChat.label": "Cài đặt hội thoại",
+  "Account.settingStatus.label": "Chỉnh sửa trạng thái",
+  "ChangePassword.label": "Đổi mật khẩu",
+  "Contact.send": "Yêu cầu kết bạn",
+  "Contact.request": "Lời mời kết bạn",
+  "ChangePassword.oldPwd": "Mậu khẩu cũ",
+  "ChangePassword.newPwd": "Mật khẩu mới",
+  "ChangePassword.newPwdConfirm": "Xác thực mật khẩu",
+  "Account.logout": "Đăng xuất"
 }

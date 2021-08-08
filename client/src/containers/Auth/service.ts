@@ -17,3 +17,7 @@ export const fetchCurrentAuth = async () => {
 export const putRestorePwdApi = async (email: string) => {
   return axiosClient.put('/auth/restore-password', { email });
 };
+
+export const loginWithFbApi = async (data: any) => {
+  return axiosClient.post('/auth/login-with-fb', data);
+};

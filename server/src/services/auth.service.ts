@@ -46,6 +46,27 @@ class AuthService {
     return findUser;
   }
 
+  public async loginWithFb(userData: any): Promise<User> {
+    if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
+
+    let findUser: User = await this.users.findOne({
+      email: userData.email,
+      facebookId: userData.facebookId,
+    });
+    //create new user
+    if (!findUser) {
+      findUser = await this.users.create({
+        ...userData,
+      });
+    }
+
+    const tokenData = this.createToken(findUser);
+
+    findUser.token = tokenData.token;
+
+    return findUser;
+  }
+
   public async logout(userData: User): Promise<User> {
     if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
 

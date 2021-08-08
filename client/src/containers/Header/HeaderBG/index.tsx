@@ -14,6 +14,12 @@ import contactSelectors from 'containers/Contact/selectors';
 import AvatarDefault from 'assets/images/default-avatar.png';
 import contactActionCreator from 'containers/Contact/actions';
 import { avatarFB } from 'constants/constants';
+import {
+  getSetting,
+  initSetting,
+  setSetting,
+} from 'containers/shared/settings';
+import { FormattedMessage } from 'react-intl';
 
 const HeaderBG = () => {
   const currentUser = useSelector(authSelectors.selectCurrentUser);
@@ -38,6 +44,19 @@ const HeaderBG = () => {
   const handleOnUpdateContact = (e: any, data: any) => {
     e.preventDefault();
     dispatch(contactActionCreator.doUpdateContact(data, () => {}));
+  };
+  const handleTurnOnNotify = (e: any) => {
+    e.preventDefault();
+    if (getSetting() && !getSetting().sound) {
+      initSetting();
+    }
+  };
+  const handleTurnOffNotify = (e: any) => {
+    e.preventDefault();
+    if (getSetting() && getSetting().sound) {
+      initSetting();
+      setSetting({ sound: false });
+    }
   };
   return (
     <header className='header' id='site-header'>
@@ -157,7 +176,9 @@ const HeaderBG = () => {
               <div className='more-dropdown more-with-triangle'>
                 <div className='mCustomScrollbar' data-mcs-theme='dark'>
                   <div className='ui-block-title ui-block-title-small'>
-                    <h6 className='title'>Tài khoản</h6>
+                    <h6 className='title'>
+                      <FormattedMessage id='Account.setting.label' />
+                    </h6>
                   </div>
                   <ul className='account-settings'>
                     <li>
@@ -166,7 +187,9 @@ const HeaderBG = () => {
                           className='olymp-logout-icon'
                           id='olymp-menu-icon'
                         />
-                        <span>Cài đặt tài khoản</span>
+                        <span>
+                          <FormattedMessage id='Account.setting' />
+                        </span>
                       </Link>
                     </li>
                     <li>
@@ -175,41 +198,47 @@ const HeaderBG = () => {
                           className='olymp-logout-icon'
                           id='olymp-logout-icon'
                         />
-                        <span>Đăng xuất</span>
+                        <span>
+                          <FormattedMessage id='Account.logout' />
+                        </span>
                       </a>
                     </li>
                   </ul>
                   <div className='ui-block-title ui-block-title-small'>
-                    <h6 className='title'>Cài đặt hội thoại</h6>
+                    <h6 className='title'>
+                      <FormattedMessage id='Account.settingChat.label' />
+                    </h6>
                   </div>
                   <ul className='chat-settings'>
                     <li>
-                      <a href='#'>
+                      <a href='! #' onClick={handleTurnOnNotify}>
                         <span className='icon-status online' />
                         <span>Online</span>
                       </a>
                     </li>
                     <li>
-                      <a href='#'>
+                      <a href='! #' onClick={handleTurnOffNotify}>
                         <span className='icon-status away' />
                         <span>Away</span>
                       </a>
                     </li>
                     <li>
-                      <a href='#'>
+                      <a href='! #' onClick={handleTurnOffNotify}>
                         <span className='icon-status disconected' />
                         <span>Disconnected</span>
                       </a>
                     </li>
                     <li>
-                      <a href='#'>
+                      <a href='! #' onClick={handleTurnOffNotify}>
                         <span className='icon-status status-invisible' />
                         <span>Invisible</span>
                       </a>
                     </li>
                   </ul>
                   <div className='ui-block-title ui-block-title-small'>
-                    <h6 className='title'>Chỉnh sửa trạng thái</h6>
+                    <h6 className='title'>
+                      <FormattedMessage id='Account.settingStatus.label' />
+                    </h6>
                   </div>
                   <form className='form-group with-button custom-status'>
                     <input
@@ -224,29 +253,14 @@ const HeaderBG = () => {
                       />
                     </button>
                   </form>
-                  <div className='ui-block-title ui-block-title-small'>
-                    <h6 className='title'>Về chúng tôi</h6>
-                  </div>
-                  <ul>
-                    <li>
-                      <a href='javascript:void(0)'>
-                        <span>Điều khoản</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href='https://www.facebook.com/KhoaPiterrr/'
-                        target='_blank'>
-                        <span>Liên hệ</span>
-                      </a>
-                    </li>
-                  </ul>
                 </div>
               </div>
             </div>
             <Link to='/profile/me' className='author-name fn'>
               <div className='author-title'>
-                {`${currentUser?.firstName} ${currentUser?.lastName}`}
+                {`${currentUser?.firstName ?? ''} ${
+                  currentUser?.lastName ?? ''
+                }`}
                 <CustomSvgIcons
                   className='olymp-dropdown-arrow-icon'
                   id='olymp-dropdown-arrow-icon'

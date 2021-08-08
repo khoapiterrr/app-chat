@@ -56,5 +56,32 @@
 
   "Label.title.contact": "Friend Suggestions",
   "Label.mutualFriend": "Mutual Friends",
-  "Result.search.searchPage": "Results search "
+  "Result.search.searchPage": "Results search ",
+  "Auth.RestorePwd.title": "Restore password",
+  "Auth.RestorePwd.submit": "Send password",
+
+  "Auth.RestorePwd.desc": "Enter your email and click the send code button. You'll receive a code in your email. Please use that code below to change the old password for a new one.",
+  "MesConversation.title": "Conversation",
+  "MesConversation.inputSearch": "Search here",
+  "MesConversation.text": "Current chat",
+  "Notfound": "Not found",
+  "MesConversation.welcome": "Welcome to my app",
+  "MesConversation.info": "Information",
+  "MesConversation.infoUser": "Info user",
+  "MesConversation.shareFile": "Share Files",
+  "MesConversation.imgFile": "Share images",
+  "Account.saveAll": "Save all",
+  "Account.reset": "Reset",
+  "Account.setting": "Setting Account",
+  "Account.setting.label": "Account",
+  "Account.setting.des": "Welcome to your account dashboard! Here you will find everything you need to change your profile information, order, read notifications and requests, view your latest messages, change your password and more! In addition, you have You can create or manage your own favorites!",
+  "ChangePassword.label": "Change password",
+  "ChangePassword.oldPwd": "Old password",
+  "ChangePassword.newPwd": "New password",
+  "ChangePassword.newPwdConfirm": "Confirm password ",
+  "Contact.send": "Send Requests",
+  "Contact.request": "Friend Requests",
+  "Account.settingChat.label": "Setting chat",
+  "Account.settingStatus.label": "Custom status",
+  "Account.logout": "Logout"
 }

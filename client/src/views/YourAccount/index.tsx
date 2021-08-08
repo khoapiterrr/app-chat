@@ -6,6 +6,7 @@ import YourProfile from './components/YourProfile';
 import AccountRoutes from 'containers/Account/routes';
 import { getHistory } from 'app/store';
 import { useRouteMatch } from 'react-router';
+import { FormattedMessage } from 'react-intl';
 const YourAccount = () => {
   const [collapse, setCollapse] = React.useState(false);
   const { url } = useRouteMatch();
@@ -24,13 +25,11 @@ const YourAccount = () => {
           <div className='row'>
             <div className='col col-lg-8 m-auto col-md-8 col-sm-12 col-12'>
               <div className='main-header-content'>
-                <h1>Cài đặt tài khoản</h1>
+                <h1>
+                  <FormattedMessage id='Account.setting' />
+                </h1>
                 <p>
-                  Chào mừng bạn đến với trang tổng quan tài khoản của bạn! Ở đây
-                  bạn sẽ tìm thấy mọi thứ bạn cần thay đổi thông tin hồ sơ, cài
-                  đặt, đọc thông báo và yêu cầu, xem tin nhắn mới nhất của bạn,
-                  thay đổi mật khẩu của bạn và nhiều hơn nữa! Ngoài ra, bạn có
-                  thể tạo hoặc quản lý trang yêu thích của riêng bạn!
+                  <FormattedMessage id='Account.setting.des' />
                 </p>
               </div>
             </div>

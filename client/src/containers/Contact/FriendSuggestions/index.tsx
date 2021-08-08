@@ -42,8 +42,7 @@ const FriendSuggestions = () => {
       <div className='ui-block'>
         <div className='ui-block-title'>
           <h6 className='title'>
-            {/* <FormattedMessage id='Label.title.contact' /> */}
-            Gợi ý kết bạn
+            <FormattedMessage id='Label.title.contact' />
           </h6>
           <a href='# !' className='more'>
             <CustomSvgIcons
@@ -91,7 +90,9 @@ const FriendSuggestions = () => {
               );
             })
           ) : (
-            <p className='text-center pt-2'>Không tìm thấy bạn bè phù hợp</p>
+            <p className='text-center pt-2'>
+              <FormattedMessage id='Notfound' />
+            </p>
           )}
         </ul>
       </div>

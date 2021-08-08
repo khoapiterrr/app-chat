@@ -16,6 +16,7 @@ import { debounce } from 'lodash';
 import contactSelectors from '../Contact/selectors';
 import { Avatar } from '@material-ui/core';
 import { getHistory } from 'app/store';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 interface ParamTypes {
   userId: string | undefined;
@@ -23,6 +24,7 @@ interface ParamTypes {
 
 const ChatPage = () => {
   const [style, setStyle] = useState({});
+  const { formatMessage } = useIntl();
   const dispatch = useDispatch();
   const contacts = useSelector(contactSelectors.selectContacts);
 
@@ -67,7 +69,9 @@ const ChatPage = () => {
       <div className='message-home-page'>
         <Row>
           <div className='conversion-wrapper'>
-            <h4 className='title'>Cuộc trò chuyện</h4>
+            <h4 className='title'>
+              <FormattedMessage id='MesConversation.title' />
+            </h4>
             <div className='conversation'>
               <form action='' id='searchContactChat'>
                 <div className='input-group mb-2'>
@@ -79,7 +83,9 @@ const ChatPage = () => {
                   <input
                     type='text'
                     className='form-control'
-                    placeholder='Tìm kiếm ở đây'
+                    placeholder={formatMessage({
+                      id: 'MesConversation.inputSearch',
+                    })}
                     // value={keyword}
                     onChange={debounce(handleSearch, 300)}
                     id='searchContactChat'
@@ -88,7 +94,7 @@ const ChatPage = () => {
               </form>
               <div className='row mb-3'>
                 <div className='col-md-6 d-flex align-items-center'>
-                  Trò chuyện gần đây
+                  <FormattedMessage id='MesConversation.text' />
                   <ExpandMoreIcon />
                 </div>
                 <div className='col-md-6 d-flex align-items-center justify-content-end'>
@@ -118,7 +124,7 @@ const ChatPage = () => {
                   </div>
                 ) : (
                   <h3 style={{ textAlign: 'center', marginTop: 20 }}>
-                    Không tìm thấy
+                    <FormattedMessage id='Notfound' />
                   </h3>
                 )
               ) : (
@@ -136,7 +142,7 @@ const ChatPage = () => {
           {userId && isShowUserInfo && <UserInfo userId={userId as string} />}
           {!userId && (
             <h2 className='welcome'>
-              Chào mừng bạn đến với <br /> ứng dụng nhắn tin của chúng tôi
+              <FormattedMessage id='MesConversation.welcome' />
             </h2>
           )}
         </Row>

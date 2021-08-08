@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import CustomModal from 'components/CustomModal';
 import { useDispatch } from 'react-redux';
 import authActionCreator from '../actions';
+import { FormattedMessage } from 'react-intl';
 
 interface IProps {
   openModal: boolean;
@@ -30,19 +31,23 @@ const RestorePassword: FC<IProps> = ({ openModal, toggleModal }) => {
   return (
     <CustomModal
       openModal={openModal}
-      header={<h6 className='title'>Khôi phục mật khẩu</h6>}
+      header={
+        <h6 className='title'>
+          <FormattedMessage id='Auth.RestorePwd.title' />
+        </h6>
+      }
       toggleModal={toggleModal}>
       <form method='get' onSubmit={handleSubmitForm}>
         <p>
           {/* Enter your email and click the send code button. You’ll receive a code
           in your email. Please use that code below to change the old password
           for a new one. */}
-          Nhập email của bạn và nhấp gửi. Bạn sẽ nhận được mật khẩu mới trong
-          email của bạn. Vui lòng sử dụng mật khẩu đó để đăng nhập vào và đổi
-          mật khẩu.
+          <FormattedMessage id='Auth.RestorePwd.desc' />
         </p>
         <div className='form-group label-floating'>
-          <label className='control-label'>Email của bạn</label>
+          <label className='control-label'>
+            <FormattedMessage id='Auth.form.email.label' />
+          </label>
           <input
             className='form-control'
             type='email'
@@ -52,7 +57,7 @@ const RestorePassword: FC<IProps> = ({ openModal, toggleModal }) => {
         <button
           className='btn btn-purple btn-lg full-width'
           disabled={Boolean(loading)}>
-          Gửi mật khẩu
+          <FormattedMessage id='Auth.RestorePwd.submit' />
         </button>
         {/* <div className='form-group label-floating'>
           <label className='control-label'>Enter the Code</label>
